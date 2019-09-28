@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		484A0FE8233375B4009360A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE7233375B4009360A9 /* AppDelegate.swift */; };
-		484A0FEA233375B4009360A9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE9233375B4009360A9 /* ViewController.swift */; };
+		484A0FEA233375B4009360A9 /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */; };
 		484A0FED233375B4009360A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484A0FEB233375B4009360A9 /* Main.storyboard */; };
 		484A0FEF233375B6009360A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 484A0FEE233375B6009360A9 /* Assets.xcassets */; };
 		484A0FF2233375B6009360A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484A0FF0233375B6009360A9 /* LaunchScreen.storyboard */; };
@@ -17,7 +17,7 @@
 /* Begin PBXFileReference section */
 		484A0FE4233375B4009360A9 /* 2ndPhoneNumber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2ndPhoneNumber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		484A0FE7233375B4009360A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		484A0FE9233375B4009360A9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenViewController.swift; sourceTree = "<group>"; };
 		484A0FEC233375B4009360A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		484A0FEE233375B6009360A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		484A0FF1233375B6009360A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -35,6 +35,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		482BF890233FC95900E5789E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				482BF894233FD37E00E5789E /* WelcomeView */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		482BF891233FC96900E5789E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		482BF892233FCA7400E5789E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		482BF893233FD35000E5789E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		482BF894233FD37E00E5789E /* WelcomeView */ = {
+			isa = PBXGroup;
+			children = (
+				484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */,
+			);
+			path = WelcomeView;
+			sourceTree = "<group>";
+		};
 		484A0FDB233375B4009360A9 = {
 			isa = PBXGroup;
 			children = (
@@ -54,8 +91,11 @@
 		484A0FE6233375B4009360A9 /* 2ndPhoneNumber */ = {
 			isa = PBXGroup;
 			children = (
+				482BF893233FD35000E5789E /* Services */,
+				482BF892233FCA7400E5789E /* Models */,
+				482BF891233FC96900E5789E /* ViewModels */,
+				482BF890233FC95900E5789E /* Controllers */,
 				484A0FE7233375B4009360A9 /* AppDelegate.swift */,
-				484A0FE9233375B4009360A9 /* ViewController.swift */,
 				484A0FEB233375B4009360A9 /* Main.storyboard */,
 				484A0FEE233375B6009360A9 /* Assets.xcassets */,
 				484A0FF0233375B6009360A9 /* LaunchScreen.storyboard */,
@@ -135,7 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				484A0FEA233375B4009360A9 /* ViewController.swift in Sources */,
+				484A0FEA233375B4009360A9 /* WelcomeScreenViewController.swift in Sources */,
 				484A0FE8233375B4009360A9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +325,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4KT2LRCWKT;
 				INFOPLIST_FILE = 2ndPhoneNumber/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -303,6 +344,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4KT2LRCWKT;
 				INFOPLIST_FILE = 2ndPhoneNumber/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
