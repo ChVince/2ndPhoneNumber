@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48022AA923409940002F009F /* SubscribeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AA823409940002F009F /* SubscribeViewController.swift */; };
+		48022AAD23409C02002F009F /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AAC23409C02002F009F /* CountryListViewController.swift */; };
+		48022AAF23409C27002F009F /* StateListVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AAE23409C27002F009F /* StateListVIewController.swift */; };
+		48022AB123409C47002F009F /* NumberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AB023409C47002F009F /* NumberListViewController.swift */; };
+		48022AB323409C78002F009F /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AB223409C78002F009F /* AddressViewController.swift */; };
+		48022AB623411F45002F009F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AB523411F45002F009F /* UIColorExtension.swift */; };
 		484A0FE8233375B4009360A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE7233375B4009360A9 /* AppDelegate.swift */; };
 		484A0FEA233375B4009360A9 /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */; };
 		484A0FED233375B4009360A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484A0FEB233375B4009360A9 /* Main.storyboard */; };
@@ -15,6 +21,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		48022AA823409940002F009F /* SubscribeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewController.swift; sourceTree = "<group>"; };
+		48022AAC23409C02002F009F /* CountryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewController.swift; sourceTree = "<group>"; };
+		48022AAE23409C27002F009F /* StateListVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateListVIewController.swift; sourceTree = "<group>"; };
+		48022AB023409C47002F009F /* NumberListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberListViewController.swift; sourceTree = "<group>"; };
+		48022AB223409C78002F009F /* AddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
+		48022AB523411F45002F009F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		484A0FE4233375B4009360A9 /* 2ndPhoneNumber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2ndPhoneNumber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		484A0FE7233375B4009360A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenViewController.swift; sourceTree = "<group>"; };
@@ -35,10 +47,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		48022AAA23409AF8002F009F /* AddNumber */ = {
+			isa = PBXGroup;
+			children = (
+				48022AAC23409C02002F009F /* CountryListViewController.swift */,
+				48022AAE23409C27002F009F /* StateListVIewController.swift */,
+				48022AB023409C47002F009F /* NumberListViewController.swift */,
+				48022AB223409C78002F009F /* AddressViewController.swift */,
+			);
+			path = AddNumber;
+			sourceTree = "<group>";
+		};
+		48022AAB23409B71002F009F /* UserAccount */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UserAccount;
+			sourceTree = "<group>";
+		};
+		48022AB423411F17002F009F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				48022AB523411F45002F009F /* UIColorExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		482BF890233FC95900E5789E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				482BF894233FD37E00E5789E /* WelcomeView */,
+				48022AAB23409B71002F009F /* UserAccount */,
+				48022AAA23409AF8002F009F /* AddNumber */,
+				484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */,
+				48022AA823409940002F009F /* SubscribeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -64,14 +105,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		482BF894233FD37E00E5789E /* WelcomeView */ = {
-			isa = PBXGroup;
-			children = (
-				484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */,
-			);
-			path = WelcomeView;
-			sourceTree = "<group>";
-		};
 		484A0FDB233375B4009360A9 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +124,7 @@
 		484A0FE6233375B4009360A9 /* 2ndPhoneNumber */ = {
 			isa = PBXGroup;
 			children = (
+				48022AB423411F17002F009F /* Extensions */,
 				482BF893233FD35000E5789E /* Services */,
 				482BF892233FCA7400E5789E /* Models */,
 				482BF891233FC96900E5789E /* ViewModels */,
@@ -176,7 +210,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				484A0FEA233375B4009360A9 /* WelcomeScreenViewController.swift in Sources */,
+				48022AA923409940002F009F /* SubscribeViewController.swift in Sources */,
+				48022AAF23409C27002F009F /* StateListVIewController.swift in Sources */,
+				48022AB623411F45002F009F /* UIColorExtension.swift in Sources */,
+				48022AB123409C47002F009F /* NumberListViewController.swift in Sources */,
 				484A0FE8233375B4009360A9 /* AppDelegate.swift in Sources */,
+				48022AB323409C78002F009F /* AddressViewController.swift in Sources */,
+				48022AAD23409C02002F009F /* CountryListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,7 +365,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4KT2LRCWKT;
 				INFOPLIST_FILE = 2ndPhoneNumber/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -344,7 +384,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4KT2LRCWKT;
 				INFOPLIST_FILE = 2ndPhoneNumber/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

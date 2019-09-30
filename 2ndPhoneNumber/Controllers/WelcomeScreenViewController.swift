@@ -8,7 +8,23 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+struct ImageDescription {
+    var imageName: String
+    var description: String
+
+    init(_ imageName: String, _ description: String) {
+        self.imageName = imageName
+        self.description = description
+    }
+}
+
+class WelcomeScreenController: UIViewController {
+    var imageDescriptions = [ImageDescription]([
+        ImageDescription("feature1", "28+ countries"),
+        ImageDescription("feature2", "Spam free"),
+        ImageDescription("feature3", "Multiple phone numbers"),
+        ImageDescription("feature4", "Chip international calls")
+    ])
 
     var topWelcomeText: UILabel = {
         var _topWelcomeText = UILabel()
@@ -20,31 +36,18 @@ class ViewController: UIViewController {
 
         attributedText.append(NSMutableAttributedString(string: "\n2nd Phone Number", attributes:[
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 33),
-            NSAttributedString.Key.foregroundColor: UIColor.black
+            NSAttributedString.Key.foregroundColor: UIColor.blueDark
         ]))
 
         _topWelcomeText.attributedText = attributedText
         _topWelcomeText.translatesAutoresizingMaskIntoConstraints = false
         _topWelcomeText.textAlignment = .left
-        _topWelcomeText.backgroundColor = .yellow
         _topWelcomeText.numberOfLines = 2
         return _topWelcomeText
     }()
 
     var featureList: UIStackView = {
-        var feature1 = UIView()
-        feature1.backgroundColor = .gray
-
-        var feature2 = UIView()
-        feature2.backgroundColor = .blue
-
-        var feature3 = UIView()
-        feature3.backgroundColor = .red
-
-        var feature4 = UIView()
-        feature4.backgroundColor = .green
-
-        var _featureList = UIStackView(arrangedSubviews: [feature1, feature2, feature3, feature4])
+        var _featureList = UIStackView()
         _featureList.distribution = .fillEqually
         _featureList.axis = .vertical
         _featureList.translatesAutoresizingMaskIntoConstraints = false
@@ -54,20 +57,20 @@ class ViewController: UIViewController {
     var getStartedButton: UIButton = {
         var _button = UIButton(type: .system)
         _button.setTitle("GET STARTED", for: .normal)
+        _button.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         _button.translatesAutoresizingMaskIntoConstraints = false
-        _button.backgroundColor = UIColor.blue
+        _button.backgroundColor = UIColor.blueDark
         _button.setTitleColor(UIColor.white, for: .normal)
         _button.layer.cornerRadius = 28
         return _button
     }()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupTopWelcomeText()
-        setupGetStartedButton()
         setupFeatureList()
+        setupGetStartedButton()
     }
 
     private func setupTopWelcomeText() {
@@ -82,13 +85,17 @@ class ViewController: UIViewController {
     }
 
     private func setupFeatureList() {
+        imageDescriptions.forEach({ (item) in
+            let view = self._createFeatureListView(imageName: item.imageName, description: item.description)
+            featureList.addArrangedSubview(view)
+        })
         self.view.addSubview(featureList)
 
         NSLayoutConstraint.activate([
-            featureList.topAnchor.constraint(equalTo: topWelcomeText.bottomAnchor, constant: 100),
+            featureList.topAnchor.constraint(equalTo: topWelcomeText.bottomAnchor, constant: 90),
             featureList.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
             featureList.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
-            featureList.bottomAnchor.constraint(equalTo: getStartedButton.topAnchor, constant: -50)
+            featureList.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -191)
         ])
     }
 
@@ -98,27 +105,25 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([
             getStartedButton.widthAnchor.constraint(equalToConstant: 218),
             getStartedButton.heightAnchor.constraint(equalToConstant: 56),
-            getStartedButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30),
+            getStartedButton.topAnchor.constraint(equalTo: featureList.bottomAnchor, constant: 69),
             getStartedButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 
+    private func _createFeatureListView(imageName: String, description: String) -> UIView {
+        let image = UIImage(named: imageName)
+        let imageView = UIImageView(image: image!)
+        let imageLabel = UILabel()
 
-    private func _createfeature(imageName: String, description: String) {
-        var _featureView = UIView()
-        var _featureImage = UIImageView()
-    }
-}
+        imageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        imageLabel.text = description
+        imageLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        imageLabel.textColor = .black
 
-extension UIButton // reaearch gradients
-{
-    func applyGradient(colors: [CGColor])
-    {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = colors
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 0)
-        gradientLayer.frame = self.bounds
-        self.layer.insertSublayer(gradientLayer, at: 0)
+        let view = UIStackView(arrangedSubviews: [imageView, imageLabel])
+        view.distribution = .fill
+        view.alignment = .center
+        view.setCustomSpacing(26, after: imageView)
+        return view
     }
 }
