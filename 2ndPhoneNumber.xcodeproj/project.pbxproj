@@ -13,6 +13,13 @@
 		48022AB123409C47002F009F /* NumberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AB023409C47002F009F /* NumberListViewController.swift */; };
 		48022AB323409C78002F009F /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AB223409C78002F009F /* AddressViewController.swift */; };
 		48022AB623411F45002F009F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AB523411F45002F009F /* UIColorExtension.swift */; };
+		48022AB9234239AA002F009F /* Circe.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48022AB8234239A2002F009F /* Circe.otf */; };
+		48022ABB23423C49002F009F /* Circe-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48022ABA23423C49002F009F /* Circe-Bold.otf */; };
+		48022AC92344B41F002F009F /* Quicksand-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48022AC82344B41F002F009F /* Quicksand-Regular.otf */; };
+		48022ACB2344B4C5002F009F /* SFUIText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48022ACA2344B4C5002F009F /* SFUIText-Bold.ttf */; };
+		48022ACD2344B536002F009F /* SFUIText-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48022ACC2344B536002F009F /* SFUIText-Light.ttf */; };
+		48022ACF2344B611002F009F /* SFUIText-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48022ACE2344B611002F009F /* SFUIText-Medium.ttf */; };
+		48022AD12344B6CD002F009F /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48022AD02344B6CD002F009F /* SFUIText-Regular.ttf */; };
 		484A0FE8233375B4009360A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE7233375B4009360A9 /* AppDelegate.swift */; };
 		484A0FEA233375B4009360A9 /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */; };
 		484A0FED233375B4009360A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484A0FEB233375B4009360A9 /* Main.storyboard */; };
@@ -27,6 +34,13 @@
 		48022AB023409C47002F009F /* NumberListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberListViewController.swift; sourceTree = "<group>"; };
 		48022AB223409C78002F009F /* AddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
 		48022AB523411F45002F009F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		48022AB8234239A2002F009F /* Circe.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Circe.otf; path = ../../../../Downloads/Circe.otf; sourceTree = "<group>"; };
+		48022ABA23423C49002F009F /* Circe-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Circe-Bold.otf"; path = "../../../../Downloads/Circe-Bold.otf"; sourceTree = "<group>"; };
+		48022AC82344B41F002F009F /* Quicksand-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Regular.otf"; path = "../../../../Downloads/quicksand/Quicksand-Regular.otf"; sourceTree = "<group>"; };
+		48022ACA2344B4C5002F009F /* SFUIText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFUIText-Bold.ttf"; path = "../../../../Downloads/sf-ui-text-2-cufonfonts/SFUIText-Bold.ttf"; sourceTree = "<group>"; };
+		48022ACC2344B536002F009F /* SFUIText-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFUIText-Light.ttf"; path = "../../../../Downloads/sf-ui-text-2-cufonfonts/SFUIText-Light.ttf"; sourceTree = "<group>"; };
+		48022ACE2344B611002F009F /* SFUIText-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFUIText-Medium.ttf"; path = "../../../../Downloads/sf-ui-text-2-cufonfonts/SFUIText-Medium.ttf"; sourceTree = "<group>"; };
+		48022AD02344B6CD002F009F /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFUIText-Regular.ttf"; path = "../../../../.Trash/SFUIText-Regular.ttf"; sourceTree = "<group>"; };
 		484A0FE4233375B4009360A9 /* 2ndPhoneNumber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2ndPhoneNumber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		484A0FE7233375B4009360A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +85,20 @@
 				48022AB523411F45002F009F /* UIColorExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		48022AB723423959002F009F /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				48022AD02344B6CD002F009F /* SFUIText-Regular.ttf */,
+				48022ACE2344B611002F009F /* SFUIText-Medium.ttf */,
+				48022ACC2344B536002F009F /* SFUIText-Light.ttf */,
+				48022ACA2344B4C5002F009F /* SFUIText-Bold.ttf */,
+				48022AC82344B41F002F009F /* Quicksand-Regular.otf */,
+				48022ABA23423C49002F009F /* Circe-Bold.otf */,
+				48022AB8234239A2002F009F /* Circe.otf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		482BF890233FC95900E5789E /* Controllers */ = {
@@ -124,6 +152,7 @@
 		484A0FE6233375B4009360A9 /* 2ndPhoneNumber */ = {
 			isa = PBXGroup;
 			children = (
+				48022AB723423959002F009F /* fonts */,
 				48022AB423411F17002F009F /* Extensions */,
 				482BF893233FD35000E5789E /* Services */,
 				482BF892233FCA7400E5789E /* Models */,
@@ -196,9 +225,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48022ACB2344B4C5002F009F /* SFUIText-Bold.ttf in Resources */,
+				48022AD12344B6CD002F009F /* SFUIText-Regular.ttf in Resources */,
+				48022ABB23423C49002F009F /* Circe-Bold.otf in Resources */,
 				484A0FF2233375B6009360A9 /* LaunchScreen.storyboard in Resources */,
 				484A0FEF233375B6009360A9 /* Assets.xcassets in Resources */,
+				48022ACF2344B611002F009F /* SFUIText-Medium.ttf in Resources */,
+				48022AB9234239AA002F009F /* Circe.otf in Resources */,
+				48022AC92344B41F002F009F /* Quicksand-Regular.otf in Resources */,
 				484A0FED233375B4009360A9 /* Main.storyboard in Resources */,
+				48022ACD2344B536002F009F /* SFUIText-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow()
         window?.backgroundColor = UIColor.white
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        //window?.rootViewController = SubscribeViewController(collectionViewLayout: layout)
         window?.rootViewController = WelcomeScreenController()
         window?.makeKeyAndVisible()
         return true

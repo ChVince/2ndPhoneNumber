@@ -8,18 +8,18 @@
 
 import UIKit
 
-struct ImageDescription {
-    var imageName: String
+fileprivate struct ImageDescription {
+    var imagePath: String
     var description: String
 
-    init(_ imageName: String, _ description: String) {
-        self.imageName = imageName
+    init(_ imagePath: String, _ description: String) {
+        self.imagePath = imagePath
         self.description = description
     }
 }
 
 class WelcomeScreenController: UIViewController {
-    var imageDescriptions = [ImageDescription]([
+    fileprivate var imageDescriptions = [ImageDescription]([
         ImageDescription("feature1", "28+ countries"),
         ImageDescription("feature2", "Spam free"),
         ImageDescription("feature3", "Multiple phone numbers"),
@@ -30,12 +30,12 @@ class WelcomeScreenController: UIViewController {
         var _topWelcomeText = UILabel()
 
         var attributedText = NSMutableAttributedString(string: "Welcome to", attributes:[
-            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 24),
+            NSAttributedString.Key.font: UIFont(name: "Circe-Bold", size: 24)!,
             NSAttributedString.Key.foregroundColor: UIColor.black
         ])
 
         attributedText.append(NSMutableAttributedString(string: "\n2nd Phone Number", attributes:[
-            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 33),
+            NSAttributedString.Key.font: UIFont(name: "Circe-Bold", size: 33)!,
             NSAttributedString.Key.foregroundColor: UIColor.blueDark
         ]))
 
@@ -57,7 +57,7 @@ class WelcomeScreenController: UIViewController {
     var getStartedButton: UIButton = {
         var _button = UIButton(type: .system)
         _button.setTitle("GET STARTED", for: .normal)
-        _button.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        _button.titleLabel!.font = UIFont(name: "SFUIText-Medium", size: 16)
         _button.translatesAutoresizingMaskIntoConstraints = false
         _button.backgroundColor = UIColor.blueDark
         _button.setTitleColor(UIColor.white, for: .normal)
@@ -76,23 +76,21 @@ class WelcomeScreenController: UIViewController {
     private func setupTopWelcomeText() {
         self.view.addSubview(topWelcomeText)
         NSLayoutConstraint.activate([
-            topWelcomeText.topAnchor.constraint(equalTo: view.topAnchor, constant: 121),
+            topWelcomeText.topAnchor.constraint(lessThanOrEqualTo: view.topAnchor, constant: 121),
             topWelcomeText.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
             topWelcomeText.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
-            topWelcomeText.heightAnchor.constraint(equalToConstant: 76),
-            topWelcomeText.widthAnchor.constraint(greaterThanOrEqualToConstant: 135)
         ])
     }
 
     private func setupFeatureList() {
         imageDescriptions.forEach({ (item) in
-            let view = self._createFeatureListView(imageName: item.imageName, description: item.description)
+            let view = self._createFeatureListView(imagePath: item.imagePath, description: item.description)
             featureList.addArrangedSubview(view)
         })
         self.view.addSubview(featureList)
 
         NSLayoutConstraint.activate([
-            featureList.topAnchor.constraint(equalTo: topWelcomeText.bottomAnchor, constant: 90),
+            featureList.topAnchor.constraint(lessThanOrEqualTo: topWelcomeText.bottomAnchor, constant: 90),
             featureList.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
             featureList.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
             featureList.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -191)
@@ -105,19 +103,19 @@ class WelcomeScreenController: UIViewController {
         NSLayoutConstraint.activate([
             getStartedButton.widthAnchor.constraint(equalToConstant: 218),
             getStartedButton.heightAnchor.constraint(equalToConstant: 56),
-            getStartedButton.topAnchor.constraint(equalTo: featureList.bottomAnchor, constant: 69),
+            getStartedButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
             getStartedButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 
-    private func _createFeatureListView(imageName: String, description: String) -> UIView {
-        let image = UIImage(named: imageName)
+    private func _createFeatureListView(imagePath: String, description: String) -> UIView {
+        let image = UIImage(named: imagePath)
         let imageView = UIImageView(image: image!)
         let imageLabel = UILabel()
 
         imageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         imageLabel.text = description
-        imageLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        imageLabel.font = UIFont(name: "SFUIText-Medium", size: 16)
         imageLabel.textColor = .black
 
         let view = UIStackView(arrangedSubviews: [imageView, imageLabel])
