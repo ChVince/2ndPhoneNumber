@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36B2629D388691FF4450CB80 /* Pods_2ndPhoneNumber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 255E518A198F595D8BFB1815 /* Pods_2ndPhoneNumber.framework */; };
 		48022AA923409940002F009F /* SubscribeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AA823409940002F009F /* SubscribeViewController.swift */; };
 		48022AAD23409C02002F009F /* CountryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AAC23409C02002F009F /* CountryListViewController.swift */; };
 		48022AAF23409C27002F009F /* StateListVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AAE23409C27002F009F /* StateListVIewController.swift */; };
@@ -15,19 +16,25 @@
 		48022AB623411F45002F009F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AB523411F45002F009F /* UIColorExtension.swift */; };
 		48022AB9234239AA002F009F /* Circe.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48022AB8234239A2002F009F /* Circe.otf */; };
 		48022ABB23423C49002F009F /* Circe-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48022ABA23423C49002F009F /* Circe-Bold.otf */; };
-		48022AC92344B41F002F009F /* Quicksand-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48022AC82344B41F002F009F /* Quicksand-Regular.otf */; };
-		48022ACB2344B4C5002F009F /* SFUIText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48022ACA2344B4C5002F009F /* SFUIText-Bold.ttf */; };
-		48022ACD2344B536002F009F /* SFUIText-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48022ACC2344B536002F009F /* SFUIText-Light.ttf */; };
-		48022ACF2344B611002F009F /* SFUIText-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48022ACE2344B611002F009F /* SFUIText-Medium.ttf */; };
-		48022AD12344B6CD002F009F /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 48022AD02344B6CD002F009F /* SFUIText-Regular.ttf */; };
+		484716DD2358B5BB001D13E8 /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716DC2358B5BB001D13E8 /* TagLabel.swift */; };
 		484A0FE8233375B4009360A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE7233375B4009360A9 /* AppDelegate.swift */; };
 		484A0FEA233375B4009360A9 /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */; };
 		484A0FED233375B4009360A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484A0FEB233375B4009360A9 /* Main.storyboard */; };
 		484A0FEF233375B6009360A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 484A0FEE233375B6009360A9 /* Assets.xcassets */; };
 		484A0FF2233375B6009360A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484A0FF0233375B6009360A9 /* LaunchScreen.storyboard */; };
+		48723BC62354947D0064AA14 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BC52354947D0064AA14 /* Country.swift */; };
+		48723BCB235496310064AA14 /* AreaNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BCA235496310064AA14 /* AreaNumber.swift */; };
+		48723BCD235497F30064AA14 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BCC235497F30064AA14 /* State.swift */; };
+		48723BCF23549DC20064AA14 /* CountryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BCE23549DC20064AA14 /* CountryListViewModel.swift */; };
+		48723BD123549EB40064AA14 /* Filterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BD023549EB40064AA14 /* Filterable.swift */; };
+		48723BD42355F9E00064AA14 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BD32355F9E00064AA14 /* DataManager.swift */; };
+		48723BD62355FC950064AA14 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BD52355FC950064AA14 /* Services.swift */; };
+		48E3D88C2350AA7B00DCCA81 /* index.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E3D88B2350AA7B00DCCA81 /* index.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		255E518A198F595D8BFB1815 /* Pods_2ndPhoneNumber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_2ndPhoneNumber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42226D286E3BFF299762F758 /* Pods-2ndPhoneNumber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-2ndPhoneNumber.release.xcconfig"; path = "Target Support Files/Pods-2ndPhoneNumber/Pods-2ndPhoneNumber.release.xcconfig"; sourceTree = "<group>"; };
 		48022AA823409940002F009F /* SubscribeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewController.swift; sourceTree = "<group>"; };
 		48022AAC23409C02002F009F /* CountryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewController.swift; sourceTree = "<group>"; };
 		48022AAE23409C27002F009F /* StateListVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateListVIewController.swift; sourceTree = "<group>"; };
@@ -36,11 +43,7 @@
 		48022AB523411F45002F009F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		48022AB8234239A2002F009F /* Circe.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Circe.otf; path = ../../../../Downloads/Circe.otf; sourceTree = "<group>"; };
 		48022ABA23423C49002F009F /* Circe-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Circe-Bold.otf"; path = "../../../../Downloads/Circe-Bold.otf"; sourceTree = "<group>"; };
-		48022AC82344B41F002F009F /* Quicksand-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Regular.otf"; path = "../../../../Downloads/quicksand/Quicksand-Regular.otf"; sourceTree = "<group>"; };
-		48022ACA2344B4C5002F009F /* SFUIText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFUIText-Bold.ttf"; path = "../../../../Downloads/sf-ui-text-2-cufonfonts/SFUIText-Bold.ttf"; sourceTree = "<group>"; };
-		48022ACC2344B536002F009F /* SFUIText-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFUIText-Light.ttf"; path = "../../../../Downloads/sf-ui-text-2-cufonfonts/SFUIText-Light.ttf"; sourceTree = "<group>"; };
-		48022ACE2344B611002F009F /* SFUIText-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFUIText-Medium.ttf"; path = "../../../../Downloads/sf-ui-text-2-cufonfonts/SFUIText-Medium.ttf"; sourceTree = "<group>"; };
-		48022AD02344B6CD002F009F /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SFUIText-Regular.ttf"; path = "../../../../.Trash/SFUIText-Regular.ttf"; sourceTree = "<group>"; };
+		484716DC2358B5BB001D13E8 /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		484A0FE4233375B4009360A9 /* 2ndPhoneNumber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2ndPhoneNumber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		484A0FE7233375B4009360A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +51,15 @@
 		484A0FEE233375B6009360A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		484A0FF1233375B6009360A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		484A0FF3233375B6009360A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48723BC52354947D0064AA14 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		48723BCA235496310064AA14 /* AreaNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaNumber.swift; sourceTree = "<group>"; };
+		48723BCC235497F30064AA14 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		48723BCE23549DC20064AA14 /* CountryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewModel.swift; sourceTree = "<group>"; };
+		48723BD023549EB40064AA14 /* Filterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filterable.swift; sourceTree = "<group>"; };
+		48723BD32355F9E00064AA14 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		48723BD52355FC950064AA14 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		48E3D88B2350AA7B00DCCA81 /* index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = index.swift; sourceTree = "<group>"; };
+		88BDADF1708088F472ED9CC1 /* Pods-2ndPhoneNumber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-2ndPhoneNumber.debug.xcconfig"; path = "Target Support Files/Pods-2ndPhoneNumber/Pods-2ndPhoneNumber.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36B2629D388691FF4450CB80 /* Pods_2ndPhoneNumber.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				48022AB523411F45002F009F /* UIColorExtension.swift */,
+				484716DC2358B5BB001D13E8 /* TagLabel.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -90,11 +104,6 @@
 		48022AB723423959002F009F /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				48022AD02344B6CD002F009F /* SFUIText-Regular.ttf */,
-				48022ACE2344B611002F009F /* SFUIText-Medium.ttf */,
-				48022ACC2344B536002F009F /* SFUIText-Light.ttf */,
-				48022ACA2344B4C5002F009F /* SFUIText-Bold.ttf */,
-				48022AC82344B41F002F009F /* Quicksand-Regular.otf */,
 				48022ABA23423C49002F009F /* Circe-Bold.otf */,
 				48022AB8234239A2002F009F /* Circe.otf */,
 			);
@@ -104,6 +113,7 @@
 		482BF890233FC95900E5789E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				48E3D88B2350AA7B00DCCA81 /* index.swift */,
 				48022AAB23409B71002F009F /* UserAccount */,
 				48022AAA23409AF8002F009F /* AddNumber */,
 				484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */,
@@ -115,6 +125,7 @@
 		482BF891233FC96900E5789E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				48723BCE23549DC20064AA14 /* CountryListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -122,6 +133,9 @@
 		482BF892233FCA7400E5789E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				48723BC52354947D0064AA14 /* Country.swift */,
+				48723BCA235496310064AA14 /* AreaNumber.swift */,
+				48723BCC235497F30064AA14 /* State.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -129,6 +143,8 @@
 		482BF893233FD35000E5789E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				48723BD32355F9E00064AA14 /* DataManager.swift */,
+				48723BD52355FC950064AA14 /* Services.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -138,6 +154,8 @@
 			children = (
 				484A0FE6233375B4009360A9 /* 2ndPhoneNumber */,
 				484A0FE5233375B4009360A9 /* Products */,
+				5AABCDAA29A04AA072F33E94 /* Pods */,
+				EA887A2F338CDB91085D4C93 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,6 +170,7 @@
 		484A0FE6233375B4009360A9 /* 2ndPhoneNumber */ = {
 			isa = PBXGroup;
 			children = (
+				48723BC7235494C90064AA14 /* Protocols */,
 				48022AB723423959002F009F /* fonts */,
 				48022AB423411F17002F009F /* Extensions */,
 				482BF893233FD35000E5789E /* Services */,
@@ -167,6 +186,31 @@
 			path = 2ndPhoneNumber;
 			sourceTree = "<group>";
 		};
+		48723BC7235494C90064AA14 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				48723BD023549EB40064AA14 /* Filterable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		5AABCDAA29A04AA072F33E94 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				88BDADF1708088F472ED9CC1 /* Pods-2ndPhoneNumber.debug.xcconfig */,
+				42226D286E3BFF299762F758 /* Pods-2ndPhoneNumber.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		EA887A2F338CDB91085D4C93 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				255E518A198F595D8BFB1815 /* Pods_2ndPhoneNumber.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -174,9 +218,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 484A0FF6233375B6009360A9 /* Build configuration list for PBXNativeTarget "2ndPhoneNumber" */;
 			buildPhases = (
+				4A5C5DB7A5FCB132DDC087E3 /* [CP] Check Pods Manifest.lock */,
 				484A0FE0233375B4009360A9 /* Sources */,
 				484A0FE1233375B4009360A9 /* Frameworks */,
 				484A0FE2233375B4009360A9 /* Resources */,
+				C13271712C73943AA69D5AFA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -225,34 +271,80 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48022ACB2344B4C5002F009F /* SFUIText-Bold.ttf in Resources */,
-				48022AD12344B6CD002F009F /* SFUIText-Regular.ttf in Resources */,
 				48022ABB23423C49002F009F /* Circe-Bold.otf in Resources */,
 				484A0FF2233375B6009360A9 /* LaunchScreen.storyboard in Resources */,
 				484A0FEF233375B6009360A9 /* Assets.xcassets in Resources */,
-				48022ACF2344B611002F009F /* SFUIText-Medium.ttf in Resources */,
 				48022AB9234239AA002F009F /* Circe.otf in Resources */,
-				48022AC92344B41F002F009F /* Quicksand-Regular.otf in Resources */,
 				484A0FED233375B4009360A9 /* Main.storyboard in Resources */,
-				48022ACD2344B536002F009F /* SFUIText-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4A5C5DB7A5FCB132DDC087E3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-2ndPhoneNumber-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C13271712C73943AA69D5AFA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-2ndPhoneNumber/Pods-2ndPhoneNumber-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-2ndPhoneNumber/Pods-2ndPhoneNumber-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-2ndPhoneNumber/Pods-2ndPhoneNumber-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		484A0FE0233375B4009360A9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48723BD62355FC950064AA14 /* Services.swift in Sources */,
 				484A0FEA233375B4009360A9 /* WelcomeScreenViewController.swift in Sources */,
+				48723BD42355F9E00064AA14 /* DataManager.swift in Sources */,
+				48723BCB235496310064AA14 /* AreaNumber.swift in Sources */,
 				48022AA923409940002F009F /* SubscribeViewController.swift in Sources */,
 				48022AAF23409C27002F009F /* StateListVIewController.swift in Sources */,
 				48022AB623411F45002F009F /* UIColorExtension.swift in Sources */,
 				48022AB123409C47002F009F /* NumberListViewController.swift in Sources */,
+				48723BD123549EB40064AA14 /* Filterable.swift in Sources */,
+				48E3D88C2350AA7B00DCCA81 /* index.swift in Sources */,
+				484716DD2358B5BB001D13E8 /* TagLabel.swift in Sources */,
 				484A0FE8233375B4009360A9 /* AppDelegate.swift in Sources */,
+				48723BCD235497F30064AA14 /* State.swift in Sources */,
 				48022AB323409C78002F009F /* AddressViewController.swift in Sources */,
+				48723BC62354947D0064AA14 /* Country.swift in Sources */,
 				48022AAD23409C02002F009F /* CountryListViewController.swift in Sources */,
+				48723BCF23549DC20064AA14 /* CountryListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +488,7 @@
 		};
 		484A0FF7233375B6009360A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88BDADF1708088F472ED9CC1 /* Pods-2ndPhoneNumber.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -415,6 +508,7 @@
 		};
 		484A0FF8233375B6009360A9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42226D286E3BFF299762F758 /* Pods-2ndPhoneNumber.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -36,7 +36,7 @@ class WelcomeScreenController: UIViewController {
 
         attributedText.append(NSMutableAttributedString(string: "\n2nd Phone Number", attributes:[
             NSAttributedString.Key.font: UIFont(name: "Circe-Bold", size: 33)!,
-            NSAttributedString.Key.foregroundColor: UIColor.blueDark
+            NSAttributedString.Key.foregroundColor: UIColor.darkBlue
         ]))
 
         _topWelcomeText.attributedText = attributedText
@@ -48,7 +48,7 @@ class WelcomeScreenController: UIViewController {
 
     var featureList: UIStackView = {
         var _featureList = UIStackView()
-        _featureList.distribution = .fillEqually
+        _featureList.distribution = .fillProportionally
         _featureList.axis = .vertical
         _featureList.translatesAutoresizingMaskIntoConstraints = false
         return _featureList
@@ -57,9 +57,9 @@ class WelcomeScreenController: UIViewController {
     var getStartedButton: UIButton = {
         var _button = UIButton(type: .system)
         _button.setTitle("GET STARTED", for: .normal)
-        _button.titleLabel!.font = UIFont(name: "SFUIText-Medium", size: 16)
+        _button.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         _button.translatesAutoresizingMaskIntoConstraints = false
-        _button.backgroundColor = UIColor.blueDark
+        _button.backgroundColor = UIColor.darkBlue
         _button.setTitleColor(UIColor.white, for: .normal)
         _button.layer.cornerRadius = 28
         return _button
@@ -76,7 +76,7 @@ class WelcomeScreenController: UIViewController {
     private func setupTopWelcomeText() {
         self.view.addSubview(topWelcomeText)
         NSLayoutConstraint.activate([
-            topWelcomeText.topAnchor.constraint(lessThanOrEqualTo: view.topAnchor, constant: 121),
+            topWelcomeText.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: view.frame.size.height * 0.1),
             topWelcomeText.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
             topWelcomeText.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
         ])
@@ -90,10 +90,10 @@ class WelcomeScreenController: UIViewController {
         self.view.addSubview(featureList)
 
         NSLayoutConstraint.activate([
-            featureList.topAnchor.constraint(lessThanOrEqualTo: topWelcomeText.bottomAnchor, constant: 90),
+            featureList.topAnchor.constraint(equalTo: topWelcomeText.bottomAnchor, constant: view.frame.size.height * 0.1),
             featureList.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
             featureList.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
-            featureList.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -191)
+            featureList.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.frame.size.height * -0.2)
         ])
     }
 
@@ -103,9 +103,11 @@ class WelcomeScreenController: UIViewController {
         NSLayoutConstraint.activate([
             getStartedButton.widthAnchor.constraint(equalToConstant: 218),
             getStartedButton.heightAnchor.constraint(equalToConstant: 56),
-            getStartedButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
+            getStartedButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: view.frame.size.height * -0.05),
             getStartedButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+
+         getStartedButton.addTarget(self, action: #selector(self.onGetStaredTounch), for: .touchUpInside)
     }
 
     private func _createFeatureListView(imagePath: String, description: String) -> UIView {
@@ -113,15 +115,20 @@ class WelcomeScreenController: UIViewController {
         let imageView = UIImageView(image: image!)
         let imageLabel = UILabel()
 
+        imageView.contentMode = .scaleAspectFit
         imageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         imageLabel.text = description
-        imageLabel.font = UIFont(name: "SFUIText-Medium", size: 16)
+        imageLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         imageLabel.textColor = .black
 
         let view = UIStackView(arrangedSubviews: [imageView, imageLabel])
         view.distribution = .fill
         view.alignment = .center
-        view.setCustomSpacing(26, after: imageView)
+        view.setCustomSpacing(23, after: imageView)
         return view
+    }
+
+  @objc func onGetStaredTounch() {
+        self.navigationController?.pushViewController(CountryListViewController(), animated: true)
     }
 }

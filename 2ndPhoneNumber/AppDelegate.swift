@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         //window?.rootViewController = SubscribeViewController(collectionViewLayout: layout)
-        window?.rootViewController = WelcomeScreenController()
+        window?.rootViewController = TopNavigtionController()
         window?.makeKeyAndVisible()
         return true
     }

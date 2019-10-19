@@ -35,7 +35,7 @@ class SubscribeViewHeader: UIView {
         let _restoreButton = UIButton()
         _restoreButton.translatesAutoresizingMaskIntoConstraints = false
         _restoreButton.setTitle("Restore", for: .normal)
-        _restoreButton.titleLabel!.font = UIFont(name: "SF-Compact-Text-Regular", size: 16)
+        _restoreButton.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         _restoreButton.setTitleColor(.black, for: .normal)
         return _restoreButton
     }()
@@ -94,17 +94,17 @@ class SubscribeViewFooter: UIView {
         _pageControl.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
         _pageControl.translatesAutoresizingMaskIntoConstraints = false
         _pageControl.numberOfPages = 4 // ???
-        _pageControl.currentPageIndicatorTintColor = .blueDark
-        _pageControl.pageIndicatorTintColor = .blueDarkWithOpacity
+        _pageControl.currentPageIndicatorTintColor = .darkBlue
+        _pageControl.pageIndicatorTintColor = .darkBlueWithOpacity
         return _pageControl
     }()
 
     let subscribeButton: UIButton = {
         var _subscribeButton = UIButton(type: .system)
         _subscribeButton.setTitle("SUBSCRIBE", for: .normal)// ??
-        _subscribeButton.titleLabel!.font = UIFont(name: "SFUIText-Medium", size: 16)
+        _subscribeButton.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         _subscribeButton.translatesAutoresizingMaskIntoConstraints = false
-        _subscribeButton.backgroundColor = UIColor.blueDark
+        _subscribeButton.backgroundColor = UIColor.darkBlue
         _subscribeButton.setTitleColor(.white, for: .normal)
         _subscribeButton.layer.cornerRadius = 28
         return _subscribeButton
@@ -112,7 +112,7 @@ class SubscribeViewFooter: UIView {
 
     let subscribeButtonLabel: UILabel = {
         let _subscribeButtonLabel = UILabel()
-        _subscribeButtonLabel.font = UIFont(name: "SFUIText-Light", size: 14)
+        _subscribeButtonLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
         _subscribeButtonLabel.translatesAutoresizingMaskIntoConstraints = false
         _subscribeButtonLabel.text = "3 days free, then $7.99/week"
         _subscribeButtonLabel.textColor = UIColor(red: 104/255, green: 104/255, blue: 104/255, alpha: 1)
@@ -124,7 +124,7 @@ class SubscribeViewFooter: UIView {
         let _privacyPolicy = UIButton()
 
         let attributes : [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.font : UIFont(name: "SFUIText-Light", size: 12)!,
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12, weight: .light),
             NSAttributedString.Key.foregroundColor : UIColor.grayLightA1,
             NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue]
 
@@ -229,7 +229,7 @@ class SubscribeViewPageCell: UICollectionViewCell {
         var _imageTitleView = UILabel()
         _imageTitleView.translatesAutoresizingMaskIntoConstraints = false
         _imageTitleView.font = UIFont(name: "Circe-Bold", size: 33)
-        _imageTitleView.textColor = .blueDark
+        _imageTitleView.textColor = .darkBlue
         _imageTitleView.textAlignment = .center
         return _imageTitleView
     }()
@@ -237,7 +237,7 @@ class SubscribeViewPageCell: UICollectionViewCell {
     var imageDescriptionView: UILabel = {
         var _imageDescriptionView = UILabel()
         _imageDescriptionView.translatesAutoresizingMaskIntoConstraints = false
-        _imageDescriptionView.font = UIFont(name: "SFUIText-Regular", size: 14)
+        _imageDescriptionView.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         _imageDescriptionView.textColor = .black
         _imageDescriptionView.textAlignment = .center
         return _imageDescriptionView
