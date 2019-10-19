@@ -12,27 +12,25 @@ import FlagKit
 class CountryListViewCell: UITableViewCell {
     var countryData: Country? {
         didSet {
-            availableTagsView.removeArrangedSubview(callsLabel)
-            availableTagsView.removeArrangedSubview(smsLabel)
             setupCellLayout()
         }
     }
 
-    let callsLabel: TagLable = {
-        let _callsLabel = TagLable()
+    let callsLabel: TagLabel = {
+        let _callsLabel = TagLabel()
         _callsLabel.textAlignment = .center
         _callsLabel.font = UIFont.systemFont(ofSize: 10)
-        _callsLabel.text = "Calls"
+        _callsLabel.text = NSLocalizedString("label.calls", comment: "")
         _callsLabel.backgroundColor = .darkBlue
         _callsLabel.textColor = .white
         return _callsLabel
     }()
 
-    let smsLabel: TagLable = {
-        let _smsLabel = TagLable()
+    let smsLabel: TagLabel = {
+        let _smsLabel = TagLabel()
         _smsLabel.textAlignment = .center
         _smsLabel.font = UIFont.systemFont(ofSize: 10)
-        _smsLabel.text = "SMS"
+        _smsLabel.text = NSLocalizedString("label.sms", comment: "")
         _smsLabel.backgroundColor = .lightBlue
         _smsLabel.textColor = .white
         return _smsLabel
@@ -86,6 +84,10 @@ class CountryListViewCell: UITableViewCell {
     }
 
     func setupSubtitleLabel(countryData: Country) {
+        availableTagsView.removeFromSuperview()
+        callsLabel.removeFromSuperview()
+        smsLabel.removeFromSuperview()
+
         if countryData.isCallable {
             availableTagsView.addArrangedSubview(callsLabel)
         }
@@ -119,7 +121,7 @@ class CountryListViewController: UITableViewController, UISearchResultsUpdating 
 
     let searchController: UISearchController = {
         let _searchController = UISearchController(searchResultsController: nil)
-        _searchController.searchBar.placeholder = "Search country"
+        _searchController.searchBar.placeholder = NSLocalizedString("label.country.search", comment: "")
         _searchController.obscuresBackgroundDuringPresentation = false
         return _searchController
     }()
@@ -151,39 +153,38 @@ class CountryListViewController: UITableViewController, UISearchResultsUpdating 
         definesPresentationContext = true
         searchController.searchResultsUpdater = self
 
-        self.navigationItem.title = "Select country"
+        self.navigationItem.title = NSLocalizedString("label.country.select", comment: "")
         self.navigationItem.searchController = searchController
     }
+}
 
+extension CountryListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = self.countryListViewModel.getCountryList().count
         if isFiltering {
-           return filteredCountries.count
-         }
-        return count
+            return countryListViewModel.filteredList.count
+        } else {
+            return countryListViewModel.countryList.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! CountryListViewCell
+        let countryData: Country
 
         if isFiltering {
-            cell.countryData = filteredCountries[indexPath.row]
+            countryData = countryListViewModel.filteredList[indexPath.row]
         } else {
-            cell.countryData = countryListViewModel.getCountryAt(index: indexPath.row)
+            countryData = countryListViewModel.countryList[indexPath.row]
         }
 
+        cell.countryData = countryData
         return cell
     }
 
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         let searchText = searchBar.text!
-        let countries = self.countryListViewModel.getCountryList()
-
-        filteredCountries = countries.filter { (country: Country) -> Bool in
-            return country.name.lowercased().contains(searchText.lowercased())
-        }
-
+        countryListViewModel.setFilteredList(filterBy: searchText)
         tableView.reloadData()
     }
 }

@@ -17,6 +17,7 @@
 		48022AB9234239AA002F009F /* Circe.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48022AB8234239A2002F009F /* Circe.otf */; };
 		48022ABB23423C49002F009F /* Circe-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48022ABA23423C49002F009F /* Circe-Bold.otf */; };
 		484716DD2358B5BB001D13E8 /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716DC2358B5BB001D13E8 /* TagLabel.swift */; };
+		484716E6235B17A9001D13E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 484716E8235B17A9001D13E8 /* Localizable.strings */; };
 		484A0FE8233375B4009360A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE7233375B4009360A9 /* AppDelegate.swift */; };
 		484A0FEA233375B4009360A9 /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */; };
 		484A0FED233375B4009360A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484A0FEB233375B4009360A9 /* Main.storyboard */; };
@@ -44,12 +45,13 @@
 		48022AB8234239A2002F009F /* Circe.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Circe.otf; path = ../../../../Downloads/Circe.otf; sourceTree = "<group>"; };
 		48022ABA23423C49002F009F /* Circe-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Circe-Bold.otf"; path = "../../../../Downloads/Circe-Bold.otf"; sourceTree = "<group>"; };
 		484716DC2358B5BB001D13E8 /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
+		484716E2235B1747001D13E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		484716E3235B1747001D13E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		484716E7235B17A9001D13E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		484A0FE4233375B4009360A9 /* 2ndPhoneNumber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2ndPhoneNumber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		484A0FE7233375B4009360A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenViewController.swift; sourceTree = "<group>"; };
-		484A0FEC233375B4009360A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		484A0FEE233375B6009360A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		484A0FF1233375B6009360A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		484A0FF3233375B6009360A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		48723BC52354947D0064AA14 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		48723BCA235496310064AA14 /* AreaNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaNumber.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				484A0FEE233375B6009360A9 /* Assets.xcassets */,
 				484A0FF0233375B6009360A9 /* LaunchScreen.storyboard */,
 				484A0FF3233375B6009360A9 /* Info.plist */,
+				484716E8235B17A9001D13E8 /* Localizable.strings */,
 			);
 			path = 2ndPhoneNumber;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48022ABB23423C49002F009F /* Circe-Bold.otf in Resources */,
+				484716E6235B17A9001D13E8 /* Localizable.strings in Resources */,
 				484A0FF2233375B6009360A9 /* LaunchScreen.storyboard in Resources */,
 				484A0FEF233375B6009360A9 /* Assets.xcassets in Resources */,
 				48022AB9234239AA002F009F /* Circe.otf in Resources */,
@@ -351,10 +355,18 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		484716E8235B17A9001D13E8 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				484716E7235B17A9001D13E8 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		484A0FEB233375B4009360A9 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				484A0FEC233375B4009360A9 /* Base */,
+				484716E2235B1747001D13E8 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -362,7 +374,7 @@
 		484A0FF0233375B6009360A9 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				484A0FF1233375B6009360A9 /* Base */,
+				484716E3235B1747001D13E8 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -374,6 +386,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -435,6 +448,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

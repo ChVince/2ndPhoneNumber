@@ -9,7 +9,7 @@
 import UIKit
 
 
-class TagLable: UILabel {
+class TagLabel: UILabel {
     var insets: UIEdgeInsets
 
     override init(frame: CGRect) {

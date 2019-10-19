@@ -13,26 +13,19 @@ import UIKit
 
 class CountryListViewModel: Filterable {
     var countryList: [Country]
+    var filteredList: [Country]
 
     let reuseIdentifier = "CountryCell"
 
     init() {
         self.countryList = []
+        self.filteredList = []
     }
-
-    func getFilteredList<Country>(list: [Country], filterBy: String) -> [Country] {
-        list.filter({ (country: Country) -> Bool in
-            print("iterate over")
-            return true;
-        })
-    }
-
-    func getCountryAt(index: Int) -> Country {
-        return self.countryList[index]
-    }
-
-    func getCountryList() -> [Country] {
-        return self.countryList;
+    
+    func setFilteredList(filterBy: String) {
+        filteredList = countryList.filter{ (country: Country) -> Bool in
+            return country.name.lowercased().starts(with:filterBy.lowercased())
+        }
     }
 
     func fetch(completion: @escaping () -> Void) {

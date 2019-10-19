@@ -7,5 +7,5 @@
 //
 
 protocol Filterable {
-    func getFilteredList<T>(list: [T], filterBy: String) -> [T]
+    func setFilteredList(filterBy: String)
 }
