@@ -18,10 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         window = UIWindow()
-        window?.backgroundColor = UIColor.white
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        //window?.rootViewController = SubscribeViewController(collectionViewLayout: layout)
+        window?.backgroundColor = .white
+    
         window?.rootViewController = TopNavigtionController()
         window?.makeKeyAndVisible()
         return true

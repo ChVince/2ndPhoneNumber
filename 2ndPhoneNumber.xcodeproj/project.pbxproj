@@ -18,19 +18,23 @@
 		48022ABB23423C49002F009F /* Circe-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48022ABA23423C49002F009F /* Circe-Bold.otf */; };
 		484716DD2358B5BB001D13E8 /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716DC2358B5BB001D13E8 /* TagLabel.swift */; };
 		484716E6235B17A9001D13E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 484716E8235B17A9001D13E8 /* Localizable.strings */; };
+		484716EA235B761B001D13E8 /* AddNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716E9235B761B001D13E8 /* AddNumberViewController.swift */; };
 		484A0FE8233375B4009360A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE7233375B4009360A9 /* AppDelegate.swift */; };
 		484A0FEA233375B4009360A9 /* WelcomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */; };
 		484A0FED233375B4009360A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484A0FEB233375B4009360A9 /* Main.storyboard */; };
 		484A0FEF233375B6009360A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 484A0FEE233375B6009360A9 /* Assets.xcassets */; };
 		484A0FF2233375B6009360A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 484A0FF0233375B6009360A9 /* LaunchScreen.storyboard */; };
+		485987C5235C821C00ED37DE /* NamedAreaProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485987C4235C821C00ED37DE /* NamedAreaProtocol.swift */; };
 		48723BC62354947D0064AA14 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BC52354947D0064AA14 /* Country.swift */; };
 		48723BCB235496310064AA14 /* AreaNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BCA235496310064AA14 /* AreaNumber.swift */; };
 		48723BCD235497F30064AA14 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BCC235497F30064AA14 /* State.swift */; };
-		48723BCF23549DC20064AA14 /* CountryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BCE23549DC20064AA14 /* CountryListViewModel.swift */; };
+		48723BCF23549DC20064AA14 /* AddNumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BCE23549DC20064AA14 /* AddNumberViewModel.swift */; };
 		48723BD123549EB40064AA14 /* Filterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BD023549EB40064AA14 /* Filterable.swift */; };
 		48723BD42355F9E00064AA14 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BD32355F9E00064AA14 /* DataManager.swift */; };
 		48723BD62355FC950064AA14 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BD52355FC950064AA14 /* Services.swift */; };
 		48E3D88C2350AA7B00DCCA81 /* index.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E3D88B2350AA7B00DCCA81 /* index.swift */; };
+		48EABC9B236EE39000205923 /* AddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABC9A236EE39000205923 /* AddressViewModel.swift */; };
+		48EABC9D236EE5C900205923 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABC9C236EE5C900205923 /* Address.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,19 +52,23 @@
 		484716E2235B1747001D13E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		484716E3235B1747001D13E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		484716E7235B17A9001D13E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		484716E9235B761B001D13E8 /* AddNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNumberViewController.swift; sourceTree = "<group>"; };
 		484A0FE4233375B4009360A9 /* 2ndPhoneNumber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2ndPhoneNumber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		484A0FE7233375B4009360A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenViewController.swift; sourceTree = "<group>"; };
 		484A0FEE233375B6009360A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		484A0FF3233375B6009360A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		485987C4235C821C00ED37DE /* NamedAreaProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedAreaProtocol.swift; sourceTree = "<group>"; };
 		48723BC52354947D0064AA14 /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		48723BCA235496310064AA14 /* AreaNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaNumber.swift; sourceTree = "<group>"; };
 		48723BCC235497F30064AA14 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
-		48723BCE23549DC20064AA14 /* CountryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListViewModel.swift; sourceTree = "<group>"; };
+		48723BCE23549DC20064AA14 /* AddNumberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNumberViewModel.swift; sourceTree = "<group>"; };
 		48723BD023549EB40064AA14 /* Filterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filterable.swift; sourceTree = "<group>"; };
 		48723BD32355F9E00064AA14 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		48723BD52355FC950064AA14 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		48E3D88B2350AA7B00DCCA81 /* index.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = index.swift; sourceTree = "<group>"; };
+		48EABC9A236EE39000205923 /* AddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewModel.swift; sourceTree = "<group>"; };
+		48EABC9C236EE5C900205923 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		88BDADF1708088F472ED9CC1 /* Pods-2ndPhoneNumber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-2ndPhoneNumber.debug.xcconfig"; path = "Target Support Files/Pods-2ndPhoneNumber/Pods-2ndPhoneNumber.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +91,7 @@
 				48022AAE23409C27002F009F /* StateListVIewController.swift */,
 				48022AB023409C47002F009F /* NumberListViewController.swift */,
 				48022AB223409C78002F009F /* AddressViewController.swift */,
+				484716E9235B761B001D13E8 /* AddNumberViewController.swift */,
 			);
 			path = AddNumber;
 			sourceTree = "<group>";
@@ -127,7 +136,8 @@
 		482BF891233FC96900E5789E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				48723BCE23549DC20064AA14 /* CountryListViewModel.swift */,
+				48723BCE23549DC20064AA14 /* AddNumberViewModel.swift */,
+				48EABC9A236EE39000205923 /* AddressViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -138,6 +148,7 @@
 				48723BC52354947D0064AA14 /* Country.swift */,
 				48723BCA235496310064AA14 /* AreaNumber.swift */,
 				48723BCC235497F30064AA14 /* State.swift */,
+				48EABC9C236EE5C900205923 /* Address.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -193,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				48723BD023549EB40064AA14 /* Filterable.swift */,
+				485987C4235C821C00ED37DE /* NamedAreaProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -335,7 +347,10 @@
 				48723BD62355FC950064AA14 /* Services.swift in Sources */,
 				484A0FEA233375B4009360A9 /* WelcomeScreenViewController.swift in Sources */,
 				48723BD42355F9E00064AA14 /* DataManager.swift in Sources */,
+				48EABC9B236EE39000205923 /* AddressViewModel.swift in Sources */,
+				485987C5235C821C00ED37DE /* NamedAreaProtocol.swift in Sources */,
 				48723BCB235496310064AA14 /* AreaNumber.swift in Sources */,
+				48EABC9D236EE5C900205923 /* Address.swift in Sources */,
 				48022AA923409940002F009F /* SubscribeViewController.swift in Sources */,
 				48022AAF23409C27002F009F /* StateListVIewController.swift in Sources */,
 				48022AB623411F45002F009F /* UIColorExtension.swift in Sources */,
@@ -343,12 +358,13 @@
 				48723BD123549EB40064AA14 /* Filterable.swift in Sources */,
 				48E3D88C2350AA7B00DCCA81 /* index.swift in Sources */,
 				484716DD2358B5BB001D13E8 /* TagLabel.swift in Sources */,
+				484716EA235B761B001D13E8 /* AddNumberViewController.swift in Sources */,
 				484A0FE8233375B4009360A9 /* AppDelegate.swift in Sources */,
 				48723BCD235497F30064AA14 /* State.swift in Sources */,
 				48022AB323409C78002F009F /* AddressViewController.swift in Sources */,
 				48723BC62354947D0064AA14 /* Country.swift in Sources */,
 				48022AAD23409C02002F009F /* CountryListViewController.swift in Sources */,
-				48723BCF23549DC20064AA14 /* CountryListViewModel.swift in Sources */,
+				48723BCF23549DC20064AA14 /* AddNumberViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

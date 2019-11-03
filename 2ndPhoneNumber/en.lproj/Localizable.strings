@@ -8,6 +8,21 @@
 
 
 "label.country.search" = "Search country";
+"label.state.search" = "Search state";
+"label.number.search" = "Search number";
+
+"label.number.address.required" = "Address required";
+
 "label.country.select" = "Select country";
+
+"label.address.top" = "Due to local regulations, you must provide any business or personal address in order to purchase this number.";
+"label.address.name" = "Customer name";
+"label.address.street" = "Address";
+"label.address.city" = "City";
+"label.address.state" = "State/Region";
+"label.address.code" = "Postal Code";
+"label.address.country" = "Country";
+
 "label.calls" = "Calls";
 "label.sms" = "SMS";
+"label.done" = "Done";

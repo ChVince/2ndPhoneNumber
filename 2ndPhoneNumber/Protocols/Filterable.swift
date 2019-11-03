@@ -7,5 +7,10 @@
 //
 
 protocol Filterable {
+    associatedtype T
+
+    var list: [T] { get }
+    var filteredList: [T] { get set }
+
     func setFilteredList(filterBy: String)
 }

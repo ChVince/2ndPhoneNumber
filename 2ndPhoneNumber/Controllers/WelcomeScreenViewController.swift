@@ -129,6 +129,6 @@ class WelcomeScreenController: UIViewController {
     }
 
   @objc func onGetStaredTounch() {
-        self.navigationController?.pushViewController(CountryListViewController(), animated: true)
+        self.navigationController?.pushViewController(AddressViewController(), animated: true)
     }
 }

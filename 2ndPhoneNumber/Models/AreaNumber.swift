@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class AreaNumber {
+public class AreaNumber: Decodable {
     let number: String
     let isRequireAddress: Bool
 
-    init(number: String, isRequiredAddress: Bool) {
+    init(number: String, isRequireAddress: Bool) {
         self.number = number
-        self.isRequireAddress = isRequiredAddress
+        self.isRequireAddress = isRequireAddress
     }
 }

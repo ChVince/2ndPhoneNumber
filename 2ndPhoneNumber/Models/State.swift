@@ -8,14 +8,14 @@
 
 import Foundation
 
-public struct State {
+public struct State: Decodable, NamedAreaProtocol {
     let name: String
     let stateCode: String
-    let countryName: String
+    let countryCode: String
 
-    init(name: String, stateCode: String, countryName: String) {
+    init(name: String, stateCode: String, countryCode: String) {
         self.name = name
         self.stateCode = stateCode
-        self.countryName = countryName
+        self.countryCode = countryCode
     }
 }

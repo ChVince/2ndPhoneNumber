@@ -8,8 +8,7 @@
 import Foundation
 
 class DataManager {
-    static func fetchData(service: Service, completeion: @escaping (_ result: Data) -> Void) {
-        let url = service.url!
+    static func fetchData(url: URL, completeion: @escaping (_ result: Data) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print(error)

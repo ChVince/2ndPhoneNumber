@@ -10,7 +10,7 @@ import UIKit
 import FlagKit
 
 class CountryListViewCell: UITableViewCell {
-    var countryData: Country? {
+    var data: Country? {
         didSet {
             setupCellLayout()
         }
@@ -59,12 +59,12 @@ class CountryListViewCell: UITableViewCell {
     }
 
     func setupCellLayout() {
-        guard let unwrappedCountryData = countryData else {
+        guard let unwrappedCountryData = data else {
             return
         }
         setImageView(countryCode: unwrappedCountryData.countryCode)
         setupTextLabel(countryName: unwrappedCountryData.name)
-        setupSubtitleLabel(countryData: unwrappedCountryData)
+        setupSubtitleLabel(data: unwrappedCountryData)
     }
 
     func setImageView(countryCode: String) {
@@ -74,7 +74,7 @@ class CountryListViewCell: UITableViewCell {
             print("No flag for", countryCode)
             return
         }
-        
+
         imageView?.image = unwrappedFlag.image(style: .none)
     }
 
@@ -83,16 +83,16 @@ class CountryListViewCell: UITableViewCell {
         textLabel?.font = UIFont.systemFont(ofSize: 16)
     }
 
-    func setupSubtitleLabel(countryData: Country) {
+    func setupSubtitleLabel(data: Country) {
         availableTagsView.removeFromSuperview()
         callsLabel.removeFromSuperview()
         smsLabel.removeFromSuperview()
 
-        if countryData.isCallable {
+        if data.isCallable {
             availableTagsView.addArrangedSubview(callsLabel)
         }
 
-        if countryData.isSMSable {
+        if data.isSMSable {
             availableTagsView.addArrangedSubview(smsLabel)
         }
 
@@ -104,87 +104,66 @@ class CountryListViewCell: UITableViewCell {
     }
 }
 
-class CountryListViewController: UITableViewController, UISearchResultsUpdating {
-    var countryListViewModel: CountryListViewModel = {
-        return CountryListViewModel()
-    }()
-
-    var filteredCountries: [Country] = []
-
-    var isSearchBarEmpty: Bool {
-        return searchController.searchBar.text?.isEmpty ?? true
-    }
-
-    var isFiltering: Bool {
-      return searchController.isActive && !isSearchBarEmpty
-    }
-
-    let searchController: UISearchController = {
-        let _searchController = UISearchController(searchResultsController: nil)
-        _searchController.searchBar.placeholder = NSLocalizedString("label.country.search", comment: "")
-        _searchController.obscuresBackgroundDuringPresentation = false
-        return _searchController
-    }()
+class CountryListViewController: AddNumberViewController, UISearchResultsUpdating {
+    let reusableCellId = "countryCellId"
+    let setupNumberViewModel = CountryListViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView?.register(CountryListViewCell.self, forCellReuseIdentifier: reusableCellId)
 
-        tableView?.register(CountryListViewCell.self, forCellReuseIdentifier: "cellId")
+        self.navigationItem.title = NSLocalizedString("label.country.select", comment: "")
+        self.searchController.searchBar.placeholder = NSLocalizedString("label.country.search", comment: "")
+        searchController.searchResultsUpdater = self
 
-        self.setupNavigationItem()
-        self.setupFooterView()
-        self.setupTableStyle()
+        self.tableView.rowHeight = 65
 
-        countryListViewModel.fetch{ [weak self] in
+        setupNumberViewModel.fetch{ [weak self] in
             self?.tableView.reloadData()
         }
     }
 
-    func setupTableStyle() {
-        tableView.separatorInset = UIEdgeInsets(top: 11, left: 17, bottom: 11, right: 17)
-        tableView.rowHeight = 65
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = setupNumberViewModel.list[indexPath.row];
+
+
+        //TODO how divide?
+        if data.hasStates {
+            let controller = StateListViewController()
+            controller.setupNumberViewModel.ancestor = data
+            navigationController?.pushViewController(controller, animated: true)
+        } else {
+            let controller = NumberListViewController()
+            controller.setupNumberViewModel.ancestor = data
+            navigationController?.pushViewController(controller, animated: true)
+        }
     }
 
-    func setupFooterView() {
-        self.tableView.tableFooterView = UIView()
-    }
-
-    func setupNavigationItem() {
-        definesPresentationContext = true
-        searchController.searchResultsUpdater = self
-
-        self.navigationItem.title = NSLocalizedString("label.country.select", comment: "")
-        self.navigationItem.searchController = searchController
-    }
-}
-
-extension CountryListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
-            return countryListViewModel.filteredList.count
+            return setupNumberViewModel.filteredList.count
         } else {
-            return countryListViewModel.countryList.count
+            return setupNumberViewModel.list.count
         }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as! CountryListViewCell
-        let countryData: Country
+          let cell = tableView.dequeueReusableCell(withIdentifier: reusableCellId, for: indexPath) as! CountryListViewCell
 
-        if isFiltering {
-            countryData = countryListViewModel.filteredList[indexPath.row]
-        } else {
-            countryData = countryListViewModel.countryList[indexPath.row]
-        }
+          if isFiltering {
+              cell.data = setupNumberViewModel.filteredList[indexPath.row]
+          } else {
+              cell.data = setupNumberViewModel.list[indexPath.row]
+          }
 
-        cell.countryData = countryData
-        return cell
-    }
+          return cell
+      }
+
 
     func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        let searchText = searchBar.text!
-        countryListViewModel.setFilteredList(filterBy: searchText)
-        tableView.reloadData()
-    }
+           let searchBar = searchController.searchBar
+           let searchText = searchBar.text!
+           setupNumberViewModel.setFilteredList(filterBy: searchText)
+           tableView.reloadData()
+       }
 }

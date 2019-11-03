@@ -18,6 +18,7 @@ class TopNavigtionController: UINavigationController, UINavigationControllerDele
     }
 
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        viewController.view.backgroundColor = .white
         if (navigationController.viewControllers.count > 1) {
             navigationController.setNavigationBarHidden(false, animated: true)
         } else {
