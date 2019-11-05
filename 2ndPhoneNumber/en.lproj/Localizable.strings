@@ -26,3 +26,9 @@
 "label.calls" = "Calls";
 "label.sms" = "SMS";
 "label.done" = "Done";
+
+"label.account.chats.title" = "Chats";
+
+"label.account.history.title" = "History";
+"label.account.history.all" = "All";
+"label.account.history.missed" = "Missed";

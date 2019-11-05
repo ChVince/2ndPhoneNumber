@@ -127,7 +127,7 @@ class AddressViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("label.done", comment: ""), style: .plain, target: self, action: #selector(setupNumber))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("label.done", comment: ""), style: .done, target: self, action: #selector(setupNumber))
         setupListeners()
         setupLayout()
     }
