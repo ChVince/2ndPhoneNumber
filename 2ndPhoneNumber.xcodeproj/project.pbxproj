@@ -16,12 +16,18 @@
 		48022AB623411F45002F009F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48022AB523411F45002F009F /* UIColorExtension.swift */; };
 		48022AB9234239AA002F009F /* Circe.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48022AB8234239A2002F009F /* Circe.otf */; };
 		48022ABB23423C49002F009F /* Circe-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48022ABA23423C49002F009F /* Circe-Bold.otf */; };
-		481EBABC236F3DED00922745 /* HistoryListIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBABB236F3DED00922745 /* HistoryListIndex.swift */; };
-		481EBABE236F3ECF00922745 /* HistoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBABD236F3ECF00922745 /* HistoryListViewController.swift */; };
+		481EBABC236F3DED00922745 /* RecentCallsIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBABB236F3DED00922745 /* RecentCallsIndex.swift */; };
+		481EBABE236F3ECF00922745 /* RecentCallsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBABD236F3ECF00922745 /* RecentCallsViewController.swift */; };
 		481EBAC0237052B300922745 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBABF237052B300922745 /* AccountViewModel.swift */; };
 		481EBAC223706C6B00922745 /* CelluarEventProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAC123706C6B00922745 /* CelluarEventProtocol.swift */; };
 		481EBAC423706CD900922745 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAC323706CD900922745 /* Contact.swift */; };
 		481EBAC62370870C00922745 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAC52370870C00922745 /* Message.swift */; };
+		481EBACB2372F4E900922745 /* ContactsIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBACA2372F4E900922745 /* ContactsIndex.swift */; };
+		481EBACD2372F54600922745 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBACC2372F54600922745 /* ContactsViewController.swift */; };
+		481EBACF2372F6F200922745 /* PhoneIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBACE2372F6F200922745 /* PhoneIndex.swift */; };
+		481EBAD12372F70700922745 /* PhoneViewConteoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAD02372F70700922745 /* PhoneViewConteoller.swift */; };
+		481EBAD32372F8E000922745 /* ProfileIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAD22372F8E000922745 /* ProfileIndex.swift */; };
+		481EBAD72372F98700922745 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAD62372F98700922745 /* ProfileViewController.swift */; };
 		484716DD2358B5BB001D13E8 /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716DC2358B5BB001D13E8 /* TagLabel.swift */; };
 		484716E6235B17A9001D13E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 484716E8235B17A9001D13E8 /* Localizable.strings */; };
 		484716EA235B761B001D13E8 /* AddNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716E9235B761B001D13E8 /* AddNumberViewController.swift */; };
@@ -61,12 +67,18 @@
 		48022AB523411F45002F009F /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		48022AB8234239A2002F009F /* Circe.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Circe.otf; path = ../../../../Downloads/Circe.otf; sourceTree = "<group>"; };
 		48022ABA23423C49002F009F /* Circe-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Circe-Bold.otf"; path = "../../../../Downloads/Circe-Bold.otf"; sourceTree = "<group>"; };
-		481EBABB236F3DED00922745 /* HistoryListIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListIndex.swift; sourceTree = "<group>"; };
-		481EBABD236F3ECF00922745 /* HistoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListViewController.swift; sourceTree = "<group>"; };
+		481EBABB236F3DED00922745 /* RecentCallsIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCallsIndex.swift; sourceTree = "<group>"; };
+		481EBABD236F3ECF00922745 /* RecentCallsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCallsViewController.swift; sourceTree = "<group>"; };
 		481EBABF237052B300922745 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		481EBAC123706C6B00922745 /* CelluarEventProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelluarEventProtocol.swift; sourceTree = "<group>"; };
 		481EBAC323706CD900922745 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		481EBAC52370870C00922745 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		481EBACA2372F4E900922745 /* ContactsIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsIndex.swift; sourceTree = "<group>"; };
+		481EBACC2372F54600922745 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		481EBACE2372F6F200922745 /* PhoneIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneIndex.swift; sourceTree = "<group>"; };
+		481EBAD02372F70700922745 /* PhoneViewConteoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneViewConteoller.swift; sourceTree = "<group>"; };
+		481EBAD22372F8E000922745 /* ProfileIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileIndex.swift; sourceTree = "<group>"; };
+		481EBAD62372F98700922745 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		484716DC2358B5BB001D13E8 /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		484716E2235B1747001D13E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		484716E3235B1747001D13E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -126,8 +138,11 @@
 		48022AAB23409B71002F009F /* UserAccount */ = {
 			isa = PBXGroup;
 			children = (
-				48EABCA3236F076D00205923 /* HistoryList */,
-				48EABCA2236F074A00205923 /* ChatList */,
+				481EBAC92372F45700922745 /* Profile */,
+				481EBAC82372F45100922745 /* Contacts */,
+				481EBAC72372F44500922745 /* Phone */,
+				48EABCA3236F076D00205923 /* RecentCalls */,
+				48EABCA2236F074A00205923 /* Conversations */,
 				48EABC9E236F06A600205923 /* UserAccountNavigationController.swift */,
 			);
 			path = UserAccount;
@@ -149,6 +164,33 @@
 				48022AB8234239A2002F009F /* Circe.otf */,
 			);
 			path = fonts;
+			sourceTree = "<group>";
+		};
+		481EBAC72372F44500922745 /* Phone */ = {
+			isa = PBXGroup;
+			children = (
+				481EBACE2372F6F200922745 /* PhoneIndex.swift */,
+				481EBAD02372F70700922745 /* PhoneViewConteoller.swift */,
+			);
+			path = Phone;
+			sourceTree = "<group>";
+		};
+		481EBAC82372F45100922745 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				481EBACA2372F4E900922745 /* ContactsIndex.swift */,
+				481EBACC2372F54600922745 /* ContactsViewController.swift */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
+		481EBAC92372F45700922745 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				481EBAD22372F8E000922745 /* ProfileIndex.swift */,
+				481EBAD62372F98700922745 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		482BF890233FC95900E5789E /* Controllers */ = {
@@ -246,22 +288,22 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		48EABCA2236F074A00205923 /* ChatList */ = {
+		48EABCA2236F074A00205923 /* Conversations */ = {
 			isa = PBXGroup;
 			children = (
 				48EABCA0236F070F00205923 /* ConversationListViewController.swift */,
 				48EABCAC236F101300205923 /* ConversationListNavigationController.swift */,
 			);
-			path = ChatList;
+			path = Conversations;
 			sourceTree = "<group>";
 		};
-		48EABCA3236F076D00205923 /* HistoryList */ = {
+		48EABCA3236F076D00205923 /* RecentCalls */ = {
 			isa = PBXGroup;
 			children = (
-				481EBABB236F3DED00922745 /* HistoryListIndex.swift */,
-				481EBABD236F3ECF00922745 /* HistoryListViewController.swift */,
+				481EBABB236F3DED00922745 /* RecentCallsIndex.swift */,
+				481EBABD236F3ECF00922745 /* RecentCallsViewController.swift */,
 			);
-			path = HistoryList;
+			path = RecentCalls;
 			sourceTree = "<group>";
 		};
 		5AABCDAA29A04AA072F33E94 /* Pods */ = {
@@ -404,18 +446,24 @@
 				481EBAC0237052B300922745 /* AccountViewModel.swift in Sources */,
 				481EBAC62370870C00922745 /* Message.swift in Sources */,
 				48723BD42355F9E00064AA14 /* DataManager.swift in Sources */,
+				481EBACD2372F54600922745 /* ContactsViewController.swift in Sources */,
 				48EABC9B236EE39000205923 /* AddressViewModel.swift in Sources */,
+				481EBAD32372F8E000922745 /* ProfileIndex.swift in Sources */,
 				485987C5235C821C00ED37DE /* NamedAreaProtocol.swift in Sources */,
 				481EBAC423706CD900922745 /* Contact.swift in Sources */,
 				48EABCA1236F070F00205923 /* ConversationListViewController.swift in Sources */,
 				48723BCB235496310064AA14 /* AreaNumber.swift in Sources */,
+				481EBACF2372F6F200922745 /* PhoneIndex.swift in Sources */,
 				48EABC9D236EE5C900205923 /* Address.swift in Sources */,
 				48022AA923409940002F009F /* SubscribeViewController.swift in Sources */,
 				48022AAF23409C27002F009F /* StateListVIewController.swift in Sources */,
+				481EBAD12372F70700922745 /* PhoneViewConteoller.swift in Sources */,
 				48022AB623411F45002F009F /* UIColorExtension.swift in Sources */,
-				481EBABE236F3ECF00922745 /* HistoryListViewController.swift in Sources */,
+				481EBABE236F3ECF00922745 /* RecentCallsViewController.swift in Sources */,
+				481EBACB2372F4E900922745 /* ContactsIndex.swift in Sources */,
 				48022AB123409C47002F009F /* NumberListViewController.swift in Sources */,
 				48723BD123549EB40064AA14 /* Filterable.swift in Sources */,
+				481EBAD72372F98700922745 /* ProfileViewController.swift in Sources */,
 				48EABC9F236F06A600205923 /* UserAccountNavigationController.swift in Sources */,
 				48E3D88C2350AA7B00DCCA81 /* AddNumberNavigationController.swift in Sources */,
 				481EBAC223706C6B00922745 /* CelluarEventProtocol.swift in Sources */,
@@ -426,7 +474,7 @@
 				484A0FE8233375B4009360A9 /* AppDelegate.swift in Sources */,
 				48723BCD235497F30064AA14 /* State.swift in Sources */,
 				48022AB323409C78002F009F /* AddressViewController.swift in Sources */,
-				481EBABC236F3DED00922745 /* HistoryListIndex.swift in Sources */,
+				481EBABC236F3DED00922745 /* RecentCallsIndex.swift in Sources */,
 				48EABCAB236F0B4B00205923 /* Conversation.swift in Sources */,
 				48EABCA5236F08C700205923 /* AccountNumber.swift in Sources */,
 				48723BC62354947D0064AA14 /* Country.swift in Sources */,

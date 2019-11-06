@@ -29,6 +29,10 @@
 
 "label.account.chats.title" = "Chats";
 
-"label.account.history.title" = "History";
-"label.account.history.all" = "All";
-"label.account.history.missed" = "Missed";
+"label.account.calls.title" = "Calls";
+"label.account.calls.all" = "All";
+"label.account.calls.missed" = "Missed";
+
+"label.account.contacts.title" = "Contacts";
+"label.account.contacts.all" = "contacts";
+"label.account.contacts.phone" = "Phone contacts";

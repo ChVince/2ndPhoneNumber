@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HistoryListViewCell: UITableViewCell {
+class RecentCallsViewCell: UITableViewCell {
     var data: Message? {
         didSet {
 
@@ -16,11 +16,11 @@ class HistoryListViewCell: UITableViewCell {
     }
 }
 
-class HistoryListViewController: UITableViewController {
+class RecentCallsViewController: UITableViewController {
     let segemntControlview: UISegmentedControl = {
         return UISegmentedControl(items: [
-            NSLocalizedString("label.account.history.all", comment: ""),
-            NSLocalizedString("label.account.history.missed", comment: "")
+            NSLocalizedString("label.account.calls.all", comment: ""),
+            NSLocalizedString("label.account.calls.missed", comment: "")
         ])
     }()
 
@@ -35,11 +35,11 @@ class HistoryListViewController: UITableViewController {
     }
 
     func setupNavigationItem() {
-        self.navigationItem.title = NSLocalizedString("label.account.history.title", comment: "")
+        self.navigationItem.title = NSLocalizedString("label.account.calls.title", comment: "")
     }
 }
 
-extension HistoryListViewController {
+extension RecentCallsViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }

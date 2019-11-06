@@ -1,25 +1,25 @@
 //
-//  index.swift
+//  PhoneIndex.swift
 //  2ndPhoneNumber
 //
-//  Created by Елизар Кондрашов on 03.11.2019.
+//  Created by Елизар Кондрашов on 06.11.2019.
 //  Copyright © 2019 Елизар Кондрашов. All rights reserved.
 //
 
 import UIKit
 
-class HistoryListNavigationController: UINavigationController {
+class PhoneNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewControllers = [HistoryListViewController()]
+        self.viewControllers = [PhoneViewController()]
         setupTabBarItem()
     }
 
     func setupTabBarItem() {
         self.tabBarItem = UITabBarItem(
             title: nil,
-            image: UIImage(named: "history"),
-            selectedImage: UIImage(named: "historyPressed")
+            image: UIImage(named: "phone"),
+            selectedImage: UIImage(named: "phone-pressed")
         )
     }
 }
