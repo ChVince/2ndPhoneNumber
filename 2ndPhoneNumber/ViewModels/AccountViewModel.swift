@@ -9,9 +9,9 @@
 import UIKit
 
 let MockAccountNumbers = [
-    AccountNumber(number: "+57575757575", isRequireAddress: true),
-    AccountNumber(number: "+5757575757342345", isRequireAddress: false),
-    AccountNumber(number: "+575757234235757342345", isRequireAddress: false)
+    AccountNumber(number: "+57575757575", isRequireAddress: false, isActive: true),
+    AccountNumber(number: "+5757575757342345", isRequireAddress: false, isActive: false),
+    AccountNumber(number: "+575757234235757342345", isRequireAddress: false, isActive: false)
 ]
 
 var mockContactList = [
@@ -35,8 +35,6 @@ var mockMessageList2 = [
     Message(date: Date.init(), message: "Luka))", author: .COLLOCUTOR)
 ]
 
-
-
 struct ConversationCellData {
     var contact: Contact
     var topMessage: Message
@@ -46,7 +44,6 @@ struct CallCellData {
     var contact: Contact
     var topCall: Message
 }
-
 
 class AccountViewModel {
     var conversationCellDataList: [ConversationCellData] = []
@@ -58,18 +55,22 @@ class AccountViewModel {
         }
     }
 
-
     init() {
         self.accountNumbers = MockAccountNumbers// load from disk
         self.activeAccountNumber = self.getActiveNumber()
+
+        self.fetchActiveNumberData()
+        self.refreshConversationCellDataList()
     }
 
-    func getActiveNumber() -> AccountNumber? {
-        guard activeAccountNumber != nil else {
-            return accountNumbers.first(where: { $0.isActive })
+    func getActiveNumber() -> AccountNumber {
+        var activeAccountNumber: AccountNumber
+        guard self.activeAccountNumber != nil else {
+            activeAccountNumber = accountNumbers.first(where: { $0.isActive })!
+            return activeAccountNumber
         }
 
-        return activeAccountNumber
+        return self.activeAccountNumber!
     }
 
     func setActiveNumber(number: String) {
@@ -85,7 +86,8 @@ class AccountViewModel {
         var conversationCellDataList: [ConversationCellData] = []
 
         for conversation in conversationList! {
-            let contact = self.activeAccountNumber!.contactList?.first(where: { $0.contactId == conversation.contactId })!
+            let contact = self.activeAccountNumber!.contactList?[0]
+            //self.activeAccountNumber!.contactList?.first(where: { $0.contactId == conversation.contactId })!
             let conversationCellData = ConversationCellData(contact: contact!, topMessage: conversation.messageList![0])
             conversationCellDataList.append(conversationCellData)
         }

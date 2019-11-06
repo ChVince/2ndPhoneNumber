@@ -13,8 +13,9 @@ class AccountNumber: AreaNumber {
     var contactList: [Contact]?
     var isActive = false
     
-    override init(number: String, isRequireAddress: Bool) {
+    init(number: String, isRequireAddress: Bool, isActive: Bool) {
         super.init(number: number, isRequireAddress: isRequireAddress)
+        self.isActive = isActive
     }
 
     required init(from decoder: Decoder) throws {
