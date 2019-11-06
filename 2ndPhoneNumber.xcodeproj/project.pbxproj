@@ -28,6 +28,7 @@
 		481EBAD12372F70700922745 /* PhoneViewConteoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAD02372F70700922745 /* PhoneViewConteoller.swift */; };
 		481EBAD32372F8E000922745 /* ProfileIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAD22372F8E000922745 /* ProfileIndex.swift */; };
 		481EBAD72372F98700922745 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAD62372F98700922745 /* ProfileViewController.swift */; };
+		481EBAD9237323A700922745 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAD8237323A700922745 /* UIDevice.swift */; };
 		484716DD2358B5BB001D13E8 /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716DC2358B5BB001D13E8 /* TagLabel.swift */; };
 		484716E6235B17A9001D13E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 484716E8235B17A9001D13E8 /* Localizable.strings */; };
 		484716EA235B761B001D13E8 /* AddNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716E9235B761B001D13E8 /* AddNumberViewController.swift */; };
@@ -79,6 +80,7 @@
 		481EBAD02372F70700922745 /* PhoneViewConteoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneViewConteoller.swift; sourceTree = "<group>"; };
 		481EBAD22372F8E000922745 /* ProfileIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileIndex.swift; sourceTree = "<group>"; };
 		481EBAD62372F98700922745 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		481EBAD8237323A700922745 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		484716DC2358B5BB001D13E8 /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		484716E2235B1747001D13E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		484716E3235B1747001D13E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				48022AB523411F45002F009F /* UIColorExtension.swift */,
 				484716DC2358B5BB001D13E8 /* TagLabel.swift */,
+				481EBAD8237323A700922745 /* UIDevice.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				481EBAC0237052B300922745 /* AccountViewModel.swift in Sources */,
 				481EBAC62370870C00922745 /* Message.swift in Sources */,
 				48723BD42355F9E00064AA14 /* DataManager.swift in Sources */,
+				481EBAD9237323A700922745 /* UIDevice.swift in Sources */,
 				481EBACD2372F54600922745 /* ContactsViewController.swift in Sources */,
 				48EABC9B236EE39000205923 /* AddressViewModel.swift in Sources */,
 				481EBAD32372F8E000922745 /* ProfileIndex.swift in Sources */,

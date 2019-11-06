@@ -11,7 +11,9 @@ import UIKit
 class PhoneNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewControllers = [PhoneViewController()]
+        let layout: UICollectionViewLayout = UICollectionViewFlowLayout()
+        
+        self.viewControllers = [PhoneViewController(collectionViewLayout: layout)]
         setupTabBarItem()
     }
 
