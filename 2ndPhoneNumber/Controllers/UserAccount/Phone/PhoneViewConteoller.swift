@@ -8,9 +8,34 @@
 
 import UIKit
 
+struct UIDimension {
+    var width: CGFloat
+    var height: CGFloat
+}
+
 class KeyCellView: UICollectionViewCell, UICollectionViewDelegateFlowLayout {
-    let digitsLabel = UILabel()
-    let lettersLabel = UILabel()
+    let digitsLabel: UILabel = {
+        let _digitsLabel = UILabel()
+        _digitsLabel.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? .systemFont(ofSize: 24) : .systemFont(ofSize: 28)
+        _digitsLabel.textColor = .black
+        _digitsLabel.textAlignment = .center
+        return _digitsLabel
+    }()
+
+    let lettersLabel: UILabel = {
+        let _lettersLabel = UILabel()
+        _lettersLabel.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? .systemFont(ofSize: 8) : .systemFont(ofSize: 10)
+        _lettersLabel.textAlignment = .center
+
+        return _lettersLabel
+    }()
+
+    let labelContainer: UIStackView = {
+        let _labelContainer = UIStackView()
+        _labelContainer.translatesAutoresizingMaskIntoConstraints = false
+        _labelContainer.axis = .vertical
+        return _labelContainer
+    }()
 
     override var isHighlighted: Bool {
         didSet {
@@ -22,22 +47,13 @@ class KeyCellView: UICollectionViewCell, UICollectionViewDelegateFlowLayout {
         super.init(frame: frame)
         backgroundColor = .darkBlueWithOpacity
 
-        digitsLabel.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? .systemFont(ofSize: 24) : .systemFont(ofSize: 30)
-        digitsLabel.textColor = .black
-        digitsLabel.textAlignment = .center
+        labelContainer.addArrangedSubview(digitsLabel)
+        labelContainer.addArrangedSubview(lettersLabel)
 
-        lettersLabel.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? .systemFont(ofSize: 8) : .systemFont(ofSize: 13)
-        lettersLabel.textAlignment = .center
-
-        let stackView = UIStackView(arrangedSubviews: [digitsLabel, lettersLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-
-        contentView.addSubview(stackView)
-
+        contentView.addSubview(labelContainer)
         NSLayoutConstraint.activate([
-            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            labelContainer.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            labelContainer.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
     }
 
@@ -50,10 +66,21 @@ class KeyCellView: UICollectionViewCell, UICollectionViewDelegateFlowLayout {
 
         layer.cornerRadius = self.frame.width / 2
     }
+
+    func setCellLabels(digitsLabel: String, lettersLabel: String) {
+        self.digitsLabel.text = digitsLabel
+        self.lettersLabel.text = lettersLabel
+    }
 }
 
-class CallIconCell: UICollectionViewCell {
-    let imageView  = UIImageView(image: UIImage(named: "call"))
+class PhoneCell: UICollectionViewCell {
+    let imageView: UIImageView = {
+        let _imageView = UIImageView(image: UIImage(named: "call"))
+        _imageView.contentMode = .scaleAspectFit
+        _imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        return  _imageView
+    }()
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -62,18 +89,14 @@ class CallIconCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .blue
+        backgroundColor = .darkBlue
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = self.frame.width / 2
 
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
         addSubview(imageView)
-
         NSLayoutConstraint.activate([
             imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
@@ -82,12 +105,17 @@ class CallIconCell: UICollectionViewCell {
 }
 
 class BackspaceCell: UICollectionViewCell {
-    let imageView = UIImageView(image: UIImage(named: "erase"))
+    let imageView: UIImageView = {
+        let _imageView = UIImageView(image: UIImage(named: "erase"))
+        _imageView.contentMode = .scaleAspectFit
+        _imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        return _imageView
+    }()
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -97,11 +125,7 @@ class BackspaceCell: UICollectionViewCell {
         super.layoutSubviews()
         layer.cornerRadius = self.frame.width / 2
 
-        imageView.contentMode = .scaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-
         addSubview(imageView)
-
         NSLayoutConstraint.activate([
             imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
@@ -109,143 +133,150 @@ class BackspaceCell: UICollectionViewCell {
     }
 }
 
-class DialedNumbersHeader: UICollectionReusableView {
-    let numbersLabel = UILabel()
+class PhoneViewHeader: UICollectionReusableView {
+    let inputLabel: UILabel = {
+        let _inputLabel = UILabel()
+        _inputLabel.textAlignment = .center
+        _inputLabel.adjustsFontSizeToFitWidth = true
+        _inputLabel.font = .systemFont(ofSize: 40)
+        _inputLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        return _inputLabel
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        numbersLabel.textAlignment = .center
-        numbersLabel.adjustsFontSizeToFitWidth = true
-        numbersLabel.font = .systemFont(ofSize: 40)
-        numbersLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        addSubview(numbersLabel)
-
+        addSubview(inputLabel)
         NSLayoutConstraint.activate([
-            numbersLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-            numbersLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
-            numbersLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
-            numbersLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
+            inputLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
+            inputLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
+            inputLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            inputLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
         ])
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    func setInputValue(inputValue: String) {
+        inputLabel.text = inputValue
+    }
 }
 
 class PhoneViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    fileprivate let cellId = "cellId"
-    fileprivate let cellCallId = "cellCallId"
-    fileprivate let backspaceCellId = "backspaceCellId"
-    fileprivate let headerId = "headerId"
-    private var inputString = ""
+    private let cellId = "cellId"
+    private let phoneCellId = "phoneCellId"
+    private let backspaceCellId = "backspaceCellId"
+    private let headerId = "headerId"
+    private var inputValue = ""
 
-    let number = [
-        "1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"
-    ]
+    let FIRST_SECTION_KEYS_COUNT = 9
+    let SECOND_SECTION_KEYS_COUNT = 2
 
-    let lettering = [
-        "", "A B C", "D E F", "G H I", "J K L", "M N O", "P Q R S", "T U V", "W X Y Z", "", "+", ""
-    ]
+    private var accountViewModel: AccountViewModel = AccountViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(KeyCellView.self, forCellWithReuseIdentifier: cellId)
-        collectionView.register(CallIconCell.self, forCellWithReuseIdentifier: cellCallId)
+        collectionView.register(PhoneCell.self, forCellWithReuseIdentifier: phoneCellId)
         collectionView.register(BackspaceCell.self, forCellWithReuseIdentifier: backspaceCellId)
-        collectionView.register(DialedNumbersHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
+        collectionView.register(PhoneViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
     }
+}
 
 
-
+extension PhoneViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
     //MARK: number of items
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == 1 {
-            return 2
-        }
-        return number.count
+        return section == 0 ? FIRST_SECTION_KEYS_COUNT : SECOND_SECTION_KEYS_COUNT
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 1 {
+        if indexPath.section == 0 {
+            let phoneDigits = accountViewModel.getPhoneDigits()
+            let phoneLetters = accountViewModel.getPhoneLetters()
 
-            if indexPath.item == 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellCallId, for: indexPath) as! CallIconCell
-                return cell
-            } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: backspaceCellId, for: indexPath) as! BackspaceCell
-                return cell
-            }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! KeyCellView
+            cell.setCellLabels(digitsLabel: phoneDigits[indexPath.item], lettersLabel: phoneLetters[indexPath.item])
+            return cell
         }
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! KeyCellView
-        cell.digitsLabel.text = number[indexPath.item]
-        cell.lettersLabel.text = lettering[indexPath.item]
-        return cell
+        if indexPath.section == 1 && indexPath.item == 0 {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: phoneCellId, for: indexPath) as! PhoneCell
+        } else {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: backspaceCellId, for: indexPath) as! BackspaceCell
+        }
     }
 
+    //MARK: return header view
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as! DialedNumbersHeader
-        header.numbersLabel.text = inputString
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as! PhoneViewHeader
+        header.setInputValue(inputValue: inputValue)
         return header
     }
 
+    //MARK: return size of section header
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if section == 1 {
-            return .zero
-        }
-        let height = view.frame.height * 0.15
-        return .init(width: view.frame.width, height: height)
+        return section == 0 ? .init(
+            width: view.frame.width,
+            height: view.frame.height * 0.15
+        ) : .zero
     }
 
-    //MARK: return size for 'Page' section
+    //MARK: return size for item
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAt: IndexPath) -> CGSize {
-        let leftRightPadding = view.frame.width * 0.13
-        let interSpacing = view.frame.width * 0.1
-
-
-        let cellWidth = (view.frame.width - 2 * leftRightPadding - 2 * interSpacing) / 3
-        return .init(width: cellWidth, height: cellWidth)
+        let cellSize = self.getCellSize()
+        return .init(width: cellSize.width, height: cellSize.height)
     }
 
+    //MARK: On item select
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item == 1 {
-            if indexPath.section == 1  {
-                inputString = String(inputString.dropLast())
-            }
+        if indexPath.section == 1 && indexPath.item == 0 {
+            accountViewModel.callByNumber(number: inputValue)
+            return
+        }
+
+        if indexPath.section == 0 {
+            let phoneDigits = accountViewModel.getPhoneDigits()
+            inputValue += phoneDigits[indexPath.item]
         } else {
-            inputString += number[indexPath.item]
+            inputValue = String(inputValue.dropLast())
         }
 
         collectionView.reloadData()
     }
 
+    //MARK: Min Space between sections
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 16
     }
 
+
+    //TODO: refactor
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let leftRightPadding = view.frame.width * 0.15
 
         if section == 1 {
-            let leftRightPadding = view.frame.width * 0.13
-            let interSpacing = view.frame.width * 0.1
-
-
-            let cellWidth = (view.frame.width - 2 * leftRightPadding - 2 * interSpacing) / 3
-
-            let leftPadding = view.frame.width / 2 - cellWidth / 2
+            let cellSize = self.getCellSize()
+            let leftPadding = view.frame.width / 2 - cellSize.width / 2
             return .init(top: 0, left: leftPadding, bottom: 0, right: leftRightPadding)
         }
 
-        let leftRightPadding = view.frame.width * 0.15
-        //let interSpacing = view.frame.width * 0.1
+        return .init(top: 0, left: leftRightPadding, bottom: 16, right: leftRightPadding)
+    }
 
-        return .init(top: 16, left: leftRightPadding, bottom: 16, right: leftRightPadding)
+
+    func getCellSize() -> UIDimension {
+        let leftRightPadding = view.frame.width * 0.15
+        let interSpacing = view.frame.width * 0.1
+        let itemWidth = (view.frame.width - 2 * leftRightPadding - 2 * interSpacing) / 3
+
+        return UIDimension(width: itemWidth, height: itemWidth)
     }
 }

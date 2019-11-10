@@ -111,3 +111,18 @@ class AccountViewModel {
         self.activeAccountNumber!.conversationList = mockConversationList
     }
 }
+
+//MARK: Phone View Model
+extension AccountViewModel {
+    func getPhoneDigits() -> [String] {
+        return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"]
+    }
+
+    func getPhoneLetters() -> [String] {
+        return ["", "A B C", "D E F", "G H I", "J K L", "M N O", "P Q R S", "T U V", "W X Y Z", "", "+", ""]
+    }
+
+    func callByNumber(number: String) {
+        //Call
+    }
+}
