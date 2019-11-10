@@ -123,6 +123,8 @@ extension AccountViewModel {
     }
 
     func callByNumber(number: String) {
-        //Call
+        if let url = URL(string: "tel://\(number)"), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
     }
 }

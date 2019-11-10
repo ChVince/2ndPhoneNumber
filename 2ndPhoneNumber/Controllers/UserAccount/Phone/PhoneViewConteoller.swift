@@ -149,8 +149,8 @@ class PhoneViewHeader: UICollectionReusableView {
 
         addSubview(inputLabel)
         NSLayoutConstraint.activate([
-            inputLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-            inputLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
+            inputLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            inputLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 16),
             inputLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             inputLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
         ])
@@ -268,7 +268,7 @@ extension PhoneViewController {
             return .init(top: 0, left: leftPadding, bottom: 0, right: leftRightPadding)
         }
 
-        return .init(top: 0, left: leftRightPadding, bottom: 16, right: leftRightPadding)
+        return .init(top: 32, left: leftRightPadding, bottom: 16, right: leftRightPadding)
     }
 
 
