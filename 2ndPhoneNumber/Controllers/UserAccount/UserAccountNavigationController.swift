@@ -17,9 +17,9 @@ class UserAccountNavigationController: UITabBarController {
         self.viewControllers = [
             //ConversationListNavigationController(),
             //RecentCallsNavigationController(),
-            PhoneNavigationController(),
+            //PhoneNavigationController(),
             //ContactsNavigationController(),
-            //ProfileNavigationController()
+            ProfileNavigationController()
         ]
 
         setupTabBars()

@@ -9,9 +9,9 @@
 import UIKit
 
 let MockAccountNumbers = [
-    AccountNumber(number: "+57575757575", isRequireAddress: false, isActive: true),
-    AccountNumber(number: "+5757575757342345", isRequireAddress: false, isActive: false),
-    AccountNumber(number: "+575757234235757342345", isRequireAddress: false, isActive: false)
+    AccountNumber(countryCode: "US", number: "+57575757575", isRequireAddress: false, isActive: true),
+    AccountNumber(countryCode: "US", number: "+5757575757342345", isRequireAddress: false, isActive: false),
+    AccountNumber(countryCode: "US", number: "+375 29 1744609", isRequireAddress: false, isActive: false)
 ]
 
 var mockContactList = [
@@ -123,8 +123,16 @@ extension AccountViewModel {
     }
 
     func callByNumber(number: String) {
-        if let url = URL(string: "tel://\(number)"), UIApplication.shared.canOpenURL(url) {
+        if let url = URL(string: "https://google.com"), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
     }
 }
+
+//MARK: Profile View Model
+extension AccountViewModel {
+    func getAccountNumbers() -> [AccountNumber] {
+        return self.accountNumbers
+    }
+}
+

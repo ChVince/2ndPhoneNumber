@@ -13,8 +13,8 @@ class AccountNumber: AreaNumber {
     var contactList: [Contact]?
     var isActive = false
     
-    init(number: String, isRequireAddress: Bool, isActive: Bool) {
-        super.init(number: number, isRequireAddress: isRequireAddress)
+    init(countryCode: String, number: String, isRequireAddress: Bool, isActive: Bool) {
+        super.init(countryCode: countryCode, number: number, isRequireAddress: isRequireAddress)
         self.isActive = isActive
     }
 

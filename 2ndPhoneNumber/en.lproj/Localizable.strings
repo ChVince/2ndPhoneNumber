@@ -36,3 +36,14 @@
 "label.account.contacts.title" = "Contacts";
 "label.account.contacts.all" = "contacts";
 "label.account.contacts.phone" = "Phone contacts";
+
+"label.number.active" = "Active";
+"label.number.not.active" = "Not Active";
+
+"label.profile.balance" = "Top up your balance";
+"label.profile.privacy" = "Privacy Policy";
+"label.profile.terms.of.use" = "Terms of use";
+"label.profile.support" = "Techical Support";
+"label.profile.share" = "Share";
+"label.profile.number.messages" = "Messages";
+"label.profile.number.recents" = "Recents";

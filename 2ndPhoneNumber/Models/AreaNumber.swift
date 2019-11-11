@@ -9,10 +9,12 @@
 import Foundation
 
 public class AreaNumber: Decodable {
+    let countryCode: String
     let number: String
     let isRequireAddress: Bool
 
-    init(number: String, isRequireAddress: Bool) {
+    init(countryCode: String ,number: String, isRequireAddress: Bool) {
+        self.countryCode = countryCode
         self.number = number
         self.isRequireAddress = isRequireAddress
     }
