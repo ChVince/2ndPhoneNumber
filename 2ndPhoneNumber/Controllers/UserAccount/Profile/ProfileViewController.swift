@@ -7,22 +7,25 @@
 //
 
 import UIKit
-import WebKit
 import FlagKit
 
 private struct MenuItemDescription {
+    var itemId: Int
     var imageName: String
     var menuLabel: String
 }
 
-class ProfileViewController: UIViewController, WKUIDelegate {
+class ProfileViewController: UIViewController {
     let accountViewModel: AccountViewModel = AccountViewModel()
+    let PRIVACY_URL = URL(string: "https://google.com")!
+    let SUPPORT_URL = URL(string: "https://google.com")!
+    let TERMS_URL = URL(string: "https://google.com")!
 
     private let menuDescriptionList = [
-        MenuItemDescription(imageName: "privacy", menuLabel: NSLocalizedString("label.profile.privacy", comment: "")),
-        MenuItemDescription(imageName: "terms", menuLabel: NSLocalizedString("label.profile.terms.of.use", comment: "")),
-        MenuItemDescription(imageName: "support", menuLabel: NSLocalizedString("label.profile.support", comment: "")),
-        MenuItemDescription(imageName: "share", menuLabel: NSLocalizedString("label.profile.share", comment: ""))
+        MenuItemDescription(itemId: 0, imageName: "privacy", menuLabel: NSLocalizedString("label.profile.privacy", comment: "")),
+        MenuItemDescription(itemId: 1, imageName: "terms", menuLabel: NSLocalizedString("label.profile.terms.of.use", comment: "")),
+        MenuItemDescription(itemId: 2, imageName: "support", menuLabel: NSLocalizedString("label.profile.support", comment: "")),
+        MenuItemDescription(itemId: 3, imageName: "share", menuLabel: NSLocalizedString("label.profile.share", comment: ""))
     ]
 
     let numberListView: UIStackView = {
@@ -163,8 +166,6 @@ class ProfileViewController: UIViewController, WKUIDelegate {
             ])
         })
 
-
-
         NSLayoutConstraint.activate([
             menuView.topAnchor.constraint(equalTo: topBallanceButton.bottomAnchor, constant: 20),
             menuView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
@@ -197,6 +198,7 @@ class ProfileViewController: UIViewController, WKUIDelegate {
             menuItemView.heightAnchor.constraint(equalTo: menuItemViewContainer.heightAnchor)
         ])
 
+        assignHandlerToMenuItem(menuItemViewContainer: menuItemViewContainer, menuItemDescription: menuItemDescription)
         return menuItemViewContainer
     }
 
@@ -313,6 +315,40 @@ class ProfileViewController: UIViewController, WKUIDelegate {
         }
 
         return numberTagView
+    }
+
+    fileprivate func assignHandlerToMenuItem(menuItemViewContainer: UIView, menuItemDescription: MenuItemDescription) {
+        let tapGesture: UITapGestureRecognizer
+        switch menuItemDescription.itemId {
+        case 0:
+            tapGesture = UITapGestureRecognizer(target: self, action: #selector(onPrivacyTap(sender:)))
+        case 1:
+            tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTermsTap(sender:)))
+        case 2:
+            tapGesture = UITapGestureRecognizer(target: self, action: #selector(onSupportTap(sender:)))
+        case 3:
+            tapGesture = UITapGestureRecognizer(target: self, action: #selector(onShareTap(sender:)))
+        default:
+            return
+        }
+
+        menuItemViewContainer.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func onPrivacyTap(sender: UITapGestureRecognizer) {
+        present(PrivacyViewController(url: PRIVACY_URL), animated: true)
+    }   
+
+    @objc func onTermsTap(sender: UITapGestureRecognizer) {
+        present(TermsViewController(url: TERMS_URL), animated: true)
+    }
+
+    @objc func onSupportTap(sender: UITapGestureRecognizer) {
+        present(SupportViewController(url: SUPPORT_URL), animated: true)
+    }
+
+    @objc func onShareTap(sender: UITapGestureRecognizer) {
+
     }
 
 }
