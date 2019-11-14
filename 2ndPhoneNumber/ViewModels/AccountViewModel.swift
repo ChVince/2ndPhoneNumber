@@ -15,7 +15,14 @@ let MockAccountNumbers = [
 ]
 
 var mockContactList = [
-    Contact(contactId:"test", name: "Jack", surname: "Doe", image: "contactJack", number: "+57575757575")
+    Contact(contactId:"test", name: "Jack", surname: "Doe", image: "contactJack", number: "+57575757575"),
+    Contact(contactId:"test", name: "Yelizar", surname: "Doe", image: "contactJack", number: "+57575757575"),
+    Contact(contactId:"test", name: "Ihnat", surname: "Doe", image: "contactJack", number: "+57575757575"),
+    Contact(contactId:"test", name: "Iliya", surname: "Doe", image: "contactJack", number: "+57575757575"),
+    Contact(contactId:"test", name: "Peter", surname: "Doe", image: "contactJack", number: "+57575757575"),
+    Contact(contactId:"test", name: "Admin", surname: "Doe", image: "contactJack", number: "+57575757575"),
+    Contact(contactId:"test", name: "Loh", surname: "Doe", image: "contactJack", number: "+57575757575"),
+    Contact(contactId:"test", name: "kot", surname: "Doe", image: "contactJack", number: "+57575757575")
 ]
 
 var mockConversationList = [
@@ -52,6 +59,11 @@ class AccountViewModel {
         didSet {
             self.fetchActiveNumberData()
             self.refreshConversationCellDataList()
+        }
+    }
+    var contactList: [Contact] {
+        get {
+            return mockContactList
         }
     }
 
@@ -122,11 +134,22 @@ extension AccountViewModel {
         return ["", "A B C", "D E F", "G H I", "J K L", "M N O", "P Q R S", "T U V", "W X Y Z", "", "+", ""]
     }
 
+    func callTo(contact: Contact) {
+        if let url = URL(string: "https://google.com"), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        }
+    }
+
     func callByNumber(number: String) {
         if let url = URL(string: "https://google.com"), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
     }
+
+    func sendMessageTo(contact: Contact) {
+        //TODO: Implement
+    }
+
 }
 
 //MARK: Profile View Model
@@ -135,4 +158,3 @@ extension AccountViewModel {
         return self.accountNumbers
     }
 }
-

@@ -16,7 +16,7 @@ private struct MenuItemDescription {
 }
 
 class ProfileViewController: UIViewController {
-    let accountViewModel: AccountViewModel = AccountViewModel()
+    var accountViewModel: AccountViewModel!
     let PRIVACY_URL = URL(string: "https://google.com")!
     let SUPPORT_URL = URL(string: "https://google.com")!
     let TERMS_URL = URL(string: "https://google.com")!
@@ -84,6 +84,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .lightGrayF2
+        self.navigationItem.title = NSLocalizedString("label.profile.title", comment: "")
 
         setupLayout()
     }

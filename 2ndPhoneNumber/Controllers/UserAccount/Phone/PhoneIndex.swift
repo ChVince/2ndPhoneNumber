@@ -9,19 +9,18 @@
 import UIKit
 
 class PhoneNavigationController: UINavigationController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        let layout: UICollectionViewLayout = UICollectionViewFlowLayout()
-        
-        self.viewControllers = [PhoneViewController(collectionViewLayout: layout)]
-        setupTabBarItem()
+    var accountViewModel: AccountViewModel! {
+        didSet {
+            setupViewControllers()
+        }
     }
 
-    func setupTabBarItem() {
-        self.tabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage(named: "phone"),
-            selectedImage: UIImage(named: "phone-pressed")
-        )
+    func setupViewControllers() {
+        let layout: UICollectionViewLayout = UICollectionViewFlowLayout()
+
+        let phoneViewController = PhoneViewController(collectionViewLayout: layout)
+        phoneViewController.accountViewModel = accountViewModel
+
+        self.viewControllers = [phoneViewController]
     }
 }

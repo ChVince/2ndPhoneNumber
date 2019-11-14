@@ -40,6 +40,7 @@
 "label.number.active" = "Active";
 "label.number.not.active" = "Not Active";
 
+"label.profile.title" = "My Account";
 "label.profile.balance" = "Top up your balance";
 "label.profile.privacy" = "Privacy Policy";
 "label.profile.terms.of.use" = "Terms of use";
@@ -47,3 +48,9 @@
 "label.profile.share" = "Share";
 "label.profile.number.messages" = "Messages";
 "label.profile.number.recents" = "Recents";
+
+"label.account.contacts.title" = "Contacts";
+"label.account.contacts.search" = "Search contact";
+
+"label.account.contact.title" = "Contact";
+"label.contact.edit" = "Edit";

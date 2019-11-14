@@ -14,4 +14,8 @@ struct Contact {
     var surname: String
     var image: String
     var number: String
+
+    func getContactName() -> String {
+        return "\(name) \(surname)"
+    }
 }

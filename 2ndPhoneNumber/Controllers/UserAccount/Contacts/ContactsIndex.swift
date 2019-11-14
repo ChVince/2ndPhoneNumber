@@ -9,17 +9,16 @@
 import UIKit
 
 class ContactsNavigationController: UINavigationController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.viewControllers = [ContactsViewController()]
-        setupTabBarItem()
+    var accountViewModel: AccountViewModel! {
+        didSet {
+            setupViewControllers()
+        }
     }
 
-    func setupTabBarItem() {
-        self.tabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage(named: "contacts"),
-            selectedImage: UIImage(named: "contacts-pressed")
-        )
+    func setupViewControllers() {
+        let contactsViewController = ContactsViewController()
+        contactsViewController.accountViewModel = accountViewModel
+
+        self.viewControllers = [contactsViewController]
     }
 }

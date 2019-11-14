@@ -85,8 +85,6 @@ class StateListViewController: AddNumberViewController, UISearchResultsUpdating 
         }
     }
 
-
-
     func updateSearchResults(for searchController: UISearchController) {
            let searchBar = searchController.searchBar
            let searchText = searchBar.text!

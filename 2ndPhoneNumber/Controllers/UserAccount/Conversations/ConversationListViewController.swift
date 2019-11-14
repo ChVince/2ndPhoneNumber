@@ -81,7 +81,7 @@ class ConversationListViewCell: UITableViewCell {
 }
 
 class ConversationListViewController: UITableViewController {
-    var accountViewModel = AccountViewModel()
+    var accountViewModel: AccountViewModel!
     let reusableCellId = "cellId"
 
     override func viewDidLoad() {

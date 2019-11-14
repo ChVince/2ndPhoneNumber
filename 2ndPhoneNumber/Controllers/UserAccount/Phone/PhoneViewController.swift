@@ -175,7 +175,7 @@ class PhoneViewController: UICollectionViewController, UICollectionViewDelegateF
     let FIRST_SECTION_KEYS_COUNT = 9
     let SECOND_SECTION_KEYS_COUNT = 2
 
-    private var accountViewModel: AccountViewModel = AccountViewModel()
+    var accountViewModel: AccountViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -258,7 +258,6 @@ extension PhoneViewController {
     }
 
 
-    //TODO: refactor
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let leftRightPadding = view.frame.width * 0.15
 
@@ -273,7 +272,7 @@ extension PhoneViewController {
 
 
     func getCellSize() -> UIDimension {
-        let leftRightPadding = view.frame.width * 0.15
+        let leftRightPadding = view.frame.width * 0.1
         let interSpacing = view.frame.width * 0.1
         let itemWidth = (view.frame.width - 2 * leftRightPadding - 2 * interSpacing) / 3
 

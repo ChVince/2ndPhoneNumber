@@ -161,9 +161,9 @@ class CountryListViewController: AddNumberViewController, UISearchResultsUpdatin
 
 
     func updateSearchResults(for searchController: UISearchController) {
-           let searchBar = searchController.searchBar
-           let searchText = searchBar.text!
-           setupNumberViewModel.setFilteredList(filterBy: searchText)
-           tableView.reloadData()
-       }
+        let searchBar = searchController.searchBar
+        let searchText = searchBar.text!
+        setupNumberViewModel.setFilteredList(filterBy: searchText)
+        tableView.reloadData()
+    }
 }

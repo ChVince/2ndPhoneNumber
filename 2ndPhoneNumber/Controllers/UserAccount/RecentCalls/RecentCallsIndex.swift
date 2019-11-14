@@ -9,17 +9,16 @@
 import UIKit
 
 class RecentCallsNavigationController: UINavigationController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.viewControllers = [RecentCallsViewController()]
-        setupTabBarItem()
+    var accountViewModel: AccountViewModel! {
+        didSet {
+            setupViewControllers()
+        }
     }
 
-    func setupTabBarItem() {
-        self.tabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage(named: "calls"),
-            selectedImage: UIImage(named: "calls-pressed")
-        )
+    func setupViewControllers() {
+        let recentCallsViewController = RecentCallsViewController()
+        // recentCallsViewController.accountViewModel = accountViewModel
+
+        self.viewControllers = [recentCallsViewController]
     }
 }

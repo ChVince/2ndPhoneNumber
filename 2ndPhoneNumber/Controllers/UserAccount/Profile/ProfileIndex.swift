@@ -9,17 +9,16 @@
 import UIKit
 
 class ProfileNavigationController: UINavigationController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.viewControllers = [ProfileViewController()]
-        setupTabBarItem()
+    var accountViewModel: AccountViewModel! {
+        didSet {
+            setupViewControllers()
+        }
     }
 
-    func setupTabBarItem() {
-        self.tabBarItem = UITabBarItem(
-            title: nil,
-            image: UIImage(named: "profile"),
-            selectedImage: UIImage(named: "profile-pressed")
-        )
+    func setupViewControllers() {
+        let profileViewController = ProfileViewController()
+        profileViewController.accountViewModel = accountViewModel
+
+        self.viewControllers = [profileViewController]
     }
 }
