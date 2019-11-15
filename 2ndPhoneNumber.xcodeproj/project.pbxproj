@@ -37,6 +37,8 @@
 		481EBAE5237C1B7300922745 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAE4237C1B7300922745 /* UIImage.swift */; };
 		481EBAE7237C2C4300922745 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAE6237C2C4300922745 /* UIImageView.swift */; };
 		481EBAE9237C32E100922745 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAE8237C32E100922745 /* ContactViewController.swift */; };
+		481EBAEB237ED5F700922745 /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAEA237ED5F700922745 /* RecentViewController.swift */; };
+		481EBAED237EFF1B00922745 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAEC237EFF1B00922745 /* UIView.swift */; };
 		484716DD2358B5BB001D13E8 /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716DC2358B5BB001D13E8 /* TagLabel.swift */; };
 		484716E6235B17A9001D13E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 484716E8235B17A9001D13E8 /* Localizable.strings */; };
 		484716EA235B761B001D13E8 /* AddNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716E9235B761B001D13E8 /* AddNumberViewController.swift */; };
@@ -96,6 +98,8 @@
 		481EBAE4237C1B7300922745 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		481EBAE6237C2C4300922745 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		481EBAE8237C32E100922745 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
+		481EBAEA237ED5F700922745 /* RecentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentViewController.swift; sourceTree = "<group>"; };
+		481EBAEC237EFF1B00922745 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		484716DC2358B5BB001D13E8 /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		484716E3235B1747001D13E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		484716E7235B17A9001D13E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 				481EBAD8237323A700922745 /* UIDevice.swift */,
 				481EBAE4237C1B7300922745 /* UIImage.swift */,
 				481EBAE6237C2C4300922745 /* UIImageView.swift */,
+				481EBAEC237EFF1B00922745 /* UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -326,6 +331,7 @@
 			children = (
 				481EBABB236F3DED00922745 /* RecentCallsIndex.swift */,
 				481EBABD236F3ECF00922745 /* RecentCallsViewController.swift */,
+				481EBAEA237ED5F700922745 /* RecentViewController.swift */,
 			);
 			path = RecentCalls;
 			sourceTree = "<group>";
@@ -480,10 +486,12 @@
 				48EABCA1236F070F00205923 /* ConversationListViewController.swift in Sources */,
 				48723BCB235496310064AA14 /* AreaNumber.swift in Sources */,
 				481EBACF2372F6F200922745 /* PhoneIndex.swift in Sources */,
+				481EBAEB237ED5F700922745 /* RecentViewController.swift in Sources */,
 				48EABC9D236EE5C900205923 /* Address.swift in Sources */,
 				48022AA923409940002F009F /* SubscribeViewController.swift in Sources */,
 				481EBAE9237C32E100922745 /* ContactViewController.swift in Sources */,
 				48022AAF23409C27002F009F /* StateListVIewController.swift in Sources */,
+				481EBAED237EFF1B00922745 /* UIView.swift in Sources */,
 				481EBAD12372F70700922745 /* PhoneViewController.swift in Sources */,
 				481EBAE5237C1B7300922745 /* UIImage.swift in Sources */,
 				481EBADD237ACDF300922745 /* TermsViewController.swift in Sources */,

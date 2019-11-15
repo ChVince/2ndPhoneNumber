@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecentCallsNavigationController: UINavigationController {
+class ConversationListNavigationController: UINavigationController {
     var accountViewModel: AccountViewModel! {
         didSet {
             setupViewControllers()
@@ -16,9 +16,9 @@ class RecentCallsNavigationController: UINavigationController {
     }
 
     func setupViewControllers() {
-        let recentCallsViewController = RecentCallsViewController()
-        recentCallsViewController.accountViewModel = accountViewModel
+        let conversationListViewController = ConversationListViewController()
+        conversationListViewController.accountViewModel = accountViewModel
 
-        self.viewControllers = [recentCallsViewController]
+        self.viewControllers = [conversationListViewController]
     }
 }

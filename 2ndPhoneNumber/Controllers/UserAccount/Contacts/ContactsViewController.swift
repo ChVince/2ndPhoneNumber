@@ -84,7 +84,6 @@ class ContactsViewController: UITableViewController, UISearchResultsUpdating {
         searchController.searchBar.placeholder = NSLocalizedString("label.account.contacts.search", comment: "")
         searchController.searchResultsUpdater = self
 
-
         searchController.searchBar.setScopeBarButtonTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.systemGray
         ], for: .normal)
@@ -114,23 +113,23 @@ class ContactsViewController: UITableViewController, UISearchResultsUpdating {
 
 extension ContactsViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           let contactViewController = ContactViewController()
-           navigationController?.pushViewController(contactViewController, animated: true)
-           contactViewController.accountViewModel = accountViewModel
-       }
+        let contactViewController = ContactViewController()
+        navigationController?.pushViewController(contactViewController, animated: true)
+        contactViewController.accountViewModel = accountViewModel
+    }
 
-       override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           return accountViewModel.contactList.count
-       }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return accountViewModel.contactList.count
+    }
 
-       override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-           let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ContactViewCell.self), for: indexPath) as! ContactViewCell
-           cell.contact = accountViewModel.contactList[indexPath.item]
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ContactViewCell.self), for: indexPath) as! ContactViewCell
+        cell.contact = accountViewModel.contactList[indexPath.item]
 
-           return cell
-       }
+        return cell
+    }
 
-       func updateSearchResults(for searchController: UISearchController) {
-           // TODO implement
-       }
+    func updateSearchResults(for searchController: UISearchController) {
+        // TODO implement
+    }
 }

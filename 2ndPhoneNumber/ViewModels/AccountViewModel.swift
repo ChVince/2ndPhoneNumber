@@ -42,23 +42,33 @@ var mockMessageList2 = [
     Message(date: Date.init(), message: "Luka))", author: .COLLOCUTOR)
 ]
 
+var mockRecentsList = [
+    Call(contactId:"test", date: Date(), status: .INCOMING),
+    Call(contactId:"test", date: Date(), status: .INCOMING),
+    Call(contactId:"test", date: Date(), status: .INCOMING),
+    Call(contactId:"test", date: Date(), status: .INCOMING),
+    Call(contactId:"test", date: Date(), status: .INCOMING),
+]
+
 struct ConversationCellData {
     var contact: Contact
     var topMessage: Message
 }
 
-struct CallCellData {
+struct RecentCellData {
     var contact: Contact
-    var topCall: Message
+    var call: Call
 }
 
 class AccountViewModel {
     var conversationCellDataList: [ConversationCellData] = []
+    var recentsCellDataList: [RecentCellData] = []
     var accountNumbers: [AccountNumber]
     var activeAccountNumber: AccountNumber? {
         didSet {
             self.fetchActiveNumberData()
             self.refreshConversationCellDataList()
+            self.refreshRecentsCellDataList()
         }
     }
     var contactList: [Contact] {
@@ -73,6 +83,7 @@ class AccountViewModel {
 
         self.fetchActiveNumberData()
         self.refreshConversationCellDataList()
+        self.refreshRecentsCellDataList()
     }
 
     func getActiveNumber() -> AccountNumber {
@@ -106,6 +117,18 @@ class AccountViewModel {
 
         self.conversationCellDataList = conversationCellDataList
     }
+
+    func refreshRecentsCellDataList() {
+           var recentsCellDataList: [RecentCellData] = []
+
+           for recent in mockRecentsList {
+               let contact = self.activeAccountNumber!.contactList?[0]
+               let recentCellData = RecentCellData(contact: contact!, call: recent)
+               recentsCellDataList.append(recentCellData)
+           }
+
+           self.recentsCellDataList = recentsCellDataList
+       }
 
     func fetchActiveNumberData() {
         fetchContacts()
@@ -158,3 +181,5 @@ extension AccountViewModel {
         return self.accountNumbers
     }
 }
+
+//MARK: Recents View Model

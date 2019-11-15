@@ -46,8 +46,14 @@
 "label.profile.terms.of.use" = "Terms of use";
 "label.profile.support" = "Techical Support";
 "label.profile.share" = "Share";
+
 "label.profile.number.messages" = "Messages";
 "label.profile.number.recents" = "Recents";
+
+"label.profile.number.incoming" = "Incoming";
+"label.profile.number.outgoing" = "Outgoing";
+"label.profile.number.missed" = "Missed";
+"label.profile.number.cancelled" = "Cancelled";
 
 "label.account.contacts.title" = "Contacts";
 "label.account.contacts.search" = "Search contact";
