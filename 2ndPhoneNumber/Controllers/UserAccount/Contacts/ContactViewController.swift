@@ -39,7 +39,7 @@ class ContactNumberCell: UITableViewCell {
 
     func setupContactMessageIcon() -> UIButton {
         let setupContactMessageIcon = UIButton(type: .custom)
-        let image = UIImage(named: "call")
+        let image = UIImage(named: "contactCall")
         setupContactMessageIcon.setImage(image, for: .normal)
         setupContactMessageIcon.translatesAutoresizingMaskIntoConstraints = false
 
