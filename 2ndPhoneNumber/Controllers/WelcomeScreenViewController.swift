@@ -32,7 +32,7 @@ class WelcomeScreenController: UIViewController {
 
         setupFutureList()
 
-        getStartedButton.addTarget(self, action: #selector(self.onGetStaredTounch), for: .touchUpInside)
+        getStartedButton.addTarget(self, action: #selector(self.onGetStaredTounch(sender:)), for: .touchUpInside)
 
     }
 
@@ -123,7 +123,7 @@ class WelcomeScreenController: UIViewController {
         return view
     }
 
-  @objc func onGetStaredTounch() {
+    @objc func onGetStaredTounch(sender: UIButton) {
         self.navigationController?.pushViewController(AddressViewController(), animated: true)
     }
 }

@@ -10,6 +10,13 @@
 "label.start.welcome" = "Welcome to";
 "label.app.name" = "2nd Phone Number";
 
+"label.subscribe.restore" = "Restore";
+"label.subscribe.close" = "Close";
+"label.subscribe.subscribe" = "Subscribe";
+"label.subscribe.offer" = "3 days free, then $7.99/week";
+"label.subscribe.terms.of.use" = "Tems of use";
+"label.subscribe.privacy" = "Privacy Policy";
+
 "label.country.search" = "Search country";
 "label.state.search" = "Search state";
 "label.number.search" = "Search number";

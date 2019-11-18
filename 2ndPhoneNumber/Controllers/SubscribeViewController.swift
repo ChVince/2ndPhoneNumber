@@ -8,49 +8,21 @@
 
 import UIKit
 
-
 struct SubscriptionPageData {
     var imageName: String
     var imageTitle: String
     var description: String
-
-    init(_ imageName: String, imageTitle: String, description: String) {
-        self.imageName = imageName
-        self.imageTitle = imageTitle
-        self.description = description
-    }
 }
 
 class SubscribeViewHeader: UIView {
-    let buttonsView: UIStackView = {
-        let _buttonsView = UIStackView()
-        _buttonsView.axis = .horizontal
-        _buttonsView.translatesAutoresizingMaskIntoConstraints = false
-        _buttonsView.distribution = .equalSpacing
-        _buttonsView.alignment = .center
-        return _buttonsView
-    }()
-
-    let restoreButton: UIButton = {
-        let _restoreButton = UIButton()
-        _restoreButton.translatesAutoresizingMaskIntoConstraints = false
-        _restoreButton.setTitle("Restore", for: .normal)
-        _restoreButton.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        _restoreButton.setTitleColor(.black, for: .normal)
-        return _restoreButton
-    }()
-
-    let closeButton: UIButton = {
-        let _closeButton = UIButton()
-        _closeButton.translatesAutoresizingMaskIntoConstraints = false
-        _closeButton.setImage(UIImage(named: "close"), for: .normal)
-        return _closeButton
-    }()
+    var restoreButton: UIButton!
+    var closeButton: UIButton!
 
     override init(frame: CGRect) {
         super.init(frame: frame);
-        setupHandlers()
+
         setupLayout()
+        setupHandlers()
     }
 
     required init?(coder: NSCoder) {
@@ -58,6 +30,42 @@ class SubscribeViewHeader: UIView {
     }
 
     func setupLayout() {
+        restoreButton = setupRestoreButton()
+        closeButton = setupCloseButton()
+
+        setupButtonsView()
+    }
+
+    func setupHandlers() {
+        restoreButton.addTarget(self, action: #selector(self.onRestoreButtonTap(sender:)), for: .touchUpInside)
+        restoreButton.addTarget(self, action: #selector(self.onCloseButtonTap(sender:)), for: .touchUpInside)
+    }
+
+    func setupRestoreButton() -> UIButton {
+        let restoreButton = UIButton()
+        restoreButton.translatesAutoresizingMaskIntoConstraints = false
+        restoreButton.setTitle(NSLocalizedString("label.subscribe.restore", comment: ""), for: .normal)
+        restoreButton.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        restoreButton.setTitleColor(.black, for: .normal)
+
+        return restoreButton
+    }
+
+    func setupCloseButton() -> UIButton {
+        let closeButton = UIButton()
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.setImage(UIImage(named: "label.subscribe.close"), for: .normal)
+
+        return closeButton
+    }
+
+    func setupButtonsView() {
+        let buttonsView = UIStackView()
+        buttonsView.axis = .horizontal
+        buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        buttonsView.distribution = .equalSpacing
+        buttonsView.alignment = .center
+
         buttonsView.addArrangedSubview(restoreButton)
         buttonsView.addArrangedSubview(closeButton)
         self.addSubview(buttonsView)
@@ -70,90 +78,21 @@ class SubscribeViewHeader: UIView {
         ])
     }
 
-    func setupHandlers() {
-        restoreButton.addTarget(self, action: #selector(self.onTouch), for: .touchUpInside)
+
+    @objc func onRestoreButtonTap(sender: UIButton) {
+
     }
 
-    @objc func onTouch() {
-        print("Hello")
-    }
+    @objc func onCloseButtonTap(sender: UIButton) {
 
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let view = super.hitTest(point, with: event)
-        if view != self {
-            return view
-        }
-        return nil
     }
 }
 
 class SubscribeViewFooter: UIView {
-    let pageControl: UIPageControl = {
-        let _pageControl = UIPageControl()
-        _pageControl.currentPage = 0
-        _pageControl.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
-        _pageControl.translatesAutoresizingMaskIntoConstraints = false
-        _pageControl.numberOfPages = 4 // ???
-        _pageControl.currentPageIndicatorTintColor = .darkBlue
-        _pageControl.pageIndicatorTintColor = .darkBlueWithOpacity
-        return _pageControl
-    }()
+    let NUMBER_OF_PAGES = 4
 
-    let subscribeButton: UIButton = {
-        var _subscribeButton = UIButton(type: .system)
-        _subscribeButton.setTitle("SUBSCRIBE", for: .normal)// ??
-        _subscribeButton.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        _subscribeButton.translatesAutoresizingMaskIntoConstraints = false
-        _subscribeButton.backgroundColor = UIColor.darkBlue
-        _subscribeButton.setTitleColor(.white, for: .normal)
-        _subscribeButton.layer.cornerRadius = 28
-        return _subscribeButton
-    }()
-
-    let subscribeButtonLabel: UILabel = {
-        let _subscribeButtonLabel = UILabel()
-        _subscribeButtonLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
-        _subscribeButtonLabel.translatesAutoresizingMaskIntoConstraints = false
-        _subscribeButtonLabel.text = "3 days free, then $7.99/week"
-        _subscribeButtonLabel.textColor = UIColor(red: 104/255, green: 104/255, blue: 104/255, alpha: 1)
-        return _subscribeButtonLabel
-    }()
-
-    let subscribeBottomLabels: UIView = {
-        let _termOfUse = UIButton()
-        let _privacyPolicy = UIButton()
-
-        let attributes : [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12, weight: .light),
-            NSAttributedString.Key.foregroundColor : UIColor.grayLightA1,
-            NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue]
-
-        _termOfUse.setAttributedTitle(NSAttributedString(string: "Term of Use", attributes: attributes), for: .normal)
-        _termOfUse.backgroundColor = .white
-        _privacyPolicy.setAttributedTitle(NSAttributedString(string: "Privacy Policy", attributes: attributes), for: .normal)
-        _privacyPolicy.backgroundColor = .white
-
-        let _subscribeBottomLabels = UIStackView(arrangedSubviews: [_termOfUse, _privacyPolicy])
-        _subscribeBottomLabels.axis = .horizontal
-        _subscribeBottomLabels.distribution = .fillProportionally
-        _subscribeBottomLabels.spacing = 1
-
-        _subscribeBottomLabels.translatesAutoresizingMaskIntoConstraints = false
-
-        let _subscribeBottomLabelsContainer = UIView()
-        _subscribeBottomLabelsContainer.backgroundColor = .grayLightA1
-        _subscribeBottomLabelsContainer.translatesAutoresizingMaskIntoConstraints = false
-        _subscribeBottomLabelsContainer.addSubview(_subscribeBottomLabels)
-
-        NSLayoutConstraint.activate([
-           _subscribeBottomLabels.heightAnchor.constraint(equalToConstant: 15),
-           _subscribeBottomLabels.widthAnchor.constraint(equalToConstant: 180),
-           _subscribeBottomLabels.bottomAnchor.constraint(equalTo: _subscribeBottomLabelsContainer.bottomAnchor, constant: 0),
-           _subscribeBottomLabels.centerXAnchor.constraint(equalTo: _subscribeBottomLabelsContainer.centerXAnchor)
-       ])
-
-        return _subscribeBottomLabelsContainer
-    }()
+    var pageControl: UIPageControl!
+    var subscribeButton: UIButton!
 
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -165,13 +104,26 @@ class SubscribeViewFooter: UIView {
     }
 
     func setupLayout() {
-        setupPageControl()
-        setupSubscribeButton()
+        pageControl = setupPageControl()
+        subscribeButton = setupSubscribeButton()
+
         setupSubscribeLabel()
         setupSubcribeBottomLabels()
     }
 
-    func setupPageControl() {
+    func setupHandlers() {
+
+    }
+
+    func setupPageControl() -> UIPageControl {
+        let pageControl = UIPageControl()
+        pageControl.currentPage = 0
+        pageControl.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.numberOfPages = NUMBER_OF_PAGES
+        pageControl.currentPageIndicatorTintColor = .darkBlue
+        pageControl.pageIndicatorTintColor = .darkBlueWithOpacity
+
         self.addSubview(pageControl)
         NSLayoutConstraint.activate([
             pageControl.topAnchor.constraint(equalTo: self.topAnchor),
@@ -179,9 +131,19 @@ class SubscribeViewFooter: UIView {
             pageControl.widthAnchor.constraint(equalToConstant: 90),
             pageControl.heightAnchor.constraint(equalToConstant: 10)
         ])
+
+        return pageControl
     }
 
-    func setupSubscribeButton() {
+    func setupSubscribeButton() -> UIButton {
+        let subscribeButton = UIButton(type: .system)
+        subscribeButton.setTitle(NSLocalizedString("label.subscribe.subscribe", comment: ""), for: .normal)
+        subscribeButton.titleLabel!.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        subscribeButton.translatesAutoresizingMaskIntoConstraints = false
+        subscribeButton.backgroundColor = UIColor.darkBlue
+        subscribeButton.setTitleColor(.white, for: .normal)
+        subscribeButton.layer.cornerRadius = 28
+
         self.addSubview(subscribeButton)
         NSLayoutConstraint.activate([
             subscribeButton.widthAnchor.constraint(equalToConstant: 218),
@@ -189,9 +151,17 @@ class SubscribeViewFooter: UIView {
             subscribeButton.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: 50),
             subscribeButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
+
+        return subscribeButton
     }
 
     func setupSubscribeLabel() {
+        let subscribeButtonLabel = UILabel()
+        subscribeButtonLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
+        subscribeButtonLabel.translatesAutoresizingMaskIntoConstraints = false
+        subscribeButtonLabel.text = NSLocalizedString("label.subscribe.offer", comment: "")
+        subscribeButtonLabel.textColor = UIColor(red: 104/255, green: 104/255, blue: 104/255, alpha: 1)
+
         self.addSubview(subscribeButtonLabel)
         NSLayoutConstraint.activate([
             subscribeButtonLabel.heightAnchor.constraint(equalToConstant: 17),
@@ -201,50 +171,64 @@ class SubscribeViewFooter: UIView {
     }
 
     func setupSubcribeBottomLabels() {
-        self.addSubview(subscribeBottomLabels)
+        let termOfUse = UIButton()
+        let privacyPolicy = UIButton()
+
+        let attributes : [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12, weight: .light),
+            NSAttributedString.Key.foregroundColor : UIColor.grayLightA1,
+            NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue]
+
+        termOfUse.setAttributedTitle(NSAttributedString(string: NSLocalizedString("label.subscribe.terms.of.use", comment: ""), attributes: attributes), for: .normal)
+        termOfUse.backgroundColor = .white
+        privacyPolicy.setAttributedTitle(NSAttributedString(string: NSLocalizedString("label.subscribe.privacy", comment: ""), attributes: attributes), for: .normal)
+        privacyPolicy.backgroundColor = .white
+
+        let subscribeBottomLabels = UIStackView(arrangedSubviews: [termOfUse, privacyPolicy])
+        subscribeBottomLabels.axis = .horizontal
+        subscribeBottomLabels.distribution = .fillProportionally
+        subscribeBottomLabels.spacing = 1
+
+        subscribeBottomLabels.translatesAutoresizingMaskIntoConstraints = false
+
+        let subscribeBottomLabelsContainer = UIView()
+        subscribeBottomLabelsContainer.backgroundColor = .grayLightA1
+        subscribeBottomLabelsContainer.translatesAutoresizingMaskIntoConstraints = false
+        subscribeBottomLabelsContainer.addSubview(subscribeBottomLabels)
 
         NSLayoutConstraint.activate([
             subscribeBottomLabels.heightAnchor.constraint(equalToConstant: 15),
             subscribeBottomLabels.widthAnchor.constraint(equalToConstant: 180),
-            subscribeBottomLabels.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
-            subscribeBottomLabels.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            subscribeBottomLabels.bottomAnchor.constraint(equalTo: subscribeBottomLabelsContainer.bottomAnchor, constant: 0),
+            subscribeBottomLabels.centerXAnchor.constraint(equalTo: subscribeBottomLabelsContainer.centerXAnchor)
+        ])
+
+        self.addSubview(subscribeBottomLabelsContainer)
+
+        NSLayoutConstraint.activate([
+            subscribeBottomLabelsContainer.heightAnchor.constraint(equalToConstant: 15),
+            subscribeBottomLabelsContainer.widthAnchor.constraint(equalToConstant: 180),
+            subscribeBottomLabelsContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
+            subscribeBottomLabelsContainer.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
     }
-
 }
+
 class SubscribeViewPageCell: UICollectionViewCell {
-    var subscriptionPageData: SubscriptionPageData? {
+    var subscriptionPageData: SubscriptionPageData! {
         didSet {
-            setupPageLayout()
+            setupPageData()
         }
     }
 
-    var imageView: UIImageView = {
-        var _imageView = UIImageView()
-        _imageView.translatesAutoresizingMaskIntoConstraints = false
-        return _imageView
-    }()
-
-    var imageTitleView: UILabel = {
-        var _imageTitleView = UILabel()
-        _imageTitleView.translatesAutoresizingMaskIntoConstraints = false
-        _imageTitleView.font = UIFont(name: "Circe-Bold", size: 33)
-        _imageTitleView.textColor = .darkBlue
-        _imageTitleView.textAlignment = .center
-        return _imageTitleView
-    }()
-
-    var imageDescriptionView: UILabel = {
-        var _imageDescriptionView = UILabel()
-        _imageDescriptionView.translatesAutoresizingMaskIntoConstraints = false
-        _imageDescriptionView.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        _imageDescriptionView.textColor = .black
-        _imageDescriptionView.textAlignment = .center
-        return _imageDescriptionView
-    }()
+    var imageView: UIImageView!
+    var imageTitleView: UILabel!
+    var imageDescriptionView: UILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame);
+
+        setupPageLayout()
     }
 
     required init?(coder: NSCoder) {
@@ -252,84 +236,103 @@ class SubscribeViewPageCell: UICollectionViewCell {
     }
 
     func setupPageLayout() {
-        guard let unwrappedSubscriptionPageData = subscriptionPageData else {
-            return
-        }
-
-        setupImage(imageName: unwrappedSubscriptionPageData.imageName)
-        setupTitle(imageTitle: unwrappedSubscriptionPageData.imageTitle)
-        setupDescription(imageDescription: unwrappedSubscriptionPageData.description)
+        imageView = setupImageView()
+        imageTitleView = setupImageTitle()
+        imageDescriptionView = setupDescription()
     }
 
-
-    func setupImage(imageName: String) {
-        let image = UIImage(named: imageName)
-        imageView.image = image
+    func setupImageView() -> UIImageView {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
 
         self.addSubview(imageView)
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 159),
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
+
+        return imageView
     }
 
-    func setupTitle(imageTitle: String) {
-        imageTitleView.text = imageTitle
+    func setupImageTitle() -> UILabel {
+        let imageTitleView = UILabel()
+        imageTitleView.translatesAutoresizingMaskIntoConstraints = false
+        imageTitleView.font = UIFont(name: "Circe-Bold", size: 33)
+        imageTitleView.textColor = .darkBlue
+        imageTitleView.textAlignment = .center
+
         self.addSubview(imageTitleView)
 
         NSLayoutConstraint.activate([
             imageTitleView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             imageTitleView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
+
+        return imageTitleView
     }
 
-    func setupDescription(imageDescription: String) {
-        imageDescriptionView.text = imageDescription
+    func setupDescription() -> UILabel {
+        let imageDescriptionView = UILabel()
+        imageDescriptionView.translatesAutoresizingMaskIntoConstraints = false
+        imageDescriptionView.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        imageDescriptionView.textColor = .black
+        imageDescriptionView.textAlignment = .center
+
         self.addSubview(imageDescriptionView)
 
         NSLayoutConstraint.activate([
-           imageDescriptionView.topAnchor.constraint(equalTo: imageTitleView.bottomAnchor, constant: 12),
-           imageDescriptionView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-       ])
+            imageDescriptionView.topAnchor.constraint(equalTo: imageTitleView.bottomAnchor, constant: 12),
+            imageDescriptionView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        ])
+
+        return imageDescriptionView
+    }
+
+    func setupPageData() {
+        imageView.image = UIImage(named: subscriptionPageData.imageName)
+        imageTitleView.text = subscriptionPageData.imageTitle
+        imageDescriptionView.text = subscriptionPageData.description
     }
 }
 
 class SubscribeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
      let subscriptionPageDataList = [SubscriptionPageData]([
-        SubscriptionPageData("realNumber", imageTitle: "Real Number", description: "Contact anyone with your real number"),
-        SubscriptionPageData("zeroAds", imageTitle: "Zero ads", description: "Enjoy the complete ad-free experience"),
-        SubscriptionPageData("anonymous", imageTitle: "Completely anonymous", description: "Call and send text securely"),
-        SubscriptionPageData("internationalAccess", imageTitle: "International access", description: "Text and call country internationally")
+        SubscriptionPageData(imageName: "realNumber", imageTitle: "Real Number", description: "Contact anyone with your real number"),
+        SubscriptionPageData(imageName: "zeroAds", imageTitle: "Zero ads", description: "Enjoy the complete ad-free experience"),
+        SubscriptionPageData(imageName: "anonymous", imageTitle: "Completely anonymous", description: "Call and send text securely"),
+        SubscriptionPageData(imageName: "internationalAccess", imageTitle: "International access", description: "Text and call country internationally")
     ])
 
-    let subscribeViewHeader: UIView = {
-        let _subscribeViewheader = SubscribeViewHeader()
-        _subscribeViewheader.translatesAutoresizingMaskIntoConstraints = false
-        return _subscribeViewheader
-    }()
+    override func loadView() {
+        super.loadView()
 
-    let subscribeViewFooter: UIView = {
-        let _subscribeViewFooter = SubscribeViewFooter()
-        _subscribeViewFooter.translatesAutoresizingMaskIntoConstraints = false
-        return _subscribeViewFooter
-    }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        collectionView?.backgroundColor = .white
-        collectionView?.isPagingEnabled = true
-        collectionView?.register(SubscribeViewPageCell.self, forCellWithReuseIdentifier: "cellId")
-        setupCommonLayout()
+        setupCollectionView()
+        setupViewHeader()
+        setupViewFooter()
     }
 
-    func setupCommonLayout() {
+    func setupCollectionView() {
+        collectionView?.backgroundColor = .white
+        collectionView?.isPagingEnabled = true
+        collectionView?.register(SubscribeViewPageCell.self, forCellWithReuseIdentifier: String(describing: SubscribeViewPageCell.self))
+    }
+
+    func setupViewHeader() {
+        let subscribeViewHeader = SubscribeViewHeader()
+        subscribeViewHeader.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(subscribeViewHeader)
-        view.addSubview(subscribeViewFooter)
+
         NSLayoutConstraint.activate([
             subscribeViewHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
             subscribeViewHeader.widthAnchor.constraint(equalToConstant: self.view.frame.size.width),
             subscribeViewHeader.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+
+    func setupViewFooter() {
+        let subscribeViewFooter = SubscribeViewFooter()
+        subscribeViewFooter.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(subscribeViewFooter)
 
         NSLayoutConstraint.activate([
             subscribeViewFooter.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
@@ -337,29 +340,23 @@ class SubscribeViewController: UICollectionViewController, UICollectionViewDeleg
             subscribeViewFooter.heightAnchor.constraint(equalToConstant: 236)
         ])
     }
+}
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-
-    //MARK: number of pages
+extension SubscribeViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return subscriptionPageDataList.count
     }
 
-    //MARK: space between pages
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
 
-    //MARK: return cellView (single page)
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cellView = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! SubscribeViewPageCell
+        let cellView = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SubscribeViewPageCell.self), for: indexPath) as! SubscribeViewPageCell
         cellView.subscriptionPageData = subscriptionPageDataList[indexPath.item]
         return cellView
     }
 
-    //MARK: return size for 'Page' section
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAt: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.height)
     }
