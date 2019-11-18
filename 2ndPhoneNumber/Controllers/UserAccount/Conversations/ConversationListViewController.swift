@@ -28,17 +28,20 @@ class ConversationListViewCell: UITableViewCell {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         self.accessoryType = .disclosureIndicator
 
-        dateLabelView = setupDateLabelView()
-        contactIconView = setupContactIcon()
-        contactNameLabel = setupContactName()
-        messageLabel = setupMessageLabel()
-
+        setupGraphic()
     }
 
     override public func layoutSubviews() {
         super.layoutSubviews()
         imageView?.frame = CGRect(x: 20, y: 15, width: 40, height: 40)
         imageView?.makeRounded()
+    }
+
+    func setupGraphic() {
+        dateLabelView = setupDateLabelView()
+        contactIconView = setupContactIcon()
+        contactNameLabel = setupContactName()
+        messageLabel = setupMessageLabel()
     }
 
     func setupDateLabelView() -> UILabel {
