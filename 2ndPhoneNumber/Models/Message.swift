@@ -17,4 +17,14 @@ struct Message {
     var date: Date
     var message: String
     var author: Author
+
+    func getDate() -> String {
+        let formattedDate: String
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        let weekDay = dateFormatter.weekdaySymbols[Calendar.current.component(.weekday, from: date)]
+        formattedDate = "\(weekDay), \(dateFormatter.string(from: date))"
+        return formattedDate
+    }
 }

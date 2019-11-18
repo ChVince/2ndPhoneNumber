@@ -9,19 +9,16 @@
 import UIKit
 
 class ConversationListViewCell: UITableViewCell {
-    var data: ConversationCellData? {
+    var conversationCellData: ConversationCellData! {
         didSet {
-            setupCellLayout()
+            setupCellData()
         }
     }
 
-    var dateLabel: UILabel = {
-        var _dateLabel = UILabel()
-        _dateLabel.font = UIFont.systemFont(ofSize: 12)
-        _dateLabel.textColor = .systemGray
-        _dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        return _dateLabel
-    }()
+    var dateLabelView: UILabel!
+    var contactIconView: UIImageView!
+    var contactNameLabel: UILabel!
+    var messageLabel: UILabel!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -30,68 +27,69 @@ class ConversationListViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         self.accessoryType = .disclosureIndicator
+
+        dateLabelView = setupDateLabelView()
+        contactIconView = setupContactIcon()
+        contactNameLabel = setupContactName()
+        messageLabel = setupMessageLabel()
+
     }
 
     override public func layoutSubviews() {
         super.layoutSubviews()
         imageView?.frame = CGRect(x: 20, y: 15, width: 40, height: 40)
+        imageView?.makeRounded()
     }
 
-    func setupCellLayout() {
-        guard let unwrappedConversationData = data else {
-            return
-        }
+    func setupDateLabelView() -> UILabel {
+        let dateLabel = UILabel()
+        dateLabel.font = UIFont.systemFont(ofSize: 12)
+        dateLabel.textColor = .systemGray
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        setUserIcon(cellData: unwrappedConversationData)
-        setupDate(cellData: unwrappedConversationData)
-        setupUserName(cellData: unwrappedConversationData)
-        setupMessage(cellData: unwrappedConversationData)
-    }
-
-    func setUserIcon(cellData: ConversationCellData) {
-        var image = UIImage(named: cellData.contact.image)
-        imageView?.image = UIImage(named: cellData.contact.image)
-    }
-
-    func setupUserName(cellData: ConversationCellData) {
-        //textLabel?.text = "\(cellData.contact.name) \(cellData.contact.surname)"
-        //textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        //textLabel?.textColor = .black
-    }
-
-    func setupDate(cellData: ConversationCellData) {
-        let dateFormatter = DateFormatter()
-        let date = cellData.topMessage.date
-        dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
-        let weekDay = dateFormatter.weekdaySymbols[Calendar.current.component(.weekday, from: date)]
-        dateLabel.text = "\(weekDay), \(dateFormatter.string(from: date))"
         contentView.addSubview(dateLabel)
         NSLayoutConstraint.activate([
             dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15)
         ])
+
+        return dateLabel
     }
 
-    func setupMessage(cellData: ConversationCellData) {
-        detailTextLabel?.text = cellData.topMessage.message
+    func setupContactIcon() -> UIImageView {
+        return imageView!
+    }
+
+    func setupContactName() -> UILabel {
+        textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        textLabel?.textColor = .black
+
+        return textLabel!
+    }
+
+    func setupMessageLabel() -> UILabel {
         detailTextLabel?.font = UIFont.systemFont(ofSize: 16)
         detailTextLabel?.textColor = .systemGray
+
+        return detailTextLabel!
+    }
+
+    func setupCellData() {
+        dateLabelView.text = conversationCellData.topMessage.getDate()
+        contactIconView.image = UIImage(named: conversationCellData.contact.image)
+        contactNameLabel.text = conversationCellData.contact.getContactName()
+        messageLabel.text = conversationCellData.topMessage.message
     }
 }
 
 class ConversationListViewController: UITableViewController {
     var accountViewModel: AccountViewModel!
-    let reusableCellId = "cellId"
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
 
-        tableView?.register(ConversationListViewCell.self, forCellReuseIdentifier: reusableCellId)
-
-        self.tableView.rowHeight = 65
         setupNavigationItem()
-        setupFooterView()
+        setupTableView()
     }
 
     func setupNavigationItem() {
@@ -104,8 +102,10 @@ class ConversationListViewController: UITableViewController {
         )
     }
 
-    func setupFooterView() {
+    func setupTableView() {
+        tableView?.register(ConversationListViewCell.self, forCellReuseIdentifier: String(describing: ConversationListViewCell.self))
         self.tableView.tableFooterView = UIView()
+        self.tableView.rowHeight = 65
     }
 
     @objc
@@ -120,8 +120,8 @@ extension ConversationListViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reusableCellId, for: indexPath) as! ConversationListViewCell
-        cell.data = accountViewModel.conversationCellDataList[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ConversationListViewCell.self), for: indexPath) as! ConversationListViewCell
+        cell.conversationCellData = accountViewModel.conversationCellDataList[indexPath.item]
 
         return cell
     }
