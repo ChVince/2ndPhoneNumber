@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.backgroundColor = .white
     
-        window?.rootViewController = UserAccountNavigationController()
+        window?.rootViewController = WelcomeScreenController()
         window?.makeKeyAndVisible()
         return true
     }

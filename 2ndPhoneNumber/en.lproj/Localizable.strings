@@ -6,6 +6,9 @@
   Copyright © 2019 Елизар Кондрашов. All rights reserved.
 */
 
+"label.start.get.started" = "Get started";
+"label.start.welcome" = "Welcome to";
+"label.app.name" = "2nd Phone Number";
 
 "label.country.search" = "Search country";
 "label.state.search" = "Search state";
