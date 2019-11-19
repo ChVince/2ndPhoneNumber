@@ -18,23 +18,20 @@ class AddNumberViewController: UITableViewController {
     }
 
     let searchController: UISearchController = {
-        let _searchController = UISearchController(searchResultsController: nil)
-        _searchController.obscuresBackgroundDuringPresentation = false
-        return _searchController
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.obscuresBackgroundDuringPresentation = false
+        return searchController
     }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
+
         self.setupNavigationItem()
-        self.setupFooterView()
-        self.setupTableStyle()
+        self.setupTableView()
     }
 
-    func setupTableStyle() {
+    func setupTableView() {
         tableView.separatorInset = UIEdgeInsets(top: 11, left: 17, bottom: 11, right: 17)
-    }
-
-    func setupFooterView() {
         self.tableView.tableFooterView = UIView()
     }
 

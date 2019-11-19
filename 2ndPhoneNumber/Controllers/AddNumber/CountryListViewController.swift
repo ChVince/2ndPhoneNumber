@@ -10,38 +10,15 @@ import UIKit
 import FlagKit
 
 class CountryListViewCell: UITableViewCell {
-    var data: Country? {
+    var data: Country! {
         didSet {
-            setupCellLayout()
+            setupCellData()
         }
     }
 
-    let callsLabel: TagLabel = {
-        let _callsLabel = TagLabel()
-        _callsLabel.textAlignment = .center
-        _callsLabel.font = UIFont.systemFont(ofSize: 10)
-        _callsLabel.text = NSLocalizedString("label.calls", comment: "")
-        _callsLabel.backgroundColor = .darkBlue
-        _callsLabel.textColor = .white
-        return _callsLabel
-    }()
-
-    let smsLabel: TagLabel = {
-        let _smsLabel = TagLabel()
-        _smsLabel.textAlignment = .center
-        _smsLabel.font = UIFont.systemFont(ofSize: 10)
-        _smsLabel.text = NSLocalizedString("label.sms", comment: "")
-        _smsLabel.backgroundColor = .lightBlue
-        _smsLabel.textColor = .white
-        return _smsLabel
-    }()
-
-    let availableTagsView: UIStackView = {
-        let _availableTagsView = UIStackView()
-        _availableTagsView.spacing = 5
-        _availableTagsView.translatesAutoresizingMaskIntoConstraints = false
-        return _availableTagsView
-    }()
+    var callsLabel: TagLabel!
+    var smsLabel: TagLabel!
+    var availableTagsView: UIStackView!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -50,41 +27,76 @@ class CountryListViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         self.accessoryType = .disclosureIndicator
+
+        setupCellLayout()
+
     }
 
     override public func layoutSubviews() {
         super.layoutSubviews()
         imageView?.frame = CGRect(x: 22, y: 12, width: imageView!.intrinsicContentSize.width, height:  imageView!.intrinsicContentSize.height)
         textLabel?.frame = CGRect(x: 60, y: 12, width: textLabel!.intrinsicContentSize.width, height:  textLabel!.intrinsicContentSize.height)
-    }
-
-    func setupCellLayout() {
-        guard let unwrappedCountryData = data else {
-            return
-        }
-        setImageView(countryCode: unwrappedCountryData.countryCode)
-        setupTextLabel(countryName: unwrappedCountryData.name)
-        setupSubtitleLabel(data: unwrappedCountryData)
-    }
-
-    func setImageView(countryCode: String) {
-        let flag = Flag(countryCode: countryCode)
-
-        guard let unwrappedFlag = flag else {
-            print("No flag for", countryCode)
-            return
-        }
-
-        imageView?.image = unwrappedFlag.image(style: .none)
-    }
-
-    func setupTextLabel(countryName: String) {
-        textLabel?.text = countryName
         textLabel?.font = UIFont.systemFont(ofSize: 16)
     }
 
-    func setupSubtitleLabel(data: Country) {
-        availableTagsView.removeFromSuperview()
+    func setupCallsLabel() -> TagLabel {
+        let callsLabel = TagLabel()
+        callsLabel.textAlignment = .center
+        callsLabel.font = UIFont.systemFont(ofSize: 10)
+        callsLabel.text = NSLocalizedString("label.calls", comment: "")
+        callsLabel.backgroundColor = .darkBlue
+        callsLabel.textColor = .white
+
+        return callsLabel
+    }
+
+    func setupSMSLabel() -> TagLabel {
+        let smsLabel = TagLabel()
+        smsLabel.textAlignment = .center
+        smsLabel.font = UIFont.systemFont(ofSize: 10)
+        smsLabel.text = NSLocalizedString("label.sms", comment: "")
+        smsLabel.backgroundColor = .lightBlue
+        smsLabel.textColor = .white
+
+        return smsLabel
+    }
+
+    func setupAvailableTagsView() -> UIStackView {
+        let availableTagsView = UIStackView()
+        availableTagsView.spacing = 5
+        availableTagsView.translatesAutoresizingMaskIntoConstraints = false
+
+        contentView.addSubview(availableTagsView)
+        NSLayoutConstraint.activate([
+            availableTagsView.leadingAnchor.constraint(equalTo: textLabel!.leadingAnchor, constant: 0),
+            availableTagsView.topAnchor.constraint(equalTo: textLabel!.bottomAnchor, constant: 5)
+        ])
+
+        return availableTagsView
+    }
+
+    func setupCellLayout() {
+        callsLabel = setupCallsLabel()
+        smsLabel = setupSMSLabel()
+        availableTagsView = setupAvailableTagsView()
+    }
+
+    func setupCellData() {
+        setImageViewData()
+        setTextLabelData()
+        setAvailableTagsData()
+    }
+
+    func setImageViewData() {
+        let flag = Flag(countryCode: data.countryCode)
+        imageView?.image = flag!.image(style: .none)
+    }
+
+    func setTextLabelData() {
+        textLabel?.text = data.name
+    }
+
+    func setAvailableTagsData() {
         callsLabel.removeFromSuperview()
         smsLabel.removeFromSuperview()
 
@@ -95,48 +107,58 @@ class CountryListViewCell: UITableViewCell {
         if data.isSMSable {
             availableTagsView.addArrangedSubview(smsLabel)
         }
-
-        contentView.addSubview(availableTagsView)
-        NSLayoutConstraint.activate([
-            availableTagsView.leadingAnchor.constraint(equalTo: textLabel!.leadingAnchor, constant: 0),
-            availableTagsView.topAnchor.constraint(equalTo: textLabel!.bottomAnchor, constant: 5)
-        ])
     }
 }
 
 class CountryListViewController: AddNumberViewController, UISearchResultsUpdating {
-    let reusableCellId = "countryCellId"
-    let setupNumberViewModel = CountryListViewModel()
+    var setupNumberViewModel: CountryListViewModel!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView?.register(CountryListViewCell.self, forCellReuseIdentifier: reusableCellId)
+    override func loadView() {
+        super.loadView()
 
-        self.navigationItem.title = NSLocalizedString("label.country.select", comment: "")
-        self.searchController.searchBar.placeholder = NSLocalizedString("label.country.search", comment: "")
-        searchController.searchResultsUpdater = self
-
-        self.tableView.rowHeight = 65
+        setupTableView()
+        setupSearchController()
+        setupNavigationItem()
 
         setupNumberViewModel.fetch{ [weak self] in
             self?.tableView.reloadData()
         }
     }
 
+    override func setupTableView() {
+        super.setupTableView()
+
+        tableView?.register(CountryListViewCell.self, forCellReuseIdentifier: String(describing: CountryListViewCell.self))
+        self.tableView.rowHeight = 65
+    }
+
+    override func setupNavigationItem() {
+        super.setupNavigationItem()
+
+        self.navigationItem.title = NSLocalizedString("label.country.select", comment: "")
+    }
+
+    func setupSearchController() {
+        self.searchController.searchBar.placeholder = NSLocalizedString("label.country.search", comment: "")
+        searchController.searchResultsUpdater = self
+    }
+}
+
+
+extension CountryListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = setupNumberViewModel.list[indexPath.row];
+        var controller: AddNumberViewController
 
-
-        //TODO how divide?
         if data.hasStates {
-            let controller = StateListViewController()
-            controller.setupNumberViewModel.ancestor = data
-            navigationController?.pushViewController(controller, animated: true)
+            controller = StateListViewController()
+            controller.viewTitle = data.name
         } else {
-            let controller = NumberListViewController()
-            controller.setupNumberViewModel.ancestor = data
-            navigationController?.pushViewController(controller, animated: true)
+            controller = NumberListViewController()
+            controller.viewTitle = data.name
         }
+
+        navigationController?.pushViewController(controller, animated: true)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -148,17 +170,16 @@ class CountryListViewController: AddNumberViewController, UISearchResultsUpdatin
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          let cell = tableView.dequeueReusableCell(withIdentifier: reusableCellId, for: indexPath) as! CountryListViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CountryListViewCell.self), for: indexPath) as! CountryListViewCell
 
-          if isFiltering {
-              cell.data = setupNumberViewModel.filteredList[indexPath.row]
-          } else {
-              cell.data = setupNumberViewModel.list[indexPath.row]
-          }
+        if isFiltering {
+            cell.data = setupNumberViewModel.filteredList[indexPath.row]
+        } else {
+            cell.data = setupNumberViewModel.list[indexPath.row]
+        }
 
-          return cell
-      }
-
+        return cell
+    }
 
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar

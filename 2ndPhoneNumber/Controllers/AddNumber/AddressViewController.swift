@@ -9,45 +9,69 @@
 import UIKit
 
 fileprivate class UIAddressTextFieldView: UIView {
-    var idx: Int?
+    var idx: Int!
 
-    var textFieldLabel: UILabel = {
-        let _textFieldLabel = UILabel()
-        _textFieldLabel.textColor = .gray
-        _textFieldLabel.font = UIFont.systemFont(ofSize: 12)
-        _textFieldLabel.translatesAutoresizingMaskIntoConstraints = false
+    var textFieldLabel: UILabel!
+    var textFieldView: UITextField!
+    var textFieldUnderline: UIView!
 
-        return _textFieldLabel
-    }()
+    func setupTextFieldLabel() -> UILabel {
+        let textFieldLabel = UILabel()
+        textFieldLabel.textColor = .gray
+        textFieldLabel.font = UIFont.systemFont(ofSize: 12)
+        textFieldLabel.translatesAutoresizingMaskIntoConstraints = false
 
-    let textFieldView: UITextField = {
-        let _textFieldView = UITextField()
-        _textFieldView.textColor = .black
-        _textFieldView.font = UIFont.systemFont(ofSize: 14)
-        _textFieldView.borderStyle = .none
-        _textFieldView.translatesAutoresizingMaskIntoConstraints = false
-
+        self.addSubview(textFieldLabel)
         NSLayoutConstraint.activate([
-            _textFieldView.heightAnchor.constraint(equalToConstant: 15)
+            textFieldLabel.heightAnchor.constraint(equalToConstant: 15),
+            textFieldLabel.widthAnchor.constraint(equalTo: self.widthAnchor)
         ])
 
-        return _textFieldView
-    }()
+        return textFieldLabel
+    }
 
-    let textFieldUnderline: UIView = {
-        let _textFieldUnderline = UIView()
-        _textFieldUnderline.backgroundColor = .lightGrayF2
-        _textFieldUnderline.translatesAutoresizingMaskIntoConstraints = false
+    func setupTextFieldView() -> UITextField {
+        let textFieldView = UITextField()
+        textFieldView.textColor = .black
+        textFieldView.font = UIFont.systemFont(ofSize: 14)
+        textFieldView.borderStyle = .none
+        textFieldView.translatesAutoresizingMaskIntoConstraints = false
+
+        self.addSubview(textFieldView)
 
         NSLayoutConstraint.activate([
-            _textFieldUnderline.heightAnchor.constraint(equalToConstant: 1)
+            textFieldView.topAnchor.constraint(equalTo: self.textFieldLabel.bottomAnchor, constant: 5),
+            textFieldView.heightAnchor.constraint(equalToConstant: 15),
+            textFieldView.widthAnchor.constraint(equalTo: self.widthAnchor)
         ])
-        return _textFieldUnderline
-    }()
+
+        return textFieldView
+    }
+
+    func setupTextFieldUnderline() -> UIView {
+        let textFieldUnderline = UIView()
+        textFieldUnderline.backgroundColor = .lightGrayF2
+        textFieldUnderline.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            textFieldUnderline.heightAnchor.constraint(equalToConstant: 1)
+        ])
+
+        self.addSubview(textFieldUnderline)
+
+        NSLayoutConstraint.activate([
+            textFieldUnderline.topAnchor.constraint(equalTo: self.textFieldView.bottomAnchor, constant: 10),
+            textFieldUnderline.heightAnchor.constraint(equalToConstant: 1),
+            textFieldUnderline.widthAnchor.constraint(equalTo: self.widthAnchor)
+        ])
+
+        return textFieldUnderline
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame);
         self.translatesAutoresizingMaskIntoConstraints = false
+
         setupLayout()
     }
 
@@ -56,112 +80,30 @@ fileprivate class UIAddressTextFieldView: UIView {
     }
 
     func setupLayout() {
-        setupLabel()
-        setupTextField()
-        setupTextFieldUnderline()
-    }
-
-    func setupLabel() {
-        self.addSubview(textFieldLabel)
-
-        NSLayoutConstraint.activate([
-            textFieldLabel.heightAnchor.constraint(equalToConstant: 15),
-            textFieldLabel.widthAnchor.constraint(equalTo: self.widthAnchor)
-        ])
-    }
-
-    func setupTextField() {
-        self.addSubview(textFieldView)
-
-        NSLayoutConstraint.activate([
-            textFieldView.topAnchor.constraint(equalTo: self.textFieldLabel.bottomAnchor, constant: 5),
-            textFieldView.heightAnchor.constraint(equalToConstant: 15),
-            textFieldView.widthAnchor.constraint(equalTo: self.widthAnchor)
-        ])
-    }
-
-    func setupTextFieldUnderline() {
-        self.addSubview(textFieldUnderline)
-
-        NSLayoutConstraint.activate([
-            textFieldUnderline.topAnchor.constraint(equalTo: self.textFieldView.bottomAnchor, constant: 10),
-            textFieldUnderline.heightAnchor.constraint(equalToConstant: 1),
-            textFieldUnderline.widthAnchor.constraint(equalTo: self.widthAnchor)
-        ])
+        textFieldLabel = setupTextFieldLabel()
+        textFieldView = setupTextFieldView()
+        textFieldUnderline = setupTextFieldUnderline()
     }
 }
 
 class AddressViewController: UIViewController {
     let addressViewModel = AddressViewModel()
 
-    let topTextLabel: UILabel = {
-        let _topTextLabel = UILabel()
-        _topTextLabel.font = UIFont.systemFont(ofSize: 14)
-        _topTextLabel.textColor = .lightGray
-        _topTextLabel.textAlignment = .left
-        _topTextLabel.text = NSLocalizedString("label.address.top", comment: "")
-        _topTextLabel.translatesAutoresizingMaskIntoConstraints = false
+    var topTextLabel: UILabel!
+    var textFieldsView: UIStackView!
+    var scrollView: UIScrollView!
 
-        _topTextLabel.numberOfLines = 0
-        _topTextLabel.lineBreakMode = .byWordWrapping
-        return _topTextLabel
-    }()
+    func setupTopTextLabel() -> UILabel {
+        let topTextLabel = UILabel()
+        topTextLabel.font = UIFont.systemFont(ofSize: 14)
+        topTextLabel.textColor = .lightGray
+        topTextLabel.textAlignment = .left
+        topTextLabel.text = NSLocalizedString("label.address.top", comment: "")
+        topTextLabel.translatesAutoresizingMaskIntoConstraints = false
 
-    let textFieldsView: UIStackView = {
-        let _textFieldsView = UIStackView()
-        _textFieldsView.axis = .vertical
-        _textFieldsView.spacing = 15
-        _textFieldsView.distribution = .fillEqually
-        _textFieldsView.translatesAutoresizingMaskIntoConstraints = false
-        return _textFieldsView
-    }()
+        topTextLabel.numberOfLines = 0
+        topTextLabel.lineBreakMode = .byWordWrapping
 
-    let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)// MISTIKA
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-
-        return scrollView
-    }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("label.done", comment: ""), style: .done, target: self, action: #selector(setupNumber))
-        setupListeners()
-        setupLayout()
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self, name:UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name:UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    func setupListeners() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
-    }
-
-    func setupLayout() {
-        setupContainerView()
-        setupTopText()
-        setupFields()
-    }
-
-    func setupContainerView() {
-        view.addSubview(scrollView)
-
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-
-            scrollView.heightAnchor.constraint(equalTo: view.heightAnchor),
-            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor)
-        ])
-    }
-
-    func setupTopText() {
         scrollView.addSubview(topTextLabel)
 
         NSLayoutConstraint.activate([
@@ -169,16 +111,23 @@ class AddressViewController: UIViewController {
             self.topTextLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             self.topTextLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
         ])
-    }
 
-    func setupFields() {
+        return topTextLabel
+    }
+    func setupTextFieldsView() -> UIStackView {
+        let textFieldsView = UIStackView()
+        textFieldsView.axis = .vertical
+        textFieldsView.spacing = 15
+        textFieldsView.distribution = .fillEqually
+        textFieldsView.translatesAutoresizingMaskIntoConstraints = false
+
         for (idx, fieldLabel) in addressViewModel.fieldLabelList.enumerated() {
             let addressTextFieldView = UIAddressTextFieldView()
             let textFieldLabel = addressTextFieldView.textFieldLabel
             let textFieldView = addressTextFieldView.textFieldView
             addressTextFieldView.idx = idx
-            textFieldLabel.text = fieldLabel
-            textFieldView.delegate = self
+            textFieldLabel!.text = fieldLabel
+            textFieldView!.delegate = self
 
             self.textFieldsView.addArrangedSubview(addressTextFieldView)
         }
@@ -193,6 +142,55 @@ class AddressViewController: UIViewController {
 
             self.textFieldsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
+
+        return textFieldsView
+    }
+    func setupScrollView() -> UIScrollView {
+        let scrollView = UIScrollView()
+
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(scrollView)
+
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+
+            scrollView.heightAnchor.constraint(equalTo: view.heightAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor)
+        ])
+
+        return scrollView
+    }
+    func setupNavigationItem() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("label.done", comment: ""), style: .done, target: self, action: #selector(setupNumber))
+    }
+
+    override func loadView() {
+        super.loadView()
+
+        setupLayout()
+        setupListeners()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name:UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name:UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    func setupListeners() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    func setupLayout() {
+        scrollView = setupScrollView()
+        topTextLabel = setupTopTextLabel()
+        textFieldsView = setupTextFieldsView()
+
+        setupNavigationItem()
     }
 
     @objc func setupNumber() {
@@ -200,12 +198,11 @@ class AddressViewController: UIViewController {
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {
-
-      let userInfo = notification.userInfo!
+        let userInfo = notification.userInfo!
         var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
 
-        var contentInset:UIEdgeInsets = self.scrollView.contentInset
+        var contentInset: UIEdgeInsets = self.scrollView.contentInset
         contentInset.bottom = keyboardFrame.size.height + 10 // scroll to underline
         scrollView.contentInset = contentInset
     }

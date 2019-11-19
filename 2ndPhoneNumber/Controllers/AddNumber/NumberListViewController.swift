@@ -9,22 +9,14 @@
 import UIKit
 
 class NumberListViewCell: UITableViewCell {
-    var data: AreaNumber? {
+    var data: AreaNumber! {
         didSet {
-            setupCellLayout()
+            setupCellData()
         }
     }
 
-    let requireAddressLabel: TagLabel = {
-        let _requireAddressLabel = TagLabel()
-        _requireAddressLabel.textAlignment = .center
-        _requireAddressLabel.font = UIFont.systemFont(ofSize: 10)
-        _requireAddressLabel.text = NSLocalizedString("label.number.address.required", comment: "")
-        _requireAddressLabel.translatesAutoresizingMaskIntoConstraints = false
-        _requireAddressLabel.backgroundColor = .darkBlue
-        _requireAddressLabel.textColor = .white
-        return _requireAddressLabel
-    }()
+    var requireAddressLabel: TagLabel!
+    var numberLabel: UILabel!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -33,51 +25,79 @@ class NumberListViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
         self.accessoryType = .disclosureIndicator
+
+        setupCellLayout()
     }
 
     func setupCellLayout() {
-        guard let unwrappedNumberData = data else {
-            return
-        }
-
-        setupTextLabel(
-            number: unwrappedNumberData.number
-        )
-
-        if unwrappedNumberData.isRequireAddress {
-            setupRequireAddressLabel()
-        }
+        numberLabel = setupNumberLabel()
+        requireAddressLabel = setupRequireAddressLabel()
     }
 
-    func setupTextLabel(number: String) {
-        textLabel?.text = number
+    func setupNumberLabel() -> UILabel {
         textLabel?.font = UIFont.systemFont(ofSize: 16)
+        return textLabel!
     }
 
-    func setupRequireAddressLabel() {
+    func setupRequireAddressLabel() -> TagLabel {
+        let requireAddressLabel = TagLabel()
+        requireAddressLabel.textAlignment = .center
+        requireAddressLabel.font = UIFont.systemFont(ofSize: 10)
+        requireAddressLabel.text = NSLocalizedString("label.number.address.required", comment: "")
+        requireAddressLabel.translatesAutoresizingMaskIntoConstraints = false
+        requireAddressLabel.backgroundColor = .darkBlue
+        requireAddressLabel.textColor = .white
+        requireAddressLabel.isHidden = true
+
         contentView.addSubview(requireAddressLabel)
         NSLayoutConstraint.activate([
             requireAddressLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             requireAddressLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         ])
+
+        return requireAddressLabel
     }
+
+    func setupCellData() {
+        numberLabel?.text = data.number
+
+        if data.isRequireAddress {
+            requireAddressLabel.isHidden = false
+        }
+    }
+
 }
 
 class NumberListViewController: AddNumberViewController, UISearchResultsUpdating {
-    let reusableCellId = "numberCellId"
     let setupNumberViewModel = NumberListViewModel()
+    var viewTitle: String!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView?.register(NumberListViewCell.self, forCellReuseIdentifier: reusableCellId)
-        self.navigationItem.title = setupNumberViewModel.ancestor?.name
-        self.searchController.searchBar.placeholder = NSLocalizedString("label.number.search", comment: "")
-        searchController.searchResultsUpdater = self
+    override func loadView() {
+        super.loadView()
+
+        setupNavigationItem()
+        setupTableView()
 
         let params = getParams()
         setupNumberViewModel.fetch(params: params){ [weak self] in
             self?.tableView.reloadData()
         }
+    }
+
+    func setupSearchController() {
+        self.searchController.searchBar.placeholder = NSLocalizedString("label.number.search", comment: "")
+        searchController.searchResultsUpdater = self
+    }
+
+    override func setupNavigationItem() {
+        super.setupNavigationItem()
+        self.navigationItem.title = viewTitle
+    }
+
+    override func setupTableView() {
+        super.setupTableView()
+        
+        tableView?.register(NumberListViewCell.self, forCellReuseIdentifier: String(describing: NumberListViewCell.self))
     }
 
     func getParams () -> [String: String] {
@@ -91,13 +111,15 @@ class NumberListViewController: AddNumberViewController, UISearchResultsUpdating
             ]
         }
     }
+}
 
+extension NumberListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigationController?.pushViewController(AddressViewController(), animated: true)
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reusableCellId, for: indexPath) as! NumberListViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NumberListViewCell.self), for: indexPath) as! NumberListViewCell
 
         if isFiltering {
             cell.data = setupNumberViewModel.filteredList[indexPath.row]
@@ -118,9 +140,9 @@ class NumberListViewController: AddNumberViewController, UISearchResultsUpdating
 
 
     func updateSearchResults(for searchController: UISearchController) {
-           let searchBar = searchController.searchBar
-           let searchText = searchBar.text!
-           setupNumberViewModel.setFilteredList(filterBy: searchText)
-           tableView.reloadData()
-       }
+        let searchBar = searchController.searchBar
+        let searchText = searchBar.text!
+        setupNumberViewModel.setFilteredList(filterBy: searchText)
+        tableView.reloadData()
+    }
 }

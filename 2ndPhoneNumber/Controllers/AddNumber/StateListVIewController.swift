@@ -9,9 +9,9 @@
 import UIKit
 
 class StateListViewCell: UITableViewCell {
-    var data: State? {
+    var data: State! {
         didSet {
-            setupCellLayout()
+            setupCellData()
         }
     }
 
@@ -22,56 +22,74 @@ class StateListViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         self.accessoryType = .disclosureIndicator
+
+        setupCellLayout()
     }
 
     func setupCellLayout() {
-        guard let unwrappedStateData = data else {
-            return
-        }
-
-        setupTextLabel(
-            stateName: unwrappedStateData.name,
-            stateCode: unwrappedStateData.stateCode
-        )
+        setupTextLabel()
     }
 
-
-    func setupTextLabel(stateName: String, stateCode: String) {
-        textLabel?.text = stateName + " (" + stateCode + ")"
+    func setupTextLabel() {
         textLabel?.font = UIFont.systemFont(ofSize: 16)
+    }
+
+    func setupCellData() {
+        textLabel?.text = data.name + " (" + data.stateCode + ")"
     }
 
 }
 
 class StateListViewController: AddNumberViewController, UISearchResultsUpdating {
-    let reusableCellId = "stateCellId"
-    let setupNumberViewModel = StateListViewModel()
+    let stateListViewModel = StateListViewModel()
+    var viewTitle: String!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView?.register(StateListViewCell.self, forCellReuseIdentifier: reusableCellId)
-        self.navigationItem.title = setupNumberViewModel.ancestor?.name
-        self.searchController.searchBar.placeholder = NSLocalizedString("label.state.search", comment: "")
-        searchController.searchResultsUpdater = self
+    override func loadView() {
+        super.loadView()
 
-        setupNumberViewModel.fetch(params: ["countryCode": setupNumberViewModel.ancestor!.countryCode]){ [weak self] in
+        setupTableView()
+        setupNavigationItem()
+        setupSearchController()
+
+        stateListViewModel.fetch(params: ["countryCode": stateListViewModel.ancestor!.countryCode]){ [weak self] in
             self?.tableView.reloadData()
         }
     }
 
+    override func setupTableView() {
+        super.setupTableView()
+
+        tableView?.register(StateListViewCell.self, forCellReuseIdentifier: String(describing: StateListViewCell.self))
+    }
+
+    override func setupNavigationItem() {
+        super.setupNavigationItem()
+
+        self.navigationItem.title = viewTitle
+    }
+
+    func setupSearchController() {
+        self.searchController.searchBar.placeholder = NSLocalizedString("label.state.search", comment: "")
+        searchController.searchResultsUpdater = self
+    }
+}
+
+
+extension StateListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller = NumberListViewController()
-        controller.setupNumberViewModel.ancestor = setupNumberViewModel.list[indexPath.row];
+        controller.viewTitle = stateListViewModel.list[indexPath.row].name
+
         navigationController?.pushViewController(controller, animated: true)
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reusableCellId, for: indexPath) as! StateListViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StateListViewCell.self), for: indexPath) as! StateListViewCell
 
         if isFiltering {
-            cell.data = setupNumberViewModel.filteredList[indexPath.row]
+            cell.data = stateListViewModel.filteredList[indexPath.row]
         } else {
-            cell.data = setupNumberViewModel.list[indexPath.row]
+            cell.data = stateListViewModel.list[indexPath.row]
         }
 
         return cell
@@ -79,16 +97,16 @@ class StateListViewController: AddNumberViewController, UISearchResultsUpdating 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
-            return setupNumberViewModel.filteredList.count
+            return stateListViewModel.filteredList.count
         } else {
-            return setupNumberViewModel.list.count
+            return stateListViewModel.list.count
         }
     }
 
     func updateSearchResults(for searchController: UISearchController) {
-           let searchBar = searchController.searchBar
-           let searchText = searchBar.text!
-           setupNumberViewModel.setFilteredList(filterBy: searchText)
-           tableView.reloadData()
-       }
+        let searchBar = searchController.searchBar
+        let searchText = searchBar.text!
+        stateListViewModel.setFilteredList(filterBy: searchText)
+        tableView.reloadData()
+    }
 }
