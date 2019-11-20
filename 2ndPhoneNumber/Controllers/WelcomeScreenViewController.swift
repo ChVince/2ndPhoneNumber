@@ -24,6 +24,8 @@ class WelcomeScreenController: UIViewController {
     var topWelcomeText: UILabel!
     var getStartedButton: UIButton!
 
+    var delegate: ModalHandler!
+
     override func loadView() {
         super.loadView()
 
@@ -96,7 +98,7 @@ class WelcomeScreenController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor.darkBlue
         button.setTitleColor(UIColor.white, for: .normal)
-        button.layer.cornerRadius = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 20 : 30
+
 
         self.view.addSubview(button)
 
@@ -106,6 +108,8 @@ class WelcomeScreenController: UIViewController {
             button.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: view.frame.size.height * -0.05),
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+
+        button.layer.cornerRadius = view.frame.height * 0.035
 
         return button
     }
@@ -129,8 +133,8 @@ class WelcomeScreenController: UIViewController {
     }
 
     @objc func onGetStaredTounch(sender: UIButton) {
-        let addNumberNavigationController = AddNumberNavigationController()
-        addNumberNavigationController.modalPresentationStyle = .overFullScreen
-        present(addNumberNavigationController, animated: true)
+        self.dismiss(animated: true) {
+            self.delegate.modalDismissed()
+        }
     }
 }

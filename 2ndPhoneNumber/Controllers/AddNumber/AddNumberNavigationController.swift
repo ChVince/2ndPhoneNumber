@@ -9,21 +9,12 @@
 import UIKit
 
 class AddNumberNavigationController: UINavigationController, UINavigationControllerDelegate {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.viewControllers = [WelcomeScreenController()]
-
         self.delegate = self
+
+        show(CountryListViewController(), sender: nil)
     }
 
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        viewController.view.backgroundColor = .white
-        if (navigationController.viewControllers.count > 1) {
-            navigationController.setNavigationBarHidden(false, animated: true)
-        } else {
-            navigationController.setNavigationBarHidden(true, animated: true)
-        }
-    }
 
 }

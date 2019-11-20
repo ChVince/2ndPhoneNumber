@@ -8,11 +8,16 @@
 
 import UIKit
 
-class MainNavigationViewController: UINavigationController {
+class MainNavigationViewController: UINavigationController, ModalHandler {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(showUserAccountView),
+                                               name: NSNotification.Name(rawValue: "number-added"),
+                                               object: nil)
 
         let user = false// Get from Device Storage
         if user {
@@ -28,10 +33,21 @@ class MainNavigationViewController: UINavigationController {
         present(userAccountNavigationController, animated: false)
     }
 
+    @objc func showNumberSelectView() {
+        let addNumberNavigationController = AddNumberNavigationController()
+        addNumberNavigationController.modalPresentationStyle = .fullScreen
+        present(addNumberNavigationController, animated: true)
+    }
+
     @objc func showWelcomeScreenController() {
         let welcomeScreenController = WelcomeScreenController()
         welcomeScreenController.modalPresentationStyle = .overFullScreen
+
+        welcomeScreenController.delegate = self
         present(welcomeScreenController, animated: false)
     }
 
+    func modalDismissed() {
+        showNumberSelectView()
+    }
 }

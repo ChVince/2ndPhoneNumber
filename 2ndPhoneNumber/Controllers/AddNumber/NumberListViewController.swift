@@ -68,7 +68,7 @@ class NumberListViewCell: UITableViewCell {
 
 }
 
-class NumberListViewController: AddNumberViewController, UISearchResultsUpdating {
+class NumberListViewController: AddNumberViewController, UISearchResultsUpdating, ModalHandler {
     var setupNumberViewModel: NumberListViewModel!
 
     override func loadView() {
@@ -110,8 +110,11 @@ extension NumberListViewController {
             flowLayout.scrollDirection = .horizontal
 
             let subscribeViewController = SubscribeViewController(collectionViewLayout: flowLayout)
+            subscribeViewController.delegate = self
             subscribeViewController.modalPresentationStyle = .overFullScreen
+
             present(subscribeViewController, animated: true)
+
         }
     }
 
@@ -142,4 +145,9 @@ extension NumberListViewController {
         setupNumberViewModel.setFilteredList(filterBy: searchText)
         tableView.reloadData()
     }
+
+    func modalDismissed() {
+        navigationController?.pushViewController(AddressViewController(), animated: true)
+    }
+
 }

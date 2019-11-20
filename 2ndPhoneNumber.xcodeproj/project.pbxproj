@@ -56,6 +56,8 @@
 		48723BD42355F9E00064AA14 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BD32355F9E00064AA14 /* DataManager.swift */; };
 		48723BD62355FC950064AA14 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BD52355FC950064AA14 /* Services.swift */; };
 		488F7F0F238416BC00A293B2 /* AddNumberNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F7F0E238416BC00A293B2 /* AddNumberNavigationController.swift */; };
+		488F7F112385618100A293B2 /* SubscribeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F7F102385618100A293B2 /* SubscribeViewModel.swift */; };
+		488F7F1323859ADC00A293B2 /* ModalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F7F1223859ADC00A293B2 /* ModalHandler.swift */; };
 		48EABC9B236EE39000205923 /* AddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABC9A236EE39000205923 /* AddressViewModel.swift */; };
 		48EABC9D236EE5C900205923 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABC9C236EE5C900205923 /* Address.swift */; };
 		48EABC9F236F06A600205923 /* UserAccountNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABC9E236F06A600205923 /* UserAccountNavigationController.swift */; };
@@ -120,6 +122,8 @@
 		48723BD32355F9E00064AA14 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		48723BD52355FC950064AA14 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		488F7F0E238416BC00A293B2 /* AddNumberNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNumberNavigationController.swift; sourceTree = "<group>"; };
+		488F7F102385618100A293B2 /* SubscribeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewModel.swift; sourceTree = "<group>"; };
+		488F7F1223859ADC00A293B2 /* ModalHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalHandler.swift; sourceTree = "<group>"; };
 		48EABC9A236EE39000205923 /* AddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewModel.swift; sourceTree = "<group>"; };
 		48EABC9C236EE5C900205923 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		48EABC9E236F06A600205923 /* UserAccountNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountNavigationController.swift; sourceTree = "<group>"; };
@@ -242,6 +246,7 @@
 				48723BCE23549DC20064AA14 /* AddNumberViewModel.swift */,
 				48EABC9A236EE39000205923 /* AddressViewModel.swift */,
 				481EBABF237052B300922745 /* AccountViewModel.swift */,
+				488F7F102385618100A293B2 /* SubscribeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -316,6 +321,7 @@
 				48723BD023549EB40064AA14 /* Filterable.swift */,
 				485987C4235C821C00ED37DE /* NamedAreaProtocol.swift */,
 				481EBAC123706C6B00922745 /* CelluarEventProtocol.swift */,
+				488F7F1223859ADC00A293B2 /* ModalHandler.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -495,9 +501,11 @@
 				481EBAE9237C32E100922745 /* ContactViewController.swift in Sources */,
 				48022AAF23409C27002F009F /* StateListVIewController.swift in Sources */,
 				481EBAED237EFF1B00922745 /* UIView.swift in Sources */,
+				488F7F112385618100A293B2 /* SubscribeViewModel.swift in Sources */,
 				488F7F0F238416BC00A293B2 /* AddNumberNavigationController.swift in Sources */,
 				481EBAD12372F70700922745 /* PhoneViewController.swift in Sources */,
 				481EBAEF2384076300922745 /* MainNavigationViewController.swift in Sources */,
+				488F7F1323859ADC00A293B2 /* ModalHandler.swift in Sources */,
 				481EBAE5237C1B7300922745 /* UIImage.swift in Sources */,
 				481EBADD237ACDF300922745 /* TermsViewController.swift in Sources */,
 				48022AB623411F45002F009F /* UIColorExtension.swift in Sources */,

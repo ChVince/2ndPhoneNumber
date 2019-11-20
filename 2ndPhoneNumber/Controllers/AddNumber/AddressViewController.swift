@@ -195,7 +195,9 @@ class AddressViewController: UIViewController {
     }
 
     @objc func setupNumber() {
-
+        dismiss(animated: true) {
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "number-added"), object: nil)
+        } 
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {
