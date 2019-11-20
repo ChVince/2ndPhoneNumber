@@ -33,7 +33,12 @@ class WelcomeScreenController: UIViewController {
         setupFutureList()
 
         getStartedButton.addTarget(self, action: #selector(self.onGetStaredTounch(sender:)), for: .touchUpInside)
+    }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = .white
     }
 
     func setupTopWelcomeText() -> UILabel {
@@ -91,7 +96,7 @@ class WelcomeScreenController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor.darkBlue
         button.setTitleColor(UIColor.white, for: .normal)
-        button.layer.cornerRadius = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 20 : 28
+        button.layer.cornerRadius = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 20 : 30
 
         self.view.addSubview(button)
 
@@ -124,6 +129,8 @@ class WelcomeScreenController: UIViewController {
     }
 
     @objc func onGetStaredTounch(sender: UIButton) {
-        self.navigationController?.pushViewController(AddressViewController(), animated: true)
+        let addNumberNavigationController = AddNumberNavigationController()
+        addNumberNavigationController.modalPresentationStyle = .overFullScreen
+        present(addNumberNavigationController, animated: true)
     }
 }

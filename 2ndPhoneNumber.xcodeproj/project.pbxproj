@@ -39,6 +39,7 @@
 		481EBAE9237C32E100922745 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAE8237C32E100922745 /* ContactViewController.swift */; };
 		481EBAEB237ED5F700922745 /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAEA237ED5F700922745 /* RecentViewController.swift */; };
 		481EBAED237EFF1B00922745 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAEC237EFF1B00922745 /* UIView.swift */; };
+		481EBAEF2384076300922745 /* MainNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAEE2384076300922745 /* MainNavigationViewController.swift */; };
 		484716DD2358B5BB001D13E8 /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716DC2358B5BB001D13E8 /* TagLabel.swift */; };
 		484716E6235B17A9001D13E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 484716E8235B17A9001D13E8 /* Localizable.strings */; };
 		484716EA235B761B001D13E8 /* AddNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716E9235B761B001D13E8 /* AddNumberViewController.swift */; };
@@ -54,7 +55,7 @@
 		48723BD123549EB40064AA14 /* Filterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BD023549EB40064AA14 /* Filterable.swift */; };
 		48723BD42355F9E00064AA14 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BD32355F9E00064AA14 /* DataManager.swift */; };
 		48723BD62355FC950064AA14 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48723BD52355FC950064AA14 /* Services.swift */; };
-		48E3D88C2350AA7B00DCCA81 /* AddNumberNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E3D88B2350AA7B00DCCA81 /* AddNumberNavigationController.swift */; };
+		488F7F0F238416BC00A293B2 /* AddNumberNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F7F0E238416BC00A293B2 /* AddNumberNavigationController.swift */; };
 		48EABC9B236EE39000205923 /* AddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABC9A236EE39000205923 /* AddressViewModel.swift */; };
 		48EABC9D236EE5C900205923 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABC9C236EE5C900205923 /* Address.swift */; };
 		48EABC9F236F06A600205923 /* UserAccountNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABC9E236F06A600205923 /* UserAccountNavigationController.swift */; };
@@ -100,6 +101,7 @@
 		481EBAE8237C32E100922745 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		481EBAEA237ED5F700922745 /* RecentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentViewController.swift; sourceTree = "<group>"; };
 		481EBAEC237EFF1B00922745 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		481EBAEE2384076300922745 /* MainNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationViewController.swift; sourceTree = "<group>"; };
 		484716DC2358B5BB001D13E8 /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		484716E3235B1747001D13E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		484716E7235B17A9001D13E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -117,7 +119,7 @@
 		48723BD023549EB40064AA14 /* Filterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filterable.swift; sourceTree = "<group>"; };
 		48723BD32355F9E00064AA14 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		48723BD52355FC950064AA14 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
-		48E3D88B2350AA7B00DCCA81 /* AddNumberNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNumberNavigationController.swift; sourceTree = "<group>"; };
+		488F7F0E238416BC00A293B2 /* AddNumberNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNumberNavigationController.swift; sourceTree = "<group>"; };
 		48EABC9A236EE39000205923 /* AddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewModel.swift; sourceTree = "<group>"; };
 		48EABC9C236EE5C900205923 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		48EABC9E236F06A600205923 /* UserAccountNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountNavigationController.swift; sourceTree = "<group>"; };
@@ -145,7 +147,7 @@
 		48022AAA23409AF8002F009F /* AddNumber */ = {
 			isa = PBXGroup;
 			children = (
-				48E3D88B2350AA7B00DCCA81 /* AddNumberNavigationController.swift */,
+				488F7F0E238416BC00A293B2 /* AddNumberNavigationController.swift */,
 				48022AAC23409C02002F009F /* CountryListViewController.swift */,
 				48022AAE23409C27002F009F /* StateListVIewController.swift */,
 				48022AB023409C47002F009F /* NumberListViewController.swift */,
@@ -229,6 +231,7 @@
 				48022AAA23409AF8002F009F /* AddNumber */,
 				484A0FE9233375B4009360A9 /* WelcomeScreenViewController.swift */,
 				48022AA823409940002F009F /* SubscribeViewController.swift */,
+				481EBAEE2384076300922745 /* MainNavigationViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -492,7 +495,9 @@
 				481EBAE9237C32E100922745 /* ContactViewController.swift in Sources */,
 				48022AAF23409C27002F009F /* StateListVIewController.swift in Sources */,
 				481EBAED237EFF1B00922745 /* UIView.swift in Sources */,
+				488F7F0F238416BC00A293B2 /* AddNumberNavigationController.swift in Sources */,
 				481EBAD12372F70700922745 /* PhoneViewController.swift in Sources */,
+				481EBAEF2384076300922745 /* MainNavigationViewController.swift in Sources */,
 				481EBAE5237C1B7300922745 /* UIImage.swift in Sources */,
 				481EBADD237ACDF300922745 /* TermsViewController.swift in Sources */,
 				48022AB623411F45002F009F /* UIColorExtension.swift in Sources */,
@@ -504,7 +509,6 @@
 				481EBADB237ACDE300922745 /* PrivacyViewController.swift in Sources */,
 				481EBAD72372F98700922745 /* ProfileViewController.swift in Sources */,
 				48EABC9F236F06A600205923 /* UserAccountNavigationController.swift in Sources */,
-				48E3D88C2350AA7B00DCCA81 /* AddNumberNavigationController.swift in Sources */,
 				481EBAC223706C6B00922745 /* CelluarEventProtocol.swift in Sources */,
 				484716DD2358B5BB001D13E8 /* TagLabel.swift in Sources */,
 				484716EA235B761B001D13E8 /* AddNumberViewController.swift in Sources */,

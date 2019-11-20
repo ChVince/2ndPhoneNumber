@@ -107,9 +107,9 @@ class AddressViewController: UIViewController {
         scrollView.addSubview(topTextLabel)
 
         NSLayoutConstraint.activate([
-            self.topTextLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 25),
-            self.topTextLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            self.topTextLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            topTextLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 25),
+            topTextLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            topTextLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
         ])
 
         return topTextLabel
@@ -129,18 +129,18 @@ class AddressViewController: UIViewController {
             textFieldLabel!.text = fieldLabel
             textFieldView!.delegate = self
 
-            self.textFieldsView.addArrangedSubview(addressTextFieldView)
+            textFieldsView.addArrangedSubview(addressTextFieldView)
         }
 
         scrollView.addSubview(textFieldsView)
 
         NSLayoutConstraint.activate([
-            self.textFieldsView.topAnchor.constraint(equalTo: topTextLabel.bottomAnchor, constant: 25),
-            self.textFieldsView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
-            self.textFieldsView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
-            self.textFieldsView.heightAnchor.constraint(equalToConstant: 320),
+            textFieldsView.topAnchor.constraint(equalTo: topTextLabel.bottomAnchor, constant: 25),
+            textFieldsView.leftAnchor.constraint(equalTo: view.layoutMarginsGuide.leftAnchor),
+            textFieldsView.rightAnchor.constraint(equalTo: view.layoutMarginsGuide.rightAnchor),
+            textFieldsView.heightAnchor.constraint(equalToConstant: 320),
 
-            self.textFieldsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+            textFieldsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
 
         return textFieldsView
@@ -170,6 +170,7 @@ class AddressViewController: UIViewController {
 
     override func loadView() {
         super.loadView()
+        view.backgroundColor = .white
 
         setupLayout()
         setupListeners()

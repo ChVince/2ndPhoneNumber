@@ -16,8 +16,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "88"
             endingLineNumber = "88"
-            landmarkName = "NumberListViewController"
-            landmarkType = "3">
+            landmarkName = "setupSearchController()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -135,16 +135,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0F66C513-CD54-44FF-BC7A-719295962AE0"
-            shouldBeEnabled = "Yes"
+            uuid = "D115966B-8BB3-4D77-80EC-47F82D1EC751"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "2ndPhoneNumber/Controllers/SubscribeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
-            landmarkName = "setupPageLayout()"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "setupHandlers()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

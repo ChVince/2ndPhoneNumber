@@ -32,6 +32,7 @@ class AddNumberViewController: UITableViewController {
 
     func setupTableView() {
         tableView.separatorInset = UIEdgeInsets(top: 11, left: 17, bottom: 11, right: 17)
+        tableView.estimatedRowHeight = 0
         self.tableView.tableFooterView = UIView()
     }
 

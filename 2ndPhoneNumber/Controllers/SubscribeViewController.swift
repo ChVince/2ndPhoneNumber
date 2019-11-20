@@ -38,7 +38,7 @@ class SubscribeViewHeader: UIView {
 
     func setupHandlers() {
         restoreButton.addTarget(self, action: #selector(self.onRestoreButtonTap(sender:)), for: .touchUpInside)
-        restoreButton.addTarget(self, action: #selector(self.onCloseButtonTap(sender:)), for: .touchUpInside)
+        closeButton.addTarget(self, action: #selector(self.onCloseButtonTap(sender:)), for: .touchUpInside)
     }
 
     func setupRestoreButton() -> UIButton {
@@ -91,12 +91,21 @@ class SubscribeViewHeader: UIView {
 class SubscribeViewFooter: UIView {
     let NUMBER_OF_PAGES = 4
 
+    var currentPage = 0 {
+        didSet {
+            updatePageControlIndicator()
+        }
+    }
     var pageControl: UIPageControl!
     var subscribeButton: UIButton!
+    var termsOfUseButton: UIButton!
+    var privacyButton: UIButton!
 
     override init(frame: CGRect) {
         super.init(frame: frame);
+
         setupLayout()
+        setupHandlers()
     }
 
     required init?(coder: NSCoder) {
@@ -106,18 +115,23 @@ class SubscribeViewFooter: UIView {
     func setupLayout() {
         pageControl = setupPageControl()
         subscribeButton = setupSubscribeButton()
+        termsOfUseButton = setupTermsOfUseButton()
+        privacyButton = setupPrivacyButton()
 
         setupSubscribeLabel()
         setupSubcribeBottomLabels()
     }
 
     func setupHandlers() {
-
+        pageControl.addTarget(self, action: #selector(onControlTap), for: .touchUpInside)
+        subscribeButton.addTarget(self, action: #selector(onSubscribeTap), for: .touchUpInside)
+        termsOfUseButton.addTarget(self, action: #selector(onTermsTap), for: .touchUpInside)
+        privacyButton.addTarget(self, action: #selector(onPrivacyTap), for: .touchUpInside)
     }
 
     func setupPageControl() -> UIPageControl {
         let pageControl = UIPageControl()
-        pageControl.currentPage = 0
+        pageControl.currentPage = currentPage
         pageControl.transform = CGAffineTransform(scaleX: 1.75, y: 1.75)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.numberOfPages = NUMBER_OF_PAGES
@@ -170,21 +184,36 @@ class SubscribeViewFooter: UIView {
         ])
     }
 
-    func setupSubcribeBottomLabels() {
-        let termOfUse = UIButton()
-        let privacyPolicy = UIButton()
+    func setupTermsOfUseButton() -> UIButton {
+        let termOfUseButton = UIButton()
 
         let attributes : [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12, weight: .light),
             NSAttributedString.Key.foregroundColor : UIColor.grayLightA1,
             NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue]
 
-        termOfUse.setAttributedTitle(NSAttributedString(string: NSLocalizedString("label.subscribe.terms.of.use", comment: ""), attributes: attributes), for: .normal)
-        termOfUse.backgroundColor = .white
-        privacyPolicy.setAttributedTitle(NSAttributedString(string: NSLocalizedString("label.subscribe.privacy", comment: ""), attributes: attributes), for: .normal)
-        privacyPolicy.backgroundColor = .white
+        termOfUseButton.setAttributedTitle(NSAttributedString(string: NSLocalizedString("label.subscribe.terms.of.use", comment: ""), attributes: attributes), for: .normal)
+        termOfUseButton.backgroundColor = .white
 
-        let subscribeBottomLabels = UIStackView(arrangedSubviews: [termOfUse, privacyPolicy])
+        return termOfUseButton
+    }
+
+    func setupPrivacyButton() -> UIButton {
+        let privacyButton = UIButton()
+
+        let attributes : [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12, weight: .light),
+            NSAttributedString.Key.foregroundColor : UIColor.grayLightA1,
+            NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue]
+
+        privacyButton.setAttributedTitle(NSAttributedString(string: NSLocalizedString("label.subscribe.privacy", comment: ""), attributes: attributes), for: .normal)
+        privacyButton.backgroundColor = .white
+
+        return privacyButton
+    }
+
+    func setupSubcribeBottomLabels() {
+        let subscribeBottomLabels = UIStackView(arrangedSubviews: [termsOfUseButton, privacyButton])
         subscribeBottomLabels.axis = .horizontal
         subscribeBottomLabels.distribution = .fillProportionally
         subscribeBottomLabels.spacing = 1
@@ -211,6 +240,29 @@ class SubscribeViewFooter: UIView {
             subscribeBottomLabelsContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
             subscribeBottomLabelsContainer.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
+    }
+
+    func updatePageControlIndicator() {
+        pageControl.currentPage = currentPage
+    }
+
+    @objc func onControlTap() {
+        let collectionView = self.superview as! UICollectionView
+        let nextIndex = self.currentPage + 1
+
+        collectionView.scrollToItem(at: IndexPath(item: nextIndex, section: 0), at: .centeredHorizontally, animated: true)
+    }
+
+    @objc func onSubscribeTap() {
+
+    }
+
+    @objc func onTermsTap() {
+        print("Hello")
+    }
+
+    @objc func onPrivacyTap() {
+        print("Hello")
     }
 }
 
@@ -303,21 +355,27 @@ class SubscribeViewController: UICollectionViewController, UICollectionViewDeleg
         SubscriptionPageData(imageName: "internationalAccess", imageTitle: "International access", description: "Text and call country internationally")
     ])
 
+    var subscribeHeader: SubscribeViewHeader!
+    var subscribeFooter: SubscribeViewFooter!
+
     override func loadView() {
         super.loadView()
+        view.backgroundColor = .white
 
         setupCollectionView()
-        setupViewHeader()
-        setupViewFooter()
+        subscribeHeader = setupViewHeader()
+        subscribeFooter = setupViewFooter()
     }
 
     func setupCollectionView() {
         collectionView?.backgroundColor = .white
         collectionView?.isPagingEnabled = true
+        collectionView?.showsHorizontalScrollIndicator = false
+        collectionView?.showsVerticalScrollIndicator = false
         collectionView?.register(SubscribeViewPageCell.self, forCellWithReuseIdentifier: String(describing: SubscribeViewPageCell.self))
     }
 
-    func setupViewHeader() {
+    func setupViewHeader() -> SubscribeViewHeader {
         let subscribeViewHeader = SubscribeViewHeader()
         subscribeViewHeader.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(subscribeViewHeader)
@@ -327,18 +385,22 @@ class SubscribeViewController: UICollectionViewController, UICollectionViewDeleg
             subscribeViewHeader.widthAnchor.constraint(equalToConstant: self.view.frame.size.width),
             subscribeViewHeader.heightAnchor.constraint(equalToConstant: 50)
         ])
+
+        return subscribeViewHeader
     }
 
-    func setupViewFooter() {
+    func setupViewFooter() -> SubscribeViewFooter {
         let subscribeViewFooter = SubscribeViewFooter()
         subscribeViewFooter.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(subscribeViewFooter)
+        collectionView.addSubview(subscribeViewFooter)
 
         NSLayoutConstraint.activate([
             subscribeViewFooter.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
             subscribeViewFooter.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             subscribeViewFooter.heightAnchor.constraint(equalToConstant: 236)
         ])
+
+        return subscribeViewFooter
     }
 }
 
@@ -360,4 +422,10 @@ extension SubscribeViewController {
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAt: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: view.frame.height)
     }
+
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        subscribeFooter.currentPage = Int(targetContentOffset.pointee.x / view.frame.width)
+    }
+
+
 }

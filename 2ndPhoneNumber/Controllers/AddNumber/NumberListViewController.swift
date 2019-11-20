@@ -69,8 +69,7 @@ class NumberListViewCell: UITableViewCell {
 }
 
 class NumberListViewController: AddNumberViewController, UISearchResultsUpdating {
-    let setupNumberViewModel = NumberListViewModel()
-    var viewTitle: String!
+    var setupNumberViewModel: NumberListViewModel!
 
     override func loadView() {
         super.loadView()
@@ -78,8 +77,7 @@ class NumberListViewController: AddNumberViewController, UISearchResultsUpdating
         setupNavigationItem()
         setupTableView()
 
-        let params = getParams()
-        setupNumberViewModel.fetch(params: params){ [weak self] in
+        setupNumberViewModel.fetch(){ [weak self] in
             self?.tableView.reloadData()
         }
     }
@@ -91,7 +89,7 @@ class NumberListViewController: AddNumberViewController, UISearchResultsUpdating
 
     override func setupNavigationItem() {
         super.setupNavigationItem()
-        self.navigationItem.title = viewTitle
+        self.navigationItem.title = setupNumberViewModel.ancestor?.name
     }
 
     override func setupTableView() {
@@ -99,23 +97,22 @@ class NumberListViewController: AddNumberViewController, UISearchResultsUpdating
         
         tableView?.register(NumberListViewCell.self, forCellReuseIdentifier: String(describing: NumberListViewCell.self))
     }
-
-    func getParams () -> [String: String] {
-        let ancestor = setupNumberViewModel.ancestor
-        if ((ancestor as? Country) != nil) {
-            return ["countryCode": (ancestor as! Country).countryCode]
-        } else {
-            return [
-                "countryCode": (ancestor as! State).countryCode,
-                "stateCode": (ancestor as! State).stateCode
-            ]
-        }
-    }
 }
 
 extension NumberListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(AddressViewController(), animated: true)
+
+        let userRegistred = false // from storage
+        if userRegistred {
+            navigationController?.pushViewController(AddressViewController(), animated: true)
+        } else {
+            let flowLayout = UICollectionViewFlowLayout()
+            flowLayout.scrollDirection = .horizontal
+
+            let subscribeViewController = SubscribeViewController(collectionViewLayout: flowLayout)
+            subscribeViewController.modalPresentationStyle = .overFullScreen
+            present(subscribeViewController, animated: true)
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

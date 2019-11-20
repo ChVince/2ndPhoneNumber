@@ -38,15 +38,19 @@ class StateListViewModel: Filterable {
 
     var ancestor: Country?
 
+    init(ancestor: Country) {
+        self.ancestor = ancestor
+    }
+
     func setFilteredList(filterBy: String) {
         filteredList = list.filter{ (country: State) -> Bool in
             return country.name.lowercased().starts(with:filterBy.lowercased())
         }
     }
 
-    func fetch(params: [String: String] = [:] ,completion: @escaping () -> Void) {
+    func fetch(completion: @escaping () -> Void) {
         var service = Services.GET_STATES
-        service.params = params
+        service.params = getParams()
         DataManager.fetchData(url: service.url) { [weak self] (data) in
             do {
                 self?.list = try JSONDecoder().decode([State].self, from: data)
@@ -56,6 +60,11 @@ class StateListViewModel: Filterable {
             completion()
         }
     }
+
+    func getParams() -> [String: String] {
+        return ["countryCode": self.ancestor!.countryCode]
+    }
+
 }
 
 class NumberListViewModel: Filterable {
@@ -64,13 +73,17 @@ class NumberListViewModel: Filterable {
 
     var ancestor: NamedAreaProtocol?
 
+    init(ancestor: NamedAreaProtocol) {
+        self.ancestor = ancestor
+    }
+
     func setFilteredList(filterBy: String) {
         filteredList = list.filter{ (country: AreaNumber) -> Bool in
             return country.number.lowercased().starts(with:filterBy.lowercased())
         }
     }
 
-    func fetch(params: [String: String] = [:], completion: @escaping () -> Void) {
+    func fetch(completion: @escaping () -> Void) {
         var service: Service
         if ((ancestor as? Country) != nil) {
             service = Services.GET_COUNTRY_NUMBERS
@@ -78,7 +91,7 @@ class NumberListViewModel: Filterable {
             service = Services.GET_STATE_NUMBERS
         }
 
-        service.params = params
+        service.params = getParams()
 
         DataManager.fetchData(url: service.url) { [weak self] (data) in
             do {
@@ -87,6 +100,18 @@ class NumberListViewModel: Filterable {
                 print(error)
             }
             completion()
+        }
+    }
+
+    func getParams () -> [String: String] {
+        let ancestor = self.ancestor
+        if ((ancestor as? Country) != nil) {
+            return ["countryCode": (ancestor as! Country).countryCode]
+        } else {
+            return [
+                "countryCode": (ancestor as! State).countryCode,
+                "stateCode": (ancestor as! State).stateCode
+            ]
         }
     }
 }

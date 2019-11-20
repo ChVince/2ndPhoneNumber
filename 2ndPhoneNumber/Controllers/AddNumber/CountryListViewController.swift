@@ -111,7 +111,7 @@ class CountryListViewCell: UITableViewCell {
 }
 
 class CountryListViewController: AddNumberViewController, UISearchResultsUpdating {
-    var setupNumberViewModel: CountryListViewModel!
+    var setupNumberViewModel = CountryListViewModel()
 
     override func loadView() {
         super.loadView()
@@ -148,17 +148,17 @@ class CountryListViewController: AddNumberViewController, UISearchResultsUpdatin
 extension CountryListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = setupNumberViewModel.list[indexPath.row];
-        var controller: AddNumberViewController
 
         if data.hasStates {
-            controller = StateListViewController()
-            controller.viewTitle = data.name
+            let controller = StateListViewController()
+            controller.stateListViewModel = StateListViewModel(ancestor: data)
+            navigationController?.pushViewController(controller, animated: true)
         } else {
-            controller = NumberListViewController()
-            controller.viewTitle = data.name
+            let controller = NumberListViewController()
+            controller.setupNumberViewModel = NumberListViewModel(ancestor: data)
+            navigationController?.pushViewController(controller, animated: true)
         }
 
-        navigationController?.pushViewController(controller, animated: true)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -41,8 +41,7 @@ class StateListViewCell: UITableViewCell {
 }
 
 class StateListViewController: AddNumberViewController, UISearchResultsUpdating {
-    let stateListViewModel = StateListViewModel()
-    var viewTitle: String!
+    var stateListViewModel: StateListViewModel!
 
     override func loadView() {
         super.loadView()
@@ -51,7 +50,7 @@ class StateListViewController: AddNumberViewController, UISearchResultsUpdating 
         setupNavigationItem()
         setupSearchController()
 
-        stateListViewModel.fetch(params: ["countryCode": stateListViewModel.ancestor!.countryCode]){ [weak self] in
+        stateListViewModel.fetch(){ [weak self] in
             self?.tableView.reloadData()
         }
     }
@@ -65,7 +64,7 @@ class StateListViewController: AddNumberViewController, UISearchResultsUpdating 
     override func setupNavigationItem() {
         super.setupNavigationItem()
 
-        self.navigationItem.title = viewTitle
+        self.navigationItem.title = stateListViewModel.ancestor?.name
     }
 
     func setupSearchController() {
@@ -78,8 +77,8 @@ class StateListViewController: AddNumberViewController, UISearchResultsUpdating 
 extension StateListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller = NumberListViewController()
-        controller.viewTitle = stateListViewModel.list[indexPath.row].name
 
+        controller.setupNumberViewModel = NumberListViewModel(ancestor: stateListViewModel.list[indexPath.row])
         navigationController?.pushViewController(controller, animated: true)
     }
 
