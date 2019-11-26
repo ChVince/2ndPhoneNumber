@@ -178,12 +178,13 @@ class PhoneViewHeader: UICollectionReusableView {
 }
 
 //String(describing: ContactViewCell.self)
-class PhoneViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class PhoneViewController: AccountDropdownNavigationController {
     private var inputValue = ""// account view model
-    var accountViewModel: AccountViewModel!
 
     let FIRST_SECTION_KEYS_COUNT = 9
     let SECOND_SECTION_KEYS_COUNT = 2
+
+    let collectionView = UICollectionView(frame: CGRect(x: 0,y: 0,width: 0,height: 0) ,collectionViewLayout: UICollectionViewFlowLayout())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -196,17 +197,17 @@ class PhoneViewController: UICollectionViewController, UICollectionViewDelegateF
 }
 
 
-extension PhoneViewController {
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+extension PhoneViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 2
     }
 
     //MARK: number of items
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return section == 0 ? FIRST_SECTION_KEYS_COUNT : SECOND_SECTION_KEYS_COUNT
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let phoneDigits = accountViewModel.getPhoneDigits()
             let phoneLetters = accountViewModel.getPhoneLetters()
@@ -227,7 +228,7 @@ extension PhoneViewController {
     }
 
     //MARK: return header view
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: PhoneViewHeader.self), for: indexPath) as! PhoneViewHeader
         header.setInputValue(inputValue: inputValue)
         return header
@@ -248,7 +249,7 @@ extension PhoneViewController {
     }
 
     //MARK: On item select
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.item == 0 {
             accountViewModel.callByNumber(number: inputValue)
             return

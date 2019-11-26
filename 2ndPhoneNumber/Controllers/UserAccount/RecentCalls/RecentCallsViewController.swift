@@ -147,16 +147,15 @@ class RecentCallsViewCell: UITableViewCell {
     }
 }
 
-class RecentCallsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    var accountViewModel: AccountViewModel!
+class RecentCallsViewController: AccountDropdownNavigationController {
     var recentCallsFilterView: UISegmentedControl!
-    var tableView: UITableView!
+    var tableView = UITableView()
 
     override func loadView() {
         super.loadView()
         self.recentCallsFilterView = setupRecentCallsFilterView()
-        self.tableView = setupTableView()
-        setupNavigationItem()
+        setupTableView()
+        //setupNavigationItem()
     }
 
     func setupRecentCallsFilterView() -> UISegmentedControl {
@@ -200,7 +199,6 @@ class RecentCallsViewController: UIViewController, UITableViewDataSource, UITabl
     }
 
     func setupTableView() -> UITableView {
-        let tableView = UITableView()
         tableView.register(RecentCallsViewCell.self, forCellReuseIdentifier: String(describing: RecentCallsViewCell.self))
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
@@ -228,7 +226,7 @@ class RecentCallsViewController: UIViewController, UITableViewDataSource, UITabl
     }
 }
 
-extension RecentCallsViewController {
+extension RecentCallsViewController: UITableViewDataSource, UITableViewDelegate  {
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return accountViewModel.recentsCellDataList.count
      }

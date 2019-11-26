@@ -10,6 +10,11 @@
 "label.start.welcome" = "Welcome to";
 "label.app.name" = "2nd Phone Number";
 
+"label.start.feature.global" = "28+ countries";
+"label.start.feature.antispam" = "Spam free";
+"label.start.feature.sims" = "Multiple phone numbers";
+"label.start.feature.chip" = "Chip international calls";
+
 "label.subscribe.restore" = "Restore";
 "label.subscribe.close" = "Close";
 "label.subscribe.subscribe" = "Subscribe";

@@ -52,9 +52,7 @@ class ContactViewCell: UITableViewCell {
     }
 }
 
-class ContactsViewController: UITableViewController, UISearchResultsUpdating {
-    var accountViewModel: AccountViewModel!
-
+class ContactsViewController: AccountDropdownNavigationController {
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
@@ -64,13 +62,14 @@ class ContactsViewController: UITableViewController, UISearchResultsUpdating {
     }
 
     var searchController: UISearchController!
+    var tableView = UITableView()
 
     override func loadView() {
         super.loadView()
 
         self.searchController = setupSearchController()
         setupTableView()
-        setupNavigationItem()
+        //setupNavigationItem()
     }
 
     func setupSearchController() -> UISearchController {
@@ -111,18 +110,18 @@ class ContactsViewController: UITableViewController, UISearchResultsUpdating {
     }
 }
 
-extension ContactsViewController {
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension ContactsViewController: UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contactViewController = ContactViewController()
         navigationController?.pushViewController(contactViewController, animated: true)
         contactViewController.accountViewModel = accountViewModel
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return accountViewModel.contactList.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ContactViewCell.self), for: indexPath) as! ContactViewCell
         cell.contact = accountViewModel.contactList[indexPath.item]
 

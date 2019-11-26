@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserAccountNavigationController: UITabBarController {
+final class UserAccountNavigationController: UITabBarController {
     var accountViewModel: AccountViewModel = AccountViewModel()
 
     override func viewDidLoad() {

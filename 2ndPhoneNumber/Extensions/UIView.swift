@@ -7,43 +7,75 @@
 //
 
 import UIKit
-extension UIView {
-    func addTopBorderWithColor(color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: width)
-        self.layer.addSublayer(border)
-    }
 
-    func addRightBorderWithColor(color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: self.frame.size.width - width, y: 0, width: width, height: self.frame.size.height)
-        self.layer.addSublayer(border)
-    }
-
-    func addBottomBorderWithColor(color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: self.frame.size.height - width, width: self.frame.size.width, height: width)
-        self.layer.addSublayer(border)
-    }
-
-    func addLeftBorderWithColor(color: UIColor, width: CGFloat) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: 0, y: 0, width: width, height: self.frame.size.height)
-        self.layer.addSublayer(border)
-    }
-
-    var parentViewController: UIViewController? {
-        var parentResponder: UIResponder? = self
-        while parentResponder != nil {
-            parentResponder = parentResponder!.next
-            if let viewController = parentResponder as? UIViewController {
-                return viewController
-            }
+@propertyWrapper
+public struct UsesAutoLayout<T: UIView> {
+    public var wrappedValue: T {
+        didSet {
+            wrappedValue.translatesAutoresizingMaskIntoConstraints = false
         }
-        return nil
+    }
+
+    public init(wrappedValue: T) {
+        self.wrappedValue = wrappedValue
+        wrappedValue.translatesAutoresizingMaskIntoConstraints = false
+    }
+}
+
+extension UIView {
+    func alignXYCenter(byView: UIView? = nil) {
+        let unwrappedByView = byView ?? superview!
+        centerXAnchor.constraint(equalTo: unwrappedByView.centerXAnchor).isActive = true
+        centerYAnchor.constraint(equalTo: unwrappedByView.centerYAnchor).isActive = true
+    }
+
+    func alignYCenter() {
+        if let superview = superview {
+            centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
+        }
+    }
+
+    func alignXCenter() {
+         if let superview = superview {
+             centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
+         }
+     }
+
+    func fillSuperview() {
+        setAnchors(top: superview?.topAnchor, leading: superview?.leadingAnchor, bottom: superview?.bottomAnchor, trailing: superview?.trailingAnchor)
+    }
+
+    func anchorSize(to view: UIView) {
+        widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+    }
+
+    func setAnchors(top: NSLayoutYAxisAnchor? = nil, leading: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, trailing: NSLayoutXAxisAnchor? = nil, padding: UIEdgeInsets = .zero) {
+
+        if let top = top {
+            topAnchor.constraint(equalTo: top, constant: padding.top).isActive = true
+        }
+
+        if let leading = leading {
+            leadingAnchor.constraint(equalTo: leading, constant: padding.left).isActive = true
+        }
+
+        if let bottom = bottom {
+            bottomAnchor.constraint(equalTo: bottom, constant: -padding.bottom).isActive = true
+        }
+
+        if let trailing = trailing {
+            trailingAnchor.constraint(equalTo: trailing, constant: -padding.right).isActive = true
+        }
+    }
+
+    func setSize(width: CGFloat = .zero, height: CGFloat = .zero) {
+        if width != 0 {
+            widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
+
+        if height != 0 {
+            heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
     }
 }

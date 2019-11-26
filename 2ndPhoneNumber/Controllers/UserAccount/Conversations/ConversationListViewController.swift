@@ -15,10 +15,7 @@ class ConversationListViewCell: UITableViewCell {
         }
     }
 
-    var dateLabelView: UILabel!
-    var contactIconView: UIImageView!
-    var contactNameLabel: UILabel!
-    var messageLabel: UILabel!
+    var dateLabelView = UILabel()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -28,7 +25,8 @@ class ConversationListViewCell: UITableViewCell {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         self.accessoryType = .disclosureIndicator
 
-        setupGraphic()
+        setupSubviews()
+        setupLayout()
     }
 
     override public func layoutSubviews() {
@@ -37,66 +35,61 @@ class ConversationListViewCell: UITableViewCell {
         imageView?.makeRounded()
     }
 
-    func setupGraphic() {
-        dateLabelView = setupDateLabelView()
-        contactIconView = setupContactIcon()
-        contactNameLabel = setupContactName()
-        messageLabel = setupMessageLabel()
+    func setupSubviews() {
+        setupDateLabelView()
+        setupContactName()
+        setupMessageLabel()
     }
 
-    func setupDateLabelView() -> UILabel {
-        let dateLabel = UILabel()
-        dateLabel.font = UIFont.systemFont(ofSize: 12)
-        dateLabel.textColor = .systemGray
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        contentView.addSubview(dateLabel)
+    func setupLayout() {
         NSLayoutConstraint.activate([
-            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            dateLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15)
+            dateLabelView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            dateLabelView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15)
         ])
-
-        return dateLabel
     }
 
-    func setupContactIcon() -> UIImageView {
-        return imageView!
+    func setupDateLabelView() {
+        dateLabelView = UILabel()
+        dateLabelView.font = UIFont.systemFont(ofSize: 12)
+        dateLabelView.textColor = .systemGray
+        dateLabelView.translatesAutoresizingMaskIntoConstraints = false
+
+        contentView.addSubview(dateLabelView)
     }
 
-    func setupContactName() -> UILabel {
+    func setupContactName() {
         textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         textLabel?.textColor = .black
-
-        return textLabel!
     }
 
-    func setupMessageLabel() -> UILabel {
+    func setupMessageLabel() {
         detailTextLabel?.font = UIFont.systemFont(ofSize: 16)
         detailTextLabel?.textColor = .systemGray
-
-        return detailTextLabel!
     }
 
     func setupCellData() {
         dateLabelView.text = conversationCellData.topMessage.getDate()
-        contactIconView.image = UIImage(named: conversationCellData.contact.image)
-        contactNameLabel.text = conversationCellData.contact.getContactName()
-        messageLabel.text = conversationCellData.topMessage.message
+        imageView!.image = UIImage(named: conversationCellData.contact.image)
+        textLabel!.text = conversationCellData.contact.getContactName()
+        detailTextLabel!.text = conversationCellData.topMessage.message
     }
 }
 
-class ConversationListViewController: UITableViewController {
-    var accountViewModel: AccountViewModel!
+class ConversationListViewController: AccountDropdownNavigationController {
+
+    @UsesAutoLayout
+    var tableView = UITableView()
 
     override func loadView() {
         super.loadView()
 
         setupNavigationItem()
         setupTableView()
+
+        setupLayout()
     }
 
     func setupNavigationItem() {
-        self.navigationItem.title = NSLocalizedString("label.account.chats.title", comment: "")
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "composeMessage"),
             style: .plain,
@@ -106,23 +99,38 @@ class ConversationListViewController: UITableViewController {
     }
 
     func setupTableView() {
-        tableView?.register(ConversationListViewCell.self, forCellReuseIdentifier: String(describing: ConversationListViewCell.self))
+        tableView.register(ConversationListViewCell.self, forCellReuseIdentifier: String(describing: ConversationListViewCell.self))
         self.tableView.tableFooterView = UIView()
-        self.tableView.rowHeight = 65
+        self.tableView.rowHeight = 64
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        view.addSubview(tableView)
+    }
+
+    func setupLayout() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 
     @objc
     func onComposeMessageTap() {
 
     }
+
 }
 
-extension ConversationListViewController {
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension ConversationListViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return accountViewModel.conversationCellDataList.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ConversationListViewCell.self), for: indexPath) as! ConversationListViewCell
         cell.conversationCellData = accountViewModel.conversationCellDataList[indexPath.item]
 

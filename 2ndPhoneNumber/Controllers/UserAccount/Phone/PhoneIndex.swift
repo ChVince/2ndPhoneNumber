@@ -16,9 +16,7 @@ class PhoneNavigationController: UINavigationController {
     }
 
     func setupViewControllers() {
-        let layout: UICollectionViewLayout = UICollectionViewFlowLayout()
-
-        let phoneViewController = PhoneViewController(collectionViewLayout: layout)
+        let phoneViewController = PhoneViewController()
         phoneViewController.accountViewModel = accountViewModel
 
         self.viewControllers = [phoneViewController]

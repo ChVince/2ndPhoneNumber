@@ -11,7 +11,16 @@ import UIKit
 let MockAccountNumbers = [
     AccountNumber(countryCode: "US", number: "+57575757575", isRequireAddress: false, isActive: true),
     AccountNumber(countryCode: "US", number: "+5757575757342345", isRequireAddress: false, isActive: false),
-    AccountNumber(countryCode: "US", number: "+375 29 1744609", isRequireAddress: false, isActive: false)
+    AccountNumber(countryCode: "US", number: "+375 29 1744609", isRequireAddress: false, isActive: false),
+    AccountNumber(countryCode: "US", number: "+57575757575", isRequireAddress: false, isActive: true),
+       AccountNumber(countryCode: "US", number: "+5757575757342345", isRequireAddress: false, isActive: false),
+       AccountNumber(countryCode: "US", number: "+375 29 1744609", isRequireAddress: false, isActive: false),
+       AccountNumber(countryCode: "US", number: "+57575757575", isRequireAddress: false, isActive: true),
+          AccountNumber(countryCode: "US", number: "+5757575757342345", isRequireAddress: false, isActive: false),
+          AccountNumber(countryCode: "US", number: "+375 29 1744609", isRequireAddress: false, isActive: false),
+          AccountNumber(countryCode: "US", number: "+57575757575", isRequireAddress: false, isActive: true),
+             AccountNumber(countryCode: "US", number: "+5757575757342345", isRequireAddress: false, isActive: false),
+             AccountNumber(countryCode: "US", number: "+375 29 1744609", isRequireAddress: false, isActive: false)
 ]
 
 var mockContactList = [

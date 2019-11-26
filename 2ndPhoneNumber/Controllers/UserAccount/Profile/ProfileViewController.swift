@@ -39,7 +39,7 @@ class ProfileViewController: UIViewController {
         numberListView = setupNumberListView()
         topBallanceButton = setupTopBallanceButton()
 
-        setupNavigationItem()
+        //setupNavigationItem()
         setupMenuView()
 
         topBallanceButton.addTarget(self, action: #selector(self.onTopBallanceTap(sender:)), for: .touchUpInside)

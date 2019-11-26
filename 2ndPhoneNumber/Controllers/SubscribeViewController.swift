@@ -287,74 +287,63 @@ class SubscribeViewPageCell: UICollectionViewCell {
         }
     }
 
-    var imageView: UIImageView!
-    var imageTitleView: UILabel!
-    var imageDescriptionView: UILabel!
+    @UsesAutoLayout
+    var imageView = UIImageView()
+
+    @UsesAutoLayout
+    var imageTitleView = UILabel()
+
+    @UsesAutoLayout
+    var imageDescriptionView = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame);
 
-        setupPageLayout()
+        setupViews()
+        setupLayout()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupPageLayout() {
-        imageView = setupImageView()
-        imageTitleView = setupImageTitle()
-        imageDescriptionView = setupDescription()
+    func setupViews() {
+        setupImageView()
+        setupImageTitle()
+        setupDescription()
     }
 
-    func setupImageView() -> UIImageView {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+    func setupLayout() {
+        imageView.setAnchors(top: self.topAnchor, padding: UIEdgeInsets(top: self.frame.height * 0.15, left: 0, bottom: 0, right: 0))
+        imageView.alignXCenter()
+        imageView.setSize(width: self.frame.width * 0.5, height: self.frame.width * 0.5)
+
+        imageTitleView.alignXYCenter()
+
+        let topPadding = CGFloat(UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 0.0 : 12.0)
+        imageDescriptionView.setAnchors(top: imageTitleView.bottomAnchor, padding: UIEdgeInsets(top: topPadding, left: 0, bottom: 0, right: 0))
+        imageDescriptionView.alignXCenter()
+    }
+
+    func setupImageView() {
         imageView.contentMode = .scaleAspectFit
-
         self.addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: self.frame.height * 0.15),
-            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: self.frame.width * 0.5),
-            imageView.heightAnchor.constraint(equalToConstant: self.frame.width * 0.5)
-        ])
-
-        return imageView
     }
 
-    func setupImageTitle() -> UILabel {
-        let imageTitleView = UILabel()
-        imageTitleView.translatesAutoresizingMaskIntoConstraints = false
+    func setupImageTitle() {
         imageTitleView.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont(name: "Circe-Bold", size: 28): UIFont(name: "Circe-Bold", size: 33)
         imageTitleView.textColor = .darkBlue
         imageTitleView.textAlignment = .center
 
         self.addSubview(imageTitleView)
-
-        NSLayoutConstraint.activate([
-            imageTitleView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            imageTitleView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-        ])
-
-        return imageTitleView
     }
 
-    func setupDescription() -> UILabel {
-        let imageDescriptionView = UILabel()
-        imageDescriptionView.translatesAutoresizingMaskIntoConstraints = false
+    func setupDescription() {
         imageDescriptionView.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 12, weight: .regular) : UIFont.systemFont(ofSize: 14, weight: .regular)
         imageDescriptionView.textColor = .black
         imageDescriptionView.textAlignment = .center
 
         self.addSubview(imageDescriptionView)
-
-        NSLayoutConstraint.activate([
-            imageDescriptionView.topAnchor.constraint(equalTo: imageTitleView.bottomAnchor, constant: UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? 0 : 12),
-            imageDescriptionView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-        ])
-
-        return imageDescriptionView
     }
 
     func setupPageData() {
@@ -372,8 +361,11 @@ class SubscribeViewController: UICollectionViewController, UICollectionViewDeleg
         SubscriptionPageData(imageName: "internationalAccess", imageTitle: "International access", description: "Text and call country internationally")
     ])
 
-    var subscribeHeader: SubscribeViewHeader!
-    var subscribeFooter: SubscribeViewFooter!
+    @UsesAutoLayout
+    var subscribeHeader = SubscribeViewHeader()
+
+    @UsesAutoLayout
+    var subscribeFooter = SubscribeViewFooter()
 
     var subscribeViewModel = SubscribeViewModel()
 
@@ -383,9 +375,22 @@ class SubscribeViewController: UICollectionViewController, UICollectionViewDeleg
         super.loadView()
         view.backgroundColor = .white
 
+        setupViews()
+        setupLayout()
+    }
+
+    func setupViews() {
         setupCollectionView()
-        subscribeHeader = setupViewHeader()
-        subscribeFooter = setupViewFooter()
+        setupViewHeader()
+        setupViewFooter()
+    }
+
+    func setupLayout() {
+        subscribeHeader.setAnchors(top: self.view.safeAreaLayoutGuide.topAnchor)
+        subscribeHeader.setSize(width: self.view.frame.size.width, height: 50)
+
+        subscribeFooter.setAnchors(top: self.view.safeAreaLayoutGuide.bottomAnchor)
+        subscribeFooter.setSize(width: self.view.frame.width, height: self.view.frame.height * 0.4)
     }
 
     func setupCollectionView() {
@@ -396,36 +401,14 @@ class SubscribeViewController: UICollectionViewController, UICollectionViewDeleg
         collectionView?.register(SubscribeViewPageCell.self, forCellWithReuseIdentifier: String(describing: SubscribeViewPageCell.self))
     }
 
-    func setupViewHeader() -> SubscribeViewHeader {
-        let subscribeViewHeader = SubscribeViewHeader()
-        subscribeViewHeader.delegate = self
-
-        subscribeViewHeader.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(subscribeViewHeader)
-
-        NSLayoutConstraint.activate([
-            subscribeViewHeader.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            subscribeViewHeader.widthAnchor.constraint(equalToConstant: self.view.frame.size.width),
-            subscribeViewHeader.heightAnchor.constraint(equalToConstant: 50)
-        ])
-
-        return subscribeViewHeader
+    func setupViewHeader() {
+        subscribeHeader.delegate = self
+        view.addSubview(subscribeHeader)
     }
 
-    func setupViewFooter() -> SubscribeViewFooter {
-        let subscribeViewFooter = SubscribeViewFooter()
-        subscribeViewFooter.delegate = self
-
-        subscribeViewFooter.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(subscribeViewFooter)
-
-        NSLayoutConstraint.activate([
-            subscribeViewFooter.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
-            subscribeViewFooter.heightAnchor.constraint(equalToConstant: self.view.frame.height * 0.4),
-            subscribeViewFooter.widthAnchor.constraint(equalToConstant: self.view.frame.width)
-        ])
-
-        return subscribeViewFooter
+    func setupViewFooter() {
+        subscribeFooter.delegate = self
+        view.addSubview(subscribeFooter)
     }
 }
 

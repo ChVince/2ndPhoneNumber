@@ -19,7 +19,7 @@ class MainNavigationViewController: UINavigationController, ModalHandler {
                                                name: NSNotification.Name(rawValue: "number-added"),
                                                object: nil)
 
-        let user = false// Get from Device Storage
+        let user = true// Get from Device Storage
         if user {
             perform(#selector(showUserAccountView), with: nil, afterDelay: 0.01)
         } else {

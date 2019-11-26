@@ -88,7 +88,7 @@ class ContactNumberCell: UITableViewCell {
 }
 
 
-class ContactViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ContactViewController: UIViewController {
     var accountViewModel: AccountViewModel!
 
     var contactImageView: UIImageView!
@@ -191,7 +191,7 @@ class ContactViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 }
 
-extension ContactViewController {
+extension ContactViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1// Should be equal to number count
     }

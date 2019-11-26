@@ -15,103 +15,123 @@ fileprivate struct ImageDescription {
 
 class WelcomeScreenController: UIViewController {
     fileprivate var imageDescriptions = [ImageDescription]([
-        ImageDescription(imagePath: "feature1", description: "28+ countries"),
-        ImageDescription(imagePath: "feature2", description: "Spam free"),
-        ImageDescription(imagePath: "feature3", description: "Multiple phone numbers"),
-        ImageDescription(imagePath: "feature4", description: "Chip international calls")
+        ImageDescription(imagePath: "global", description: NSLocalizedString("label.start.feature.global", comment: "")),
+        ImageDescription(imagePath: "antispam", description: NSLocalizedString("label.start.feature.antispam", comment: "")),
+        ImageDescription(imagePath: "sims", description: NSLocalizedString("label.start.feature.sims", comment: "")),
+        ImageDescription(imagePath: "chip", description: NSLocalizedString("label.start.feature.chip", comment: ""))
     ])
 
-    var topWelcomeText: UILabel!
-    var getStartedButton: UIButton!
+    @UsesAutoLayout
+    var topWelcomeText = UILabel()
+
+    @UsesAutoLayout
+    var getStartedButton = UIButton(type: .custom)
+
+    @UsesAutoLayout
+    var featureList = UIStackView()
 
     var delegate: ModalHandler!
 
     override func loadView() {
         super.loadView()
+        view.backgroundColor = .white
 
-        topWelcomeText = setupTopWelcomeText()
-        getStartedButton = setupGetStartedButton()
+        setupViews()
+        setupLayout()
+        setupHadlers()
+    }
 
+    func setupViews() {
+        setupTopWelcomeText()
+        setupGetStartedButton()
         setupFutureList()
+    }
 
+    func setupLayout() {
+        topWelcomeText.setAnchors(
+            top: view.safeAreaLayoutGuide.topAnchor,
+            leading: view.leadingAnchor,
+            trailing: view.trailingAnchor,
+            padding: UIEdgeInsets(top: view.frame.size.height * 0.1, left: 30, bottom: 0, right: 30)
+        )
+
+        featureList.setAnchors(
+            top: topWelcomeText.bottomAnchor,
+            leading: view.leadingAnchor,
+            trailing: view.trailingAnchor,
+            padding: UIEdgeInsets(
+                top: view.frame.size.height * 0.1,
+                left: 30,
+                bottom: 0,
+                right: 30
+            )
+        )
+
+        featureList.setSize(width: 0, height: view.frame.size.height * 0.45)
+
+        getStartedButton.setAnchors(
+            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+            padding: UIEdgeInsets(
+                top: 0,
+                left: 0,
+                bottom: view.frame.size.height * 0.05,
+                right: 0
+            )
+        )
+
+        getStartedButton.setSize(width: view.frame.width * 0.6, height: view.frame.height * 0.07
+        )
+
+        getStartedButton.alignXCenter() // how to make it Roun JIT ?
+        // getStartedButton.makeRounded()
+    }
+
+    func setupHadlers() {
         getStartedButton.addTarget(self, action: #selector(self.onGetStaredTounch(sender:)), for: .touchUpInside)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        view.backgroundColor = .white
-    }
-
-    func setupTopWelcomeText() -> UILabel {
-        let topWelcomeText = UILabel()
-
+    func setupTopWelcomeText() {
         let attributedText = NSMutableAttributedString(string: NSLocalizedString("label.start.welcome", comment: ""), attributes:[
-            NSAttributedString.Key.font: UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont(name: "Circe-Bold", size: 20)!: UIFont(name: "Circe-Bold", size: 24)!,
+            NSAttributedString.Key.font: UIDevice.current.screenType == .iPhones_5_5s_5c_SE ?
+                UIFont(name: "Circe-Bold", size: 20)!:
+                UIFont(name: "Circe-Bold", size: 24)!,
             NSAttributedString.Key.foregroundColor: UIColor.black
         ])
 
         attributedText.append(NSMutableAttributedString(string: "\n\(NSLocalizedString("label.app.name", comment: ""))", attributes:[
-            NSAttributedString.Key.font: UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont(name: "Circe-Bold", size: 28)!: UIFont(name: "Circe-Bold", size: 32)!,
+            NSAttributedString.Key.font: UIDevice.current.screenType == .iPhones_5_5s_5c_SE ?
+                UIFont(name: "Circe-Bold", size: 28)!:
+                UIFont(name: "Circe-Bold", size: 32)!,
             NSAttributedString.Key.foregroundColor: UIColor.darkBlue
         ]))
 
         topWelcomeText.attributedText = attributedText
-        topWelcomeText.translatesAutoresizingMaskIntoConstraints = false
         topWelcomeText.textAlignment = .left
         topWelcomeText.numberOfLines = 2
 
         self.view.addSubview(topWelcomeText)
-        NSLayoutConstraint.activate([
-            topWelcomeText.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: view.frame.size.height * 0.1),
-            topWelcomeText.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
-            topWelcomeText.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
-        ])
 
-        return topWelcomeText
     }
 
     func setupFutureList() {
-        let featureList = UIStackView()
         featureList.distribution = .fillProportionally
         featureList.axis = .vertical
-        featureList.translatesAutoresizingMaskIntoConstraints = false
 
         imageDescriptions.forEach({ (item) in
             let view = self.createFeatureListView(imagePath: item.imagePath, description: item.description)
             featureList.addArrangedSubview(view)
         })
         self.view.addSubview(featureList)
-
-        NSLayoutConstraint.activate([
-            featureList.topAnchor.constraint(equalTo: topWelcomeText.bottomAnchor, constant: view.frame.size.height * 0.1),
-            featureList.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
-            featureList.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
-            featureList.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.frame.size.height * -0.2)
-        ])
     }
 
-    func setupGetStartedButton() -> UIButton {
-        let button = UIButton(type: .system)
-        button.setTitle(NSLocalizedString("label.start.get.started", comment: ""), for: .normal)
-        button.titleLabel!.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 14, weight: .medium): UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.darkBlue
-        button.setTitleColor(UIColor.white, for: .normal)
+    func setupGetStartedButton() {
+        getStartedButton.setTitle(NSLocalizedString("label.start.get.started", comment: "").uppercased(), for: .normal)
+        getStartedButton.backgroundColor = UIColor.darkBlue
+        getStartedButton.titleLabel!.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 14, weight: .medium): UIFont.systemFont(ofSize: 16, weight: .medium)
+        getStartedButton.backgroundColor = UIColor.darkBlue
+        getStartedButton.setTitleColor(UIColor.white, for: .normal)
 
-
-        self.view.addSubview(button)
-
-        NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(equalToConstant: view.frame.width * 0.6),
-            button.heightAnchor.constraint(equalToConstant: view.frame.height * 0.07),
-            button.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: view.frame.size.height * -0.05),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
-
-        button.layer.cornerRadius = view.frame.height * 0.035
-
-        return button
+        self.view.addSubview(getStartedButton)
     }
 
     private func createFeatureListView(imagePath: String, description: String) -> UIView {
