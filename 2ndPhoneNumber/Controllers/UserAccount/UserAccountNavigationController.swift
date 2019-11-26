@@ -81,6 +81,8 @@ final class UserAccountNavigationController: UITabBarController {
             default:
                 return
             }
+
+            viewController.tabBarItem.imageInsets = UIEdgeInsets.init(top: 5,left: 0,bottom: -5,right: 0)
         }
     }
 }
