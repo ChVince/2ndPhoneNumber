@@ -9,7 +9,11 @@
 import UIKit
 
 final class AccountNavigationDropdownButton: UIButton {
-    weak var delegate: NavigationBarDropdownDelegate!
+    weak var delegate: NavigationBarDropdownDelegate! {
+        didSet {
+            self.delegate.updateDropdownTitle()
+        }
+    }
     var isDropdownShown = false {
         didSet {
             if self.isDropdownShown {
@@ -23,14 +27,15 @@ final class AccountNavigationDropdownButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame);
 
-        // self.setImage(UIImage(named: "collapsed"), for: .normal)
-        //self.semanticContentAttribute = .forceRightToLeft
+        self.setImage(UIImage(named: "collapsed"), for: .normal)
+        self.semanticContentAttribute = .forceRightToLeft
 
         self.setTitleColor(.black, for: .normal)
         self.titleLabel?.font = .systemFont(ofSize: 18)
-        self.setTitle("XXXXXXXXX", for: .normal)
         
-        //self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+
+        self.setTitle("XXXxxxxxxX", for: .normal)
 
         self.addTarget(self, action: #selector(onToggleTap(sender:)), for: .touchUpInside)
     }
@@ -57,6 +62,8 @@ final class AccountNavigationDropdownCell: UITableViewCell {
         textLabel?.font = .systemFont(ofSize: 18)
         textLabel?.textColor = .black
         textLabel?.textAlignment = .center
+        textLabel?.translatesAutoresizingMaskIntoConstraints = false
+        textLabel?.alignXYCenter()
     }
 
     required init?(coder: NSCoder) {
@@ -69,6 +76,9 @@ final class AccountNavigationDropdownCell: UITableViewCell {
         if accountNumber.isActive {
             textLabel?.textColor = .darkBlue
             imageView?.image = UIImage(named: "checked")
+        } else {
+            textLabel?.textColor = .black
+            imageView?.image = .none
         }
     }
 }
@@ -99,14 +109,15 @@ final class AccountNavigationDropdownTable: UITableView, UITableViewDelegate, UI
         self.dataSource = self
 
 
-        /*let blurEffect = UIBlurEffect(style: .dark)
-         let blurEffectView = UIVisualEffectView(effect: blurEffect)
-         blurEffectView.frame = self.bounds
-         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-         self.insertSubview(blurEffectView, at: 0)
-         //self.addSubview(blurEffectView)
-         */
+        self.backgroundView = blurEffectView
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(onBackgroundTap))
+        self.backgroundView?.addGestureRecognizer(tap)
     }
 
     required init?(coder: NSCoder) {
@@ -114,7 +125,7 @@ final class AccountNavigationDropdownTable: UITableView, UITableViewDelegate, UI
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1//accountViewModel.accountNumbers.count
+        return accountViewModel.accountNumbers.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -126,9 +137,17 @@ final class AccountNavigationDropdownTable: UITableView, UITableViewDelegate, UI
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! AccountNavigationDropdownCell
+        tableView.deselectRow(at: indexPath, animated: false)
+
         accountViewModel.setActiveNumber(number: cell.accountNumber.number)
 
         navigationBarDropdownDelegate.updateDropdownTitle()
+        navigationBarDropdownDelegate.toggleDropdown()
+
+        self.reloadData()
+    }
+
+    @objc func onBackgroundTap() {
         navigationBarDropdownDelegate.toggleDropdown()
     }
 }

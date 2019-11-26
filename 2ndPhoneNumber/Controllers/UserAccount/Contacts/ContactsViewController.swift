@@ -9,8 +9,6 @@
 import UIKit
 
 class ContactViewCell: UITableViewCell {
-    var contactImageView: UIImageView!
-    var contactLabelView: UILabel!
     var contact: Contact! {
         didSet {
             setupCellData()
@@ -24,31 +22,24 @@ class ContactViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
 
-        self.contactImageView = setupContactImageView()
-        self.contactLabelView = setupContactLabelView()
+        setupContactLabelView()
     }
 
     override public func layoutSubviews() {
         super.layoutSubviews()
         imageView?.frame = CGRect(x: 22, y: 8, width: 40, height: 40)
         textLabel?.frame = CGRect(x: 75, y: 20, width: textLabel!.intrinsicContentSize.width, height:  textLabel!.intrinsicContentSize.height)
-        self.imageView?.makeRounded()
+        imageView?.makeRounded()
     }
 
-    func setupContactImageView() -> UIImageView {
-        return imageView!
-    }
-
-    func setupContactLabelView() -> UILabel {
+    func setupContactLabelView() {
         textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         textLabel?.textColor = .black
-
-        return textLabel!
     }
 
     func setupCellData() {
-        contactImageView.image = UIImage(named: contact.image)
-        contactLabelView.text = contact.getContactName()
+        imageView!.image = UIImage(named: contact.image)
+        textLabel!.text = contact.getContactName()
     }
 }
 
@@ -61,19 +52,22 @@ class ContactsViewController: AccountDropdownNavigationController {
         return searchController.isActive && !isSearchBarEmpty
     }
 
-    var searchController: UISearchController!
+    var searchController = UISearchController(searchResultsController: nil)
+
+    @UsesAutoLayout
     var tableView = UITableView()
 
     override func loadView() {
         super.loadView()
 
-        self.searchController = setupSearchController()
+        setupSearchController()
         setupTableView()
-        //setupNavigationItem()
+        setupNavigationItem()
+
+        setupLayout()
     }
 
-    func setupSearchController() -> UISearchController {
-        let searchController = UISearchController(searchResultsController: nil)
+    func setupSearchController() {
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.showsScopeBar = true
         searchController.searchBar.scopeButtonTitles = [
@@ -90,23 +84,31 @@ class ContactsViewController: AccountDropdownNavigationController {
         searchController.searchBar.setScopeBarButtonTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.systemBlue
         ], for: .selected)
-
-        return searchController
     }
+
     func setupTableView() {
         tableView.register(ContactViewCell.self, forCellReuseIdentifier: String(describing: ContactViewCell.self))
         tableView.separatorInset = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         tableView.tableFooterView = UIView()
         tableView.rowHeight = 56
+        tableView.delegate = self
+        tableView.dataSource = self
+
+        view.addSubview(tableView)
     }
+
     func setupNavigationItem() {
         definesPresentationContext = true
-        self.navigationItem.title = NSLocalizedString("label.account.contacts.title", comment: "")
         self.navigationItem.searchController = searchController
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func setupLayout() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 }
 

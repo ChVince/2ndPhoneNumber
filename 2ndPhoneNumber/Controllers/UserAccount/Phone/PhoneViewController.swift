@@ -13,9 +13,9 @@ struct UIDimension {
     var height: CGFloat
 }
 
-class KeyCellView: UICollectionViewCell, UICollectionViewDelegateFlowLayout {
-    var digitsLabel: UILabel!
-    var lettersLabel: UILabel!
+class KeyCellView: UICollectionViewCell {
+    var digitsLabel = UILabel()
+    var lettersLabel = UILabel()
 
     override var isHighlighted: Bool {
         didSet {
@@ -27,8 +27,8 @@ class KeyCellView: UICollectionViewCell, UICollectionViewDelegateFlowLayout {
         super.init(frame: frame)
         backgroundColor = .darkBlueWithOpacity
 
-        digitsLabel = setupDigitsLabel()
-        lettersLabel = setupLettersLabel()
+        setupDigitsLabel()
+        setupLettersLabel()
 
         setupLabelContainer()
     }
@@ -37,20 +37,15 @@ class KeyCellView: UICollectionViewCell, UICollectionViewDelegateFlowLayout {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupDigitsLabel() -> UILabel {
-        let digitsLabel = UILabel()
+    func setupDigitsLabel() {
         digitsLabel.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? .systemFont(ofSize: 24) : .systemFont(ofSize: 28)
         digitsLabel.textColor = .black
         digitsLabel.textAlignment = .center
-        return digitsLabel
     }
 
-    func setupLettersLabel() -> UILabel {
-        let lettersLabel = UILabel()
+    func setupLettersLabel() {
         lettersLabel.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? .systemFont(ofSize: 8) : .systemFont(ofSize: 10)
         lettersLabel.textAlignment = .center
-
-        return lettersLabel
     }
 
     func setupLabelContainer() {
@@ -100,10 +95,8 @@ class PhoneCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
-        ])
+
+        imageView.alignXYCenter()
     }
 
     override func layoutSubviews() {
@@ -129,10 +122,7 @@ class BackspaceCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
-        ])
+        imageView.alignXYCenter()
     }
 
     override func layoutSubviews() {
@@ -142,34 +132,34 @@ class BackspaceCell: UICollectionViewCell {
 }
 
 class PhoneViewHeader: UICollectionReusableView {
-    var inputLabel: UILabel!
+    @UsesAutoLayout
+    var inputLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        inputLabel = setupInputLabel()
+        setupInputLabel()
+        setupLayout()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setupInputLabel() -> UILabel {
-        let inputLabel = UILabel()
+    func setupInputLabel() {
         inputLabel.textAlignment = .center
         inputLabel.adjustsFontSizeToFitWidth = true
         inputLabel.font = .systemFont(ofSize: 40)
-        inputLabel.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(inputLabel)
+    }
+
+    func setupLayout() {
         NSLayoutConstraint.activate([
             inputLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
             inputLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 16),
             inputLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             inputLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16)
         ])
-
-        return inputLabel
     }
 
     func setInputValue(inputValue: String) {
@@ -177,22 +167,33 @@ class PhoneViewHeader: UICollectionReusableView {
     }
 }
 
-//String(describing: ContactViewCell.self)
 class PhoneViewController: AccountDropdownNavigationController {
     private var inputValue = ""// account view model
 
     let FIRST_SECTION_KEYS_COUNT = 9
     let SECOND_SECTION_KEYS_COUNT = 2
 
-    let collectionView = UICollectionView(frame: CGRect(x: 0,y: 0,width: 0,height: 0) ,collectionViewLayout: UICollectionViewFlowLayout())
+    @UsesAutoLayout
+    var collectionView = UICollectionView(frame: CGRect(x: 0,y: 0, width: 0, height: 0) ,collectionViewLayout: UICollectionViewFlowLayout())
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
         collectionView.backgroundColor = .white
         collectionView.register(KeyCellView.self, forCellWithReuseIdentifier: String(describing: KeyCellView.self))
         collectionView.register(PhoneCell.self, forCellWithReuseIdentifier: String(describing: PhoneCell.self))
         collectionView.register(BackspaceCell.self, forCellWithReuseIdentifier: String(describing: BackspaceCell.self))
         collectionView.register(PhoneViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: PhoneViewHeader.self))
+
+        collectionView.delegate = self
+        collectionView.dataSource = self
+
+        view.addSubview(collectionView)
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 }
 
@@ -282,7 +283,6 @@ extension PhoneViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return .init(top: 32, left: leftRightPadding, bottom: 16, right: leftRightPadding)
     }
 
-
     func getCellSize() -> UIDimension {
         let leftRightPadding = view.frame.width * 0.1
         let interSpacing = view.frame.width * 0.1
@@ -291,4 +291,3 @@ extension PhoneViewController: UICollectionViewDelegate, UICollectionViewDataSou
         return UIDimension(width: itemWidth, height: itemWidth)
     }
 }
-
