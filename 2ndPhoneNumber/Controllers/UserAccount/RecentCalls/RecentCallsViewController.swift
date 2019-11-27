@@ -131,11 +131,13 @@ class RecentCallsViewCell: UITableViewCell {
     }
 
     @objc func onInfoTouch(sender: UITapGestureRecognizer) {
-        delegate.navigateToRecentCall()
+        delegate.navigateToRecentCall(recentCellData: recentCellData)
     }
 }
 
 class RecentCallsViewController: AccountDropdownNavigationController {
+    var recentCallsViewModel: RecentCallsViewModel!
+
     @UsesAutoLayout
     var recentCallsFilterView = UISegmentedControl(items: [
         NSLocalizedString("label.account.calls.all", comment: ""),
@@ -220,10 +222,10 @@ extension RecentCallsViewController: UITableViewDataSource, UITableViewDelegate 
         return cell
     }
 
-    func navigateToRecentCall() {
+    func navigateToRecentCall(recentCellData: RecentCellData) {
         let callViewController = RecentViewController()
         navigationController?.pushViewController(callViewController, animated: true)
-        callViewController.accountViewModel = accountViewModel
+        callViewController.contactsViewModel = ContactsViewModel(accountViewModel: accountViewModel)
     }
 
      func updateSearchResults(for searchController: UISearchController) {

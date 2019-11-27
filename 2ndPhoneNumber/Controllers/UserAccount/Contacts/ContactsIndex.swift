@@ -18,6 +18,7 @@ class ContactsNavigationController: UINavigationController {
     func setupViewControllers() {
         let contactsViewController = ContactsViewController()
         contactsViewController.accountViewModel = accountViewModel
+        contactsViewController.contactsViewModel = ContactsViewModel(accountViewModel: accountViewModel)
 
         self.viewControllers = [contactsViewController]
     }

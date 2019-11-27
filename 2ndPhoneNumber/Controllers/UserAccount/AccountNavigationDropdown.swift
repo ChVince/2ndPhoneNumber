@@ -9,17 +9,19 @@
 import UIKit
 
 final class AccountNavigationDropdownButton: UIButton {
+
     weak var delegate: NavigationBarDropdownDelegate! {
         didSet {
             self.delegate.updateDropdownTitle()
         }
     }
+
     var isDropdownShown = false {
         didSet {
             if self.isDropdownShown {
-                self.imageView?.transform = .identity
-            } else {
                 self.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+            } else {
+                self.imageView?.transform = .identity
             }
         }
     }
@@ -34,8 +36,6 @@ final class AccountNavigationDropdownButton: UIButton {
         self.titleLabel?.font = .systemFont(ofSize: 18)
         
         self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
-
-        self.setTitle("XXXxxxxxxX", for: .normal)
 
         self.addTarget(self, action: #selector(onToggleTap(sender:)), for: .touchUpInside)
     }
@@ -83,7 +83,34 @@ final class AccountNavigationDropdownCell: UITableViewCell {
     }
 }
 
-final class AccountNavigationDropdownTable: UITableView, UITableViewDelegate, UITableViewDataSource {
+final class AccountNavigationDropdownExtraCell: UITableViewCell {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        let addNumberText: NSAttributedString
+        let addNumberImage = NSTextAttachment()
+
+        addNumberText = NSAttributedString(string: NSLocalizedString("label.navigation.dropdown.number.add", comment: ""), attributes: [
+            NSAttributedString.Key.foregroundColor: UIColor.darkBlue
+        ])
+        addNumberImage.image = UIImage(named: "add")
+
+        let addNumberLine = NSMutableAttributedString()
+        addNumberLine.append(NSAttributedString(attachment: addNumberImage))
+        addNumberLine.append(NSAttributedString(string: " "))
+        addNumberLine.append(addNumberText)
+
+        textLabel!.attributedText = addNumberLine
+        textLabel!.translatesAutoresizingMaskIntoConstraints = false
+        textLabel!.alignXYCenter()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+}
+
+final class AccountNavigationDropdownTable: UITableView {
 
     weak var navigationBarDropdownDelegate: NavigationBarDropdownDelegate!
 
@@ -97,6 +124,8 @@ final class AccountNavigationDropdownTable: UITableView, UITableViewDelegate, UI
         super.init(frame: frame, style: style)
 
         self.register(AccountNavigationDropdownCell.self, forCellReuseIdentifier: String(describing: AccountNavigationDropdownCell.self))
+        self.register(AccountNavigationDropdownExtraCell.self, forCellReuseIdentifier: String(describing: AccountNavigationDropdownExtraCell.self))
+
         self.tableFooterView = UIView()
         self.rowHeight = 56
         self.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -124,11 +153,23 @@ final class AccountNavigationDropdownTable: UITableView, UITableViewDelegate, UI
         fatalError("init(coder:) has not been implemented")
     }
 
+    @objc func onBackgroundTap() {
+        navigationBarDropdownDelegate.toggleDropdown()
+    }
+
+}
+
+extension AccountNavigationDropdownTable: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accountViewModel.accountNumbers.count
+        return accountViewModel.accountNumbers.count + 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        if indexPath.item == accountViewModel.accountNumbers.count {
+            return tableView.dequeueReusableCell(withIdentifier: String(describing: String(describing: AccountNavigationDropdownExtraCell.self)), for: indexPath) as! AccountNavigationDropdownExtraCell
+        }
+
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: String(describing: AccountNavigationDropdownCell.self)), for: indexPath) as! AccountNavigationDropdownCell
 
         cell.accountNumber = accountViewModel.accountNumbers[indexPath.item]
@@ -136,24 +177,27 @@ final class AccountNavigationDropdownTable: UITableView, UITableViewDelegate, UI
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! AccountNavigationDropdownCell
+
+        if indexPath.item == accountViewModel.accountNumbers.count {
+            //
+        } else {
+            let cell = tableView.cellForRow(at: indexPath) as! AccountNavigationDropdownCell
+            accountViewModel.setActiveNumber(number: cell.accountNumber.number)
+        }
+
         tableView.deselectRow(at: indexPath, animated: false)
-
-        accountViewModel.setActiveNumber(number: cell.accountNumber.number)
-
         navigationBarDropdownDelegate.updateDropdownTitle()
         navigationBarDropdownDelegate.toggleDropdown()
 
         self.reloadData()
     }
-
-    @objc func onBackgroundTap() {
-        navigationBarDropdownDelegate.toggleDropdown()
-    }
 }
+
 
 class AccountDropdownNavigationController: UIViewController {
     var isDropdownShown = false
+
+    @UsesAutoLayout
     var accountNavigationDropdownButton = AccountNavigationDropdownButton()
 
     @UsesAutoLayout
@@ -164,18 +208,37 @@ class AccountDropdownNavigationController: UIViewController {
     override func loadView() {
         super.loadView()
 
+        setupDropdownButton()
+        setupDropdownTable()
+
+        setupDropdownLayout()
+    }
+
+    private func setupDropdownButton() {
         self.navigationItem.titleView = accountNavigationDropdownButton
         accountNavigationDropdownButton.delegate = self
+    }
 
+    private func setupDropdownTable() {
         accountNavigationDropdownTable.accountViewModel = accountViewModel
         accountNavigationDropdownTable.navigationBarDropdownDelegate = self
 
         view.addSubview(accountNavigationDropdownTable)
+    }
 
-        accountNavigationDropdownTable.setSize(width: view.frame.width, height: view.frame.height)
-        accountNavigationDropdownTable.alignXCenter()
+    private func setupDropdownLayout() {
         NSLayoutConstraint.activate([
-            accountNavigationDropdownTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            accountNavigationDropdownTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            accountNavigationDropdownTable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            accountNavigationDropdownTable.widthAnchor.constraint(equalToConstant: view.frame.width),
+            accountNavigationDropdownTable.heightAnchor.constraint(equalToConstant: view.frame.height)
+        ])
+
+        NSLayoutConstraint.activate([
+            accountNavigationDropdownButton.centerXAnchor.constraint(equalTo: accountNavigationDropdownButton.superview!.centerXAnchor),
+            accountNavigationDropdownButton.centerYAnchor.constraint(equalTo: accountNavigationDropdownButton.superview!.centerYAnchor),
+            accountNavigationDropdownButton.widthAnchor.constraint(equalToConstant: 200),
+            accountNavigationDropdownButton.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
 }

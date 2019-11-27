@@ -17,7 +17,9 @@ class RecentCallsNavigationController: UINavigationController {
 
     func setupViewControllers() {
         let recentCallsViewController = RecentCallsViewController()
+
         recentCallsViewController.accountViewModel = accountViewModel
+        recentCallsViewController.recentCallsViewModel = RecentCallsViewModel(accountViewModel: accountViewModel)
 
         self.viewControllers = [recentCallsViewController]
     }

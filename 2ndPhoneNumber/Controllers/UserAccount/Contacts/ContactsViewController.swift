@@ -44,15 +44,18 @@ class ContactViewCell: UITableViewCell {
 }
 
 class ContactsViewController: AccountDropdownNavigationController {
+    var contactsViewModel: ContactsViewModel!
+
     var isSearchBarEmpty: Bool {
-        return searchController.searchBar.text?.isEmpty ?? true
+        return searchBar.text?.isEmpty ?? true
     }
 
     var isFiltering: Bool {
-        return searchController.isActive && !isSearchBarEmpty
+        return !isSearchBarEmpty
     }
 
-    var searchController = UISearchController(searchResultsController: nil)
+    @UsesAutoLayout
+    var searchBar = UISearchBar()
 
     @UsesAutoLayout
     var tableView = UITableView()
@@ -63,27 +66,41 @@ class ContactsViewController: AccountDropdownNavigationController {
         setupSearchController()
         setupTableView()
         setupNavigationItem()
-
         setupLayout()
     }
 
+    func setupNavigationItem() {
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "add"),
+            style: .plain,
+            target: self,
+            action: #selector(onAddContact)
+        )
+    }
+
     func setupSearchController() {
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.showsScopeBar = true
-        searchController.searchBar.scopeButtonTitles = [
+        searchBar.showsScopeBar = true
+        searchBar.scopeButtonTitles = [
             NSLocalizedString("label.account.contacts.all", comment: ""),
             NSLocalizedString("label.account.contacts.phone", comment: "")
         ]
-        searchController.searchBar.placeholder = NSLocalizedString("label.account.contacts.search", comment: "")
-        searchController.searchResultsUpdater = self
+        searchBar.placeholder = NSLocalizedString("label.account.contacts.search", comment: "")
 
-        searchController.searchBar.setScopeBarButtonTitleTextAttributes([
+        searchBar.setScopeBarButtonTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.systemGray
         ], for: .normal)
 
-        searchController.searchBar.setScopeBarButtonTitleTextAttributes([
+        searchBar.setScopeBarButtonTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.systemBlue
         ], for: .selected)
+
+        if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
+            textfield.backgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 0.45)
+        }
+        searchBar.backgroundImage = UIImage()
+        searchBar.barTintColor = .white
+        view.addSubview(searchBar)
     }
 
     func setupTableView() {
@@ -97,18 +114,23 @@ class ContactsViewController: AccountDropdownNavigationController {
         view.addSubview(tableView)
     }
 
-    func setupNavigationItem() {
-        definesPresentationContext = true
-        self.navigationItem.searchController = searchController
-    }
-
     func setupLayout() {
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
+
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+
+    @objc func onAddContact() {
+
     }
 }
 
@@ -116,7 +138,7 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contactViewController = ContactViewController()
         navigationController?.pushViewController(contactViewController, animated: true)
-        contactViewController.accountViewModel = accountViewModel
+        contactViewController.contactsViewModel = ContactsViewModel(accountViewModel: accountViewModel)
     }
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

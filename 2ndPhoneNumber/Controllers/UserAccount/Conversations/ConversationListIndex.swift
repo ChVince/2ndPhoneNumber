@@ -18,6 +18,7 @@ class ConversationListNavigationController: UINavigationController {
     func setupViewControllers() {
         let conversationListViewController = ConversationListViewController()
         conversationListViewController.accountViewModel = accountViewModel
+        conversationListViewController.conversationsViewModel = ConversationViewModel(accountViewModel: accountViewModel)
 
         self.viewControllers = [conversationListViewController]
     }

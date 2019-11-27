@@ -9,189 +9,163 @@
 import UIKit
 
 class RecentCallCell: UITableViewCell {
-    var accountViewModel: AccountViewModel!
+    var delegate: ContactViewController!
     var contact: Contact! {
         didSet {
             setupCellData()
         }
     }
-    var contactMessageIconView: UIButton!
-    var contactCallIconView: UIButton!
-    var contactNumberLabelView: UILabel!
+
+    @UsesAutoLayout
+    var contactMessageIconView = UIButton(type: .custom)
+
+    @UsesAutoLayout
+    var contactCallIconView = UIButton(type: .custom)
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        setupGraphic()
+        setupContactMessageIcon()
+        setupContactCallIcon()
+        setupContactNumberLabel()
+
+        contactMessageIconView.addTarget(self, action: #selector(self.onMessageTouch(sender:)), for: .touchUpInside)
+        contactCallIconView.addTarget(self, action: #selector(self.onCallTouch(sender:)), for: .touchUpInside)
+
+        NSLayoutConstraint.activate([
+            contactMessageIconView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            contactMessageIconView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+        ])
+
+        NSLayoutConstraint.activate([
+            contactCallIconView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            contactCallIconView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60)
+        ])
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    private func setupGraphic() {
-        self.contactMessageIconView = setupContactMessageIcon()
-        self.contactCallIconView = setupContactCallIcon()
-        self.contactNumberLabelView = setupContactNumberLabel()
-        contactMessageIconView.addTarget(self, action: #selector(self.onMessageTouch(sender:)), for: .touchUpInside)
-        contactCallIconView.addTarget(self, action: #selector(self.onCallTouch(sender:)), for: .touchUpInside)
+    func setupContactMessageIcon() {
+        let image = UIImage(named: "contactCall")
+        contactMessageIconView.setImage(image, for: .normal)
+
+        self.contentView.addSubview(contactMessageIconView)
     }
 
-    func setupContactMessageIcon() -> UIButton {
-        let setupContactMessageIcon = UIButton(type: .custom)
-        let image = UIImage(named: "call")
-        setupContactMessageIcon.setImage(image, for: .normal)
-        setupContactMessageIcon.translatesAutoresizingMaskIntoConstraints = false
-
-        self.contentView.addSubview(setupContactMessageIcon)
-        NSLayoutConstraint.activate([
-            setupContactMessageIcon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            setupContactMessageIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
-        ])
-
-        return setupContactMessageIcon
-    }
-
-    func setupContactCallIcon() -> UIButton {
-        let setupContactCallIcon = UIButton(type: .custom)
+    func setupContactCallIcon() {
         let image = UIImage(named: "message")
-        setupContactCallIcon.setImage(image, for: .normal)
-        setupContactCallIcon.translatesAutoresizingMaskIntoConstraints = false
+        contactCallIconView.setImage(image, for: .normal)
 
-        self.contentView.addSubview(setupContactCallIcon)
-        NSLayoutConstraint.activate([
-            setupContactCallIcon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            setupContactCallIcon.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60)
-        ])
-
-        return setupContactCallIcon
+        self.contentView.addSubview(contactCallIconView)
     }
 
-    func setupContactNumberLabel() -> UILabel {
+    func setupContactNumberLabel() {
         textLabel?.font = .systemFont(ofSize: 18)
         textLabel?.textColor = .black
-
-        return textLabel!
     }
 
     @objc func onCallTouch(sender: UIButton) {
-        accountViewModel.callTo(contact: contact)
+        delegate.onCellCallTap(contact: contact)
     }
 
     @objc func onMessageTouch(sender: UIButton) {
-        accountViewModel.sendMessageTo(contact: contact)
+        delegate.onCellMessageTap(contact: contact)
     }
 
     func setupCellData() {
-        contactNumberLabelView.text = contact.number
+        textLabel!.text = contact.number
     }
 }
 
+class RecentViewController: UIViewController {
+    var contactsViewModel: ContactsViewModel! {
+        didSet {
+            setupViewData(contact: contactsViewModel.accountViewModel.contactList[0])
+        }
+    }
 
-class RecentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var accountViewModel: AccountViewModel!
+    @UsesAutoLayout
+    var contactImageView = UIImageView()
 
-    var contactImageView: UIImageView!
-    var contactImageLabelView: UILabel!
-    var contactNumberListTable: UITableView!
+    @UsesAutoLayout
+    var contactImageLabelView = UILabel()
+
+    @UsesAutoLayout
+    var contactNumberListTable = UITableView()
 
     override func loadView() {
         super.loadView()
 
-        self.contactImageView = setupContactImageView()
-        self.contactImageLabelView = setupContactImageLabelView()
-        self.contactNumberListTable = setupContactNumberListTable()
+        setupContactImageView()
+        setupContactImageLabelView()
+        setupContactNumberListTable()
 
         setupNavigaitonItem()
+
+        setupLayout()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-
-        setupViewData(contact: self.accountViewModel.contactList[0])
     }
 
-    func setupNavigaitonItem() {
-
-        /*let editLabel = NSLocalizedString("label.contact.edit", comment: "")
-        let underLinedMutableString = NSMutableAttributedString(string: editLabel, attributes:[
-            NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue
-         ])
-         */
-
-        self.navigationItem.title = NSLocalizedString("label.account.contact.title", comment: "")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            title: NSLocalizedString("label.contact.edit", comment: ""),
-            style: UIBarButtonItem.Style.plain,
-            target: self,
-            action: #selector(self.onEditTouch(sender:))
-        )
-    }
-
-    func setupContactImageView() -> UIImageView {
-        let contactImageView = UIImageView()
-        contactImageView.frame = CGRect(x: 22, y: 8, width: 128, height: 128)
-        contactImageView.makeRounded()
-        contactImageView.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(contactImageView)
+    func setupLayout() {
+        NSLayoutConstraint.activate([
+            contactImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+            contactImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
         NSLayoutConstraint.activate([
             contactImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
             contactImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
 
-        return contactImageView
-    }
-    func setupContactImageLabelView() -> UILabel {
-        let contactImageLabelView = UILabel()
-        contactImageLabelView.font = .systemFont(ofSize: 16, weight: .bold)
-        contactImageLabelView.translatesAutoresizingMaskIntoConstraints = false
-        contactImageLabelView.textAlignment = .center
-
-        view.addSubview(contactImageLabelView)
         NSLayoutConstraint.activate([
             contactImageLabelView.topAnchor.constraint(equalTo: contactImageView.bottomAnchor, constant: 15),
             contactImageLabelView.widthAnchor.constraint(equalTo: view.widthAnchor),
             contactImageLabelView.heightAnchor.constraint(equalToConstant: 20)
         ])
-
-        return contactImageLabelView
     }
-    func setupContactNumberListTable() -> UITableView {
-        let tableView = UITableView()
-        tableView.register(RecentCallCell.self, forCellReuseIdentifier: String(describing: RecentCallCell.self))
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.tableFooterView = UIView()
-        tableView.rowHeight = 56
-        tableView.allowsSelection = false
 
-        view.addSubview(tableView)
+    func setupNavigaitonItem() {
+        self.navigationItem.title = NSLocalizedString("label.account.contact.title", comment: "")
+    }
 
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: contactImageLabelView.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+    func setupContactImageView() {
+        contactImageView.frame = CGRect(x: 22, y: 8, width: 128, height: 128)
+        contactImageView.makeRounded()
 
-        return tableView
+        view.addSubview(contactImageView)
+    }
+
+    func setupContactImageLabelView() {
+        contactImageLabelView.font = .systemFont(ofSize: 16, weight: .bold)
+        contactImageLabelView.textAlignment = .center
+
+        view.addSubview(contactImageLabelView)
+    }
+
+    func setupContactNumberListTable() {
+        contactNumberListTable.register(RecentCallCell.self, forCellReuseIdentifier: String(describing: RecentCallCell.self))
+        contactNumberListTable.delegate = self
+        contactNumberListTable.dataSource = self
+        contactNumberListTable.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        contactNumberListTable.tableFooterView = UIView()
+        contactNumberListTable.rowHeight = 56
+        contactNumberListTable.allowsSelection = false
+
+        view.addSubview(contactNumberListTable)
     }
 
     func setupViewData(contact: Contact) {
         contactImageView.image = UIImage(named: contact.image)
         contactImageLabelView.text = contact.getContactName()
     }
-
-    @objc func onEditTouch(sender: UIButton) {
-
-    }
 }
 
-extension RecentViewController {
+extension RecentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1// Should be equal to number count
     }
@@ -200,6 +174,14 @@ extension RecentViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RecentCallCell.self), for: indexPath) as! RecentCallCell
 
         return cell
+    }
+
+    func onCellCallTap(contact: Contact) {
+        contactsViewModel.callTo(contact: contact)
+    }
+
+    func onCellMessageTap(contact: Contact) {
+        contactsViewModel.sendMessageTo(contact: contact)
     }
 }
 

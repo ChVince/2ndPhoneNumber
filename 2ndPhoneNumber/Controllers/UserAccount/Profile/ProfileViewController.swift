@@ -16,7 +16,7 @@ private struct MenuItemDescription {
 }
 
 class ProfileViewController: UIViewController {
-    var accountViewModel: AccountViewModel!
+    var profileViewModel: ProfileViewModel!
     let PRIVACY_URL = URL(string: "https://google.com")!
     let SUPPORT_URL = URL(string: "https://google.com")!
     let TERMS_URL = URL(string: "https://google.com")!
@@ -28,36 +28,39 @@ class ProfileViewController: UIViewController {
         MenuItemDescription(itemId: 3, imageName: "share", menuLabel: NSLocalizedString("label.profile.share", comment: ""))
     ]
 
-    var numberListView: UIView!
-    var topBallanceButton: UIButton!
-    var scrollView: UIScrollView!
+    @UsesAutoLayout
+    var numberListViewContainer = UIView()
+
+    @UsesAutoLayout
+    var topBallanceButton = UIButton()
+
+    @UsesAutoLayout
+    var scrollView = UIScrollView()
 
     override func loadView() {
         super.loadView()
 
-        scrollView = setupScrollView()
-        numberListView = setupNumberListView()
-        topBallanceButton = setupTopBallanceButton()
+        setupNavigationItem()
+        setupScrollView()
+        setupNumberListView()
+        setupTopBallanceButton()
 
-        //setupNavigationItem()
         setupMenuView()
 
         topBallanceButton.addTarget(self, action: #selector(self.onTopBallanceTap(sender:)), for: .touchUpInside)
     }
 
-    func setupNumberListView() -> UIView {
+    func setupNumberListView() {
         let numberListView = UIStackView()
         numberListView.axis = .vertical
         numberListView.translatesAutoresizingMaskIntoConstraints = false
         numberListView.spacing = 0
         numberListView.alignment = .center
 
-        let numberList = accountViewModel.getAccountNumbers()
-        let numberListViewContainer = UIView()
+        let numberList = profileViewModel.getAccountNumbers()
 
         numberListViewContainer.addSubview(numberListView)
         numberListViewContainer.backgroundColor = .white
-        numberListViewContainer.translatesAutoresizingMaskIntoConstraints = false
 
         scrollView.addSubview(numberListViewContainer)
 
@@ -83,47 +86,39 @@ class ProfileViewController: UIViewController {
             numberListViewContainer.bottomAnchor.constraint(equalTo: numberListView.bottomAnchor),
             numberListViewContainer.widthAnchor.constraint(equalToConstant: view.frame.width),
         ])
-
-        return numberListViewContainer
     }
 
-    func setupTopBallanceButton() -> UIButton {
+    func setupTopBallanceButton() {
         let topBalanceButtonContainer = UIView()
         topBalanceButtonContainer.backgroundColor = .white
         topBalanceButtonContainer.translatesAutoresizingMaskIntoConstraints = false
 
-        let button = UIButton(type: .system)
-        button.setTitle(NSLocalizedString("label.profile.balance", comment: "").uppercased(), for: .normal)
-        button.titleLabel!.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 12, weight:.medium) : UIFont.systemFont(ofSize: 14, weight:.medium)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor.darkBlue
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.layer.cornerRadius = 15
+        topBallanceButton.setTitle(NSLocalizedString("label.profile.balance", comment: "").uppercased(), for: .normal)
+        topBallanceButton.titleLabel!.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 12, weight:.medium) : UIFont.systemFont(ofSize: 14, weight:.medium)
+        topBallanceButton.backgroundColor = UIColor.darkBlue
+        topBallanceButton.setTitleColor(UIColor.white, for: .normal)
+        topBallanceButton.layer.cornerRadius = 15
 
-        topBalanceButtonContainer.addSubview(button)
+        topBalanceButtonContainer.addSubview(topBallanceButton)
 
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: topBalanceButtonContainer.topAnchor, constant: 5),
-            button.centerXAnchor.constraint(equalTo: topBalanceButtonContainer.centerXAnchor),
-            button.widthAnchor.constraint(equalToConstant: 200),
-            button.heightAnchor.constraint(equalToConstant: 30)
+            topBallanceButton.topAnchor.constraint(equalTo: topBalanceButtonContainer.topAnchor, constant: 5),
+            topBallanceButton.centerXAnchor.constraint(equalTo: topBalanceButtonContainer.centerXAnchor),
+            topBallanceButton.widthAnchor.constraint(equalToConstant: 200),
+            topBallanceButton.heightAnchor.constraint(equalToConstant: 30)
         ])
 
         scrollView.addSubview(topBalanceButtonContainer)
 
         NSLayoutConstraint.activate([
-            topBalanceButtonContainer.topAnchor.constraint(equalTo: numberListView.bottomAnchor),
+            topBalanceButtonContainer.topAnchor.constraint(equalTo: numberListViewContainer.bottomAnchor),
             topBalanceButtonContainer.widthAnchor.constraint(equalToConstant: view.frame.width),
             topBalanceButtonContainer.heightAnchor.constraint(equalToConstant: 50),
         ])
-
-        return button
     }
 
-    func setupScrollView() -> UIScrollView {
-        let scrollView = UIScrollView()
+    func setupScrollView() {
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(scrollView)
 
@@ -135,8 +130,6 @@ class ProfileViewController: UIViewController {
             scrollView.heightAnchor.constraint(equalTo: view.heightAnchor),
             scrollView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
-
-        return scrollView
     }
 
     func setupMenuView() {

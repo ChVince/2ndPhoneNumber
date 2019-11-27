@@ -81,9 +81,9 @@ class ContactNumberCell: UITableViewCell {
 
 
 class ContactViewController: UIViewController {
-    var accountViewModel: AccountViewModel! {
+    var contactsViewModel: ContactsViewModel! {
         didSet {
-            setupViewData(contact: self.accountViewModel.contactList[0])
+            setupViewData(contact: self.contactsViewModel.getContactList()[0])
         }
     }
 
@@ -183,16 +183,16 @@ extension ContactViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ContactNumberCell.self), for: indexPath) as! ContactNumberCell
-        cell.contact = self.accountViewModel.contactList[0]
+        cell.contact = contactsViewModel.getContactList()[0]
 
         return cell
     }
 
     func onCellCallTap(contact: Contact) {
-        accountViewModel.callTo(contact: contact)
+        contactsViewModel.callTo(contact: contact)
     }
 
     func onCellMessageTap(contact: Contact) {
-        accountViewModel.sendMessageTo(contact: contact)
+        contactsViewModel.sendMessageTo(contact: contact)
     }
 }

@@ -70,6 +70,12 @@
 		48EABCA9236F0A9C00205923 /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABCA8236F0A9C00205923 /* Call.swift */; };
 		48EABCAB236F0B4B00205923 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABCAA236F0B4B00205923 /* Conversation.swift */; };
 		48EABCAD236F101300205923 /* ConversationListIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABCAC236F101300205923 /* ConversationListIndex.swift */; };
+		48F1EB85238E8FCF007D5795 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1EB84238E8FCF007D5795 /* ConversationViewController.swift */; };
+		48F1EB88238E9825007D5795 /* ConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1EB87238E9825007D5795 /* ConversationViewModel.swift */; };
+		48F1EB8A238E984D007D5795 /* RecentCallsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1EB89238E984D007D5795 /* RecentCallsViewModel.swift */; };
+		48F1EB8C238E986C007D5795 /* PhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1EB8B238E986C007D5795 /* PhoneViewModel.swift */; };
+		48F1EB8E238E988F007D5795 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1EB8D238E988F007D5795 /* ContactsViewModel.swift */; };
+		48F1EB90238E98A4007D5795 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1EB8F238E98A4007D5795 /* ProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -139,6 +145,12 @@
 		48EABCA8236F0A9C00205923 /* Call.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
 		48EABCAA236F0B4B00205923 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		48EABCAC236F101300205923 /* ConversationListIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListIndex.swift; sourceTree = "<group>"; };
+		48F1EB84238E8FCF007D5795 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		48F1EB87238E9825007D5795 /* ConversationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewModel.swift; sourceTree = "<group>"; };
+		48F1EB89238E984D007D5795 /* RecentCallsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCallsViewModel.swift; sourceTree = "<group>"; };
+		48F1EB8B238E986C007D5795 /* PhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneViewModel.swift; sourceTree = "<group>"; };
+		48F1EB8D238E988F007D5795 /* ContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
+		48F1EB8F238E98A4007D5795 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		88BDADF1708088F472ED9CC1 /* Pods-2ndPhoneNumber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-2ndPhoneNumber.debug.xcconfig"; path = "Target Support Files/Pods-2ndPhoneNumber/Pods-2ndPhoneNumber.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -251,9 +263,9 @@
 		482BF891233FC96900E5789E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				48F1EB86238E97FB007D5795 /* Account */,
 				48723BCE23549DC20064AA14 /* AddNumberViewModel.swift */,
 				48EABC9A236EE39000205923 /* AddressViewModel.swift */,
-				481EBABF237052B300922745 /* AccountViewModel.swift */,
 				488F7F102385618100A293B2 /* SubscribeViewModel.swift */,
 			);
 			path = ViewModels;
@@ -340,6 +352,7 @@
 			children = (
 				48EABCAC236F101300205923 /* ConversationListIndex.swift */,
 				48EABCA0236F070F00205923 /* ConversationListViewController.swift */,
+				48F1EB84238E8FCF007D5795 /* ConversationViewController.swift */,
 			);
 			path = Conversations;
 			sourceTree = "<group>";
@@ -352,6 +365,19 @@
 				481EBAEA237ED5F700922745 /* RecentViewController.swift */,
 			);
 			path = RecentCalls;
+			sourceTree = "<group>";
+		};
+		48F1EB86238E97FB007D5795 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				481EBABF237052B300922745 /* AccountViewModel.swift */,
+				48F1EB87238E9825007D5795 /* ConversationViewModel.swift */,
+				48F1EB89238E984D007D5795 /* RecentCallsViewModel.swift */,
+				48F1EB8B238E986C007D5795 /* PhoneViewModel.swift */,
+				48F1EB8D238E988F007D5795 /* ContactsViewModel.swift */,
+				48F1EB8F238E98A4007D5795 /* ProfileViewModel.swift */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		5AABCDAA29A04AA072F33E94 /* Pods */ = {
@@ -493,6 +519,7 @@
 				484A0FEA233375B4009360A9 /* WelcomeScreenViewController.swift in Sources */,
 				481EBADF237ACE0A00922745 /* SupportViewController.swift in Sources */,
 				481EBAC0237052B300922745 /* AccountViewModel.swift in Sources */,
+				48F1EB8A238E984D007D5795 /* RecentCallsViewModel.swift in Sources */,
 				481EBAC62370870C00922745 /* Message.swift in Sources */,
 				48723BD42355F9E00064AA14 /* DataManager.swift in Sources */,
 				481EBAD9237323A700922745 /* UIDevice.swift in Sources */,
@@ -500,6 +527,7 @@
 				48EABC9B236EE39000205923 /* AddressViewModel.swift in Sources */,
 				481EBAD32372F8E000922745 /* ProfileIndex.swift in Sources */,
 				485987C5235C821C00ED37DE /* NamedAreaProtocol.swift in Sources */,
+				48F1EB90238E98A4007D5795 /* ProfileViewModel.swift in Sources */,
 				481EBAC423706CD900922745 /* Contact.swift in Sources */,
 				48EABCA1236F070F00205923 /* ConversationListViewController.swift in Sources */,
 				48723BCB235496310064AA14 /* AreaNumber.swift in Sources */,
@@ -518,11 +546,14 @@
 				481EBAE5237C1B7300922745 /* UIImage.swift in Sources */,
 				481EBADD237ACDF300922745 /* TermsViewController.swift in Sources */,
 				48022AB623411F45002F009F /* UIColorExtension.swift in Sources */,
+				48F1EB88238E9825007D5795 /* ConversationViewModel.swift in Sources */,
+				48F1EB85238E8FCF007D5795 /* ConversationViewController.swift in Sources */,
 				481EBABE236F3ECF00922745 /* RecentCallsViewController.swift in Sources */,
 				4811A6752387EDEA00330943 /* AccountNavigationDropdown.swift in Sources */,
 				481EBACB2372F4E900922745 /* ContactsIndex.swift in Sources */,
 				481EBAE7237C2C4300922745 /* UIImageView.swift in Sources */,
 				48022AB123409C47002F009F /* NumberListViewController.swift in Sources */,
+				48F1EB8E238E988F007D5795 /* ContactsViewModel.swift in Sources */,
 				48723BD123549EB40064AA14 /* Filterable.swift in Sources */,
 				481EBADB237ACDE300922745 /* PrivacyViewController.swift in Sources */,
 				481EBAD72372F98700922745 /* ProfileViewController.swift in Sources */,
@@ -543,6 +574,7 @@
 				486B2F6423883D4C0001D010 /* NavigationBarDropdownDelegate.swift in Sources */,
 				48022AAD23409C02002F009F /* CountryListViewController.swift in Sources */,
 				48723BCF23549DC20064AA14 /* AddNumberViewModel.swift in Sources */,
+				48F1EB8C238E986C007D5795 /* PhoneViewModel.swift in Sources */,
 				48EABCA7236F0A0F00205923 /* NumberHistory.swift in Sources */,
 				488F7F1523869BA000A293B2 /* UIButton.swift in Sources */,
 			);

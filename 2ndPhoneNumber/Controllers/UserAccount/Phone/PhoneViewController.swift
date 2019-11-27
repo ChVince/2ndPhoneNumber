@@ -168,6 +168,8 @@ class PhoneViewHeader: UICollectionReusableView {
 }
 
 class PhoneViewController: AccountDropdownNavigationController {
+    var phoneViewModel: PhoneViewModel!
+
     private var inputValue = ""// account view model
 
     let FIRST_SECTION_KEYS_COUNT = 9
@@ -210,8 +212,8 @@ extension PhoneViewController: UICollectionViewDelegate, UICollectionViewDataSou
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
-            let phoneDigits = accountViewModel.getPhoneDigits()
-            let phoneLetters = accountViewModel.getPhoneLetters()
+            let phoneDigits = phoneViewModel.getPhoneDigits()
+            let phoneLetters = phoneViewModel.getPhoneLetters()
 
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: KeyCellView.self), for: indexPath) as! KeyCellView
 
@@ -252,12 +254,12 @@ extension PhoneViewController: UICollectionViewDelegate, UICollectionViewDataSou
     //MARK: On item select
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.item == 0 {
-            accountViewModel.callByNumber(number: inputValue)
+            phoneViewModel.callByNumber(number: inputValue)
             return
         }
 
         if indexPath.section == 0 {
-            let phoneDigits = accountViewModel.getPhoneDigits()
+            let phoneDigits = phoneViewModel.getPhoneDigits()
             inputValue += phoneDigits[indexPath.item]
         } else {
             inputValue = String(inputValue.dropLast())

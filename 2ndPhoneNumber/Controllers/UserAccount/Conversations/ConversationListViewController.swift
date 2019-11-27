@@ -15,6 +15,7 @@ class ConversationListViewCell: UITableViewCell {
         }
     }
 
+    @UsesAutoLayout
     var dateLabelView = UILabel()
 
     required init?(coder aDecoder: NSCoder) {
@@ -29,16 +30,20 @@ class ConversationListViewCell: UITableViewCell {
         setupLayout()
     }
 
-    override public func layoutSubviews() {
-        super.layoutSubviews()
-        imageView?.frame = CGRect(x: 20, y: 15, width: 40, height: 40)
-        imageView?.makeRounded()
-    }
-
     func setupSubviews() {
         setupDateLabelView()
         setupContactName()
         setupMessageLabel()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        imageView?.frame = CGRect(x: 22, y: 12, width: 40, height: 40)
+        textLabel?.frame = CGRect(x: 75, y: 14, width: textLabel!.intrinsicContentSize.width, height:  textLabel!.intrinsicContentSize.height)
+        detailTextLabel?.frame = CGRect(x: 75, y: 34, width: textLabel!.intrinsicContentSize.width, height:  textLabel!.intrinsicContentSize.height)
+
+        imageView?.makeRounded()
     }
 
     func setupLayout() {
@@ -52,8 +57,6 @@ class ConversationListViewCell: UITableViewCell {
         dateLabelView = UILabel()
         dateLabelView.font = UIFont.systemFont(ofSize: 12)
         dateLabelView.textColor = .systemGray
-        dateLabelView.translatesAutoresizingMaskIntoConstraints = false
-
         contentView.addSubview(dateLabelView)
     }
 
@@ -76,6 +79,7 @@ class ConversationListViewCell: UITableViewCell {
 }
 
 class ConversationListViewController: AccountDropdownNavigationController {
+    var conversationsViewModel: ConversationViewModel!
 
     @UsesAutoLayout
     var tableView = UITableView()
@@ -104,7 +108,7 @@ class ConversationListViewController: AccountDropdownNavigationController {
         self.tableView.rowHeight = 64
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        self.tableView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         view.addSubview(tableView)
     }
 
@@ -125,6 +129,12 @@ class ConversationListViewController: AccountDropdownNavigationController {
 }
 
 extension ConversationListViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let contactViewController = ContactViewController()
+        navigationController?.pushViewController(contactViewController, animated: true)
+        contactViewController.contactsViewModel = ContactsViewModel(accountViewModel: accountViewModel)
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return accountViewModel.conversationCellDataList.count

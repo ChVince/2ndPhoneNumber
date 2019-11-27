@@ -17,7 +17,7 @@ class ProfileNavigationController: UINavigationController {
 
     func setupViewControllers() {
         let profileViewController = ProfileViewController()
-        profileViewController.accountViewModel = accountViewModel
+        profileViewController.profileViewModel = ProfileViewModel(accountViewModel: accountViewModel)
 
         self.viewControllers = [profileViewController]
     }
