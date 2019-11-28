@@ -33,12 +33,12 @@ class ContactViewCell: UITableViewCell {
     }
 
     func setupContactLabelView() {
-        textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        textLabel?.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 14, weight: .bold) : UIFont.systemFont(ofSize: 16, weight: .bold)
         textLabel?.textColor = .black
     }
 
     func setupCellData() {
-        imageView!.image = UIImage(named: contact.image)
+        imageView!.image = UIImage(named: contact.image!)
         textLabel!.text = contact.getContactName()
     }
 }
@@ -95,11 +95,18 @@ class ContactsViewController: AccountDropdownNavigationController {
             NSAttributedString.Key.foregroundColor: UIColor.systemBlue
         ], for: .selected)
 
+        searchBar.backgroundImage = UIImage()
+        searchBar.barTintColor = .white
+
         if let textfield = searchBar.value(forKey: "searchField") as? UITextField {
             textfield.backgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 239.0/255.0, alpha: 0.45)
         }
-        searchBar.backgroundImage = UIImage()
-        searchBar.barTintColor = .white
+
+        if let btnCancel = searchBar.value(forKey: "cancelButton") as? UIButton {
+            btnCancel.tintColor = .systemBlue
+        }
+
+        searchBar.delegate = self
         view.addSubview(searchBar)
     }
 
@@ -130,29 +137,70 @@ class ContactsViewController: AccountDropdownNavigationController {
     }
 
     @objc func onAddContact() {
+        let contactViewController = EditContactViewController()
+        contactViewController.contactViewModel = ContactViewModel()
 
+        navigationController?.pushViewController(contactViewController, animated: true)
     }
 }
 
-extension ContactsViewController: UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
+extension ContactsViewController: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let contactViewController = ContactViewController()
+        let contactViewController = ReadContactViewController()
+        let cell = tableView.cellForRow(at: indexPath) as! ContactViewCell
+
+        contactViewController.contactViewModel = ContactViewModel(contact: cell.contact)
+
+        tableView.deselectRow(at: indexPath, animated: false)
         navigationController?.pushViewController(contactViewController, animated: true)
-        contactViewController.contactsViewModel = ContactsViewModel(accountViewModel: accountViewModel)
     }
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accountViewModel.contactList.count
+        return contactsViewModel.getContactList().count
     }
 
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ContactViewCell.self), for: indexPath) as! ContactViewCell
-        cell.contact = accountViewModel.contactList[indexPath.item]
+        cell.contact = contactsViewModel.getContactList()[indexPath.item]
 
         return cell
     }
 
-    func updateSearchResults(for searchController: UISearchController) {
-        // TODO implement
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        if selectedScope == 0 {
+            contactsViewModel.isFiltered = false
+        }
+
+        if selectedScope == 1 {
+            contactsViewModel.isFiltered = true
+        }
+
+        tableView.reloadData()
+    }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.endEditing(true)
+
+        contactsViewModel.searchText = searchBar.text
+        tableView.reloadData()
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+         contactsViewModel.searchText = searchBar.text
+         tableView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.endEditing(true)
+
+        contactsViewModel.searchText = searchBar.text
+        tableView.reloadData()
     }
 }

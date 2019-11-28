@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ContactNumberCell: UITableViewCell {
-    var delegate: ContactViewController!
+class ReadContactNumberCell: UITableViewCell {
+    var delegate: ReadContactViewController!
     var contact: Contact! {
         didSet {
             setupCellData()
@@ -80,10 +80,10 @@ class ContactNumberCell: UITableViewCell {
 }
 
 
-class ContactViewController: UIViewController {
-    var contactsViewModel: ContactsViewModel! {
+class ReadContactViewController: UIViewController {
+    var contactViewModel: ContactViewModel! {
         didSet {
-            setupViewData(contact: self.contactsViewModel.getContactList()[0])
+            setupViewData(contact: contactViewModel.contact)
         }
     }
 
@@ -120,6 +120,7 @@ class ContactViewController: UIViewController {
             target: self,
             action: #selector(self.onEditTouch(sender:))
         )
+        self.navigationController?.navigationBar.isTranslucent = false
     }
 
     func setupContactImageView() {
@@ -136,7 +137,7 @@ class ContactViewController: UIViewController {
     }
 
     func setupContactNumberListTable() {
-        contactNumberListTable.register(ContactNumberCell.self, forCellReuseIdentifier: String(describing: ContactNumberCell.self))
+        contactNumberListTable.register(ReadContactNumberCell.self, forCellReuseIdentifier: String(describing: ReadContactNumberCell.self))
         contactNumberListTable.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         contactNumberListTable.delegate = self
         contactNumberListTable.dataSource = self
@@ -167,32 +168,35 @@ class ContactViewController: UIViewController {
     }
 
     func setupViewData(contact: Contact) {
-        contactImageView.image = UIImage(named: contact.image)
+        contactImageView.image = UIImage(named: contact.image!)
         contactImageLabelView.text = contact.getContactName()
     }
 
     @objc func onEditTouch(sender: UIButton) {
+        let contactViewController = EditContactViewController()
+        contactViewController.contactViewModel = contactViewModel
 
+        navigationController?.pushViewController(contactViewController, animated: true)
     }
 }
 
-extension ContactViewController: UITableViewDelegate, UITableViewDataSource {
+extension ReadContactViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1// Should be equal to number count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ContactNumberCell.self), for: indexPath) as! ContactNumberCell
-        cell.contact = contactsViewModel.getContactList()[0]
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReadContactNumberCell.self), for: indexPath) as! ReadContactNumberCell
+        cell.contact = contactViewModel.contact
 
         return cell
     }
 
     func onCellCallTap(contact: Contact) {
-        contactsViewModel.callTo(contact: contact)
+        contactViewModel.call()
     }
 
     func onCellMessageTap(contact: Contact) {
-        contactsViewModel.sendMessageTo(contact: contact)
+        contactViewModel.sendMessage()
     }
 }

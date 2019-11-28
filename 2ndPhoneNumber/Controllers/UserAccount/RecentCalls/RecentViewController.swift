@@ -9,7 +9,7 @@
 import UIKit
 
 class RecentCallCell: UITableViewCell {
-    var delegate: ContactViewController!
+    var delegate: ReadContactViewController!
     var contact: Contact! {
         didSet {
             setupCellData()
@@ -87,7 +87,7 @@ class RecentViewController: UIViewController {
     }
 
     @UsesAutoLayout
-    var contactImageView = UIImageView()
+    var contactImageView = UICircleImageView()
 
     @UsesAutoLayout
     var contactImageLabelView = UILabel()
@@ -135,7 +135,6 @@ class RecentViewController: UIViewController {
 
     func setupContactImageView() {
         contactImageView.frame = CGRect(x: 22, y: 8, width: 128, height: 128)
-        contactImageView.makeRounded()
 
         view.addSubview(contactImageView)
     }
@@ -160,7 +159,7 @@ class RecentViewController: UIViewController {
     }
 
     func setupViewData(contact: Contact) {
-        contactImageView.image = UIImage(named: contact.image)
+        contactImageView.image = UIImage(named: contact.image!)
         contactImageLabelView.text = contact.getContactName()
     }
 }

@@ -252,7 +252,6 @@ extension AddressViewController: UITextFieldDelegate {
         }
 
         textFieldView.resignFirstResponder()
-        print(addressViewModel.address)
 
         return true
     }

@@ -193,7 +193,6 @@ extension AccountNavigationDropdownTable: UITableViewDelegate, UITableViewDataSo
     }
 }
 
-
 class AccountDropdownNavigationController: UIViewController {
     var isDropdownShown = false
 

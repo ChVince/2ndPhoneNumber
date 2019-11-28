@@ -15,23 +15,18 @@ let MockAccountNumbers = [
 ]
 
 var mockContactList = [
-    Contact(contactId:"test", name: "Jack", surname: "Doe", image: "contactJack", number: "+57575757575"),
-    Contact(contactId:"test", name: "Yelizar", surname: "Doe", image: "contactJack", number: "+57575757575"),
-    Contact(contactId:"test", name: "Ihnat", surname: "Doe", image: "contactJack", number: "+57575757575"),
-    Contact(contactId:"test", name: "Iliya", surname: "Doe", image: "contactJack", number: "+57575757575"),
-    Contact(contactId:"test", name: "Peter", surname: "Doe", image: "contactJack", number: "+57575757575"),
-    Contact(contactId:"test", name: "Admin", surname: "Doe", image: "contactJack", number: "+57575757575"),
-    Contact(contactId:"test", name: "Loh", surname: "Doe", image: "contactJack", number: "+57575757575"),
-    Contact(contactId:"test", name: "kot", surname: "Doe", image: "contactJack", number: "+57575757575")
+    Contact(contactId:"test", name: "Jack", surname: "Doe", image: "contactJack", number: "+57575757575", contactType: .NUMBER),
+    Contact(contactId:"test", name: "Yelizar", surname: "Doe", image: "contactJack", number: "+57575757575", contactType: .NUMBER),
+    Contact(contactId:"test", name: "Ihnat", surname: "Doe", image: "contactJack", number: "+57575757575", contactType: .PHONE),
 ]
 
 var mockConversationList = [
-    Conversation(contactId:"test"),
-    Conversation(contactId:"test2"),
+    Conversation(conversationId: "test", contactId:"test"),
+    Conversation(conversationId: "test2", contactId:"test2"),
 ]
 
 var mockMessageList1 = [
-    Message(date: Date.init(), message: "Hello", author: .USER),
+    Message(date: Date.init(), message: "Hello My name is Yelizar how ola Are You? I actually glad to see upyt in my house because i am glad for dinner and supper and people not know how i am fat it'a always right", author: .USER),
     Message(date: Date.init(), message: "HOw are You?", author: .USER),
     Message(date: Date.init(), message: "Hi", author: .COLLOCUTOR),
     Message(date: Date.init(), message: "Good!", author: .COLLOCUTOR)
@@ -44,13 +39,14 @@ var mockMessageList2 = [
 
 var mockRecentsList = [
     Call(contactId:"test", date: Date(), status: .INCOMING),
-    Call(contactId:"test", date: Date(), status: .INCOMING),
-    Call(contactId:"test", date: Date(), status: .INCOMING),
+    Call(contactId:"test", date: Date(), status: .MISSED),
+    Call(contactId:"test", date: Date(), status: .MISSED),
     Call(contactId:"test", date: Date(), status: .INCOMING),
     Call(contactId:"test", date: Date(), status: .INCOMING),
 ]
 
 struct ConversationCellData {
+    var conversationId: String
     var contact: Contact
     var topMessage: Message
 }
@@ -111,7 +107,7 @@ class AccountViewModel {
         for conversation in conversationList! {
             let contact = self.activeAccountNumber!.contactList?[0]
             //self.activeAccountNumber!.contactList?.first(where: { $0.contactId == conversation.contactId })!
-            let conversationCellData = ConversationCellData(contact: contact!, topMessage: conversation.messageList![0])
+            let conversationCellData = ConversationCellData(conversationId: conversation.conversationId, contact: contact!, topMessage: conversation.messageList![0])
             conversationCellDataList.append(conversationCellData)
         }
 

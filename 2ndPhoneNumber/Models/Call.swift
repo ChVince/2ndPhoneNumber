@@ -19,14 +19,4 @@ struct Call {
     var contactId: String
     var date: Date
     var status: CallStatus
-
-    func getDate() -> String {
-        let formattedDate: String
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
-        let weekDay = dateFormatter.weekdaySymbols[Calendar.current.component(.weekday, from: date)]
-        formattedDate = "\(weekDay), \(dateFormatter.string(from: date))"
-        return formattedDate
-    }
 }

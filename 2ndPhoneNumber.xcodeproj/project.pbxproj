@@ -37,10 +37,13 @@
 		481EBAE3237AE17E00922745 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 481EBAE2237AE17E00922745 /* Main.storyboard */; };
 		481EBAE5237C1B7300922745 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAE4237C1B7300922745 /* UIImage.swift */; };
 		481EBAE7237C2C4300922745 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAE6237C2C4300922745 /* UIImageView.swift */; };
-		481EBAE9237C32E100922745 /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAE8237C32E100922745 /* ContactViewController.swift */; };
+		481EBAE9237C32E100922745 /* ReadContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAE8237C32E100922745 /* ReadContactViewController.swift */; };
 		481EBAEB237ED5F700922745 /* RecentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAEA237ED5F700922745 /* RecentViewController.swift */; };
 		481EBAED237EFF1B00922745 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAEC237EFF1B00922745 /* UIView.swift */; };
 		481EBAEF2384076300922745 /* MainNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481EBAEE2384076300922745 /* MainNavigationViewController.swift */; };
+		48366267238EA71E00DFDC72 /* ConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48366266238EA71E00DFDC72 /* ConversationViewModel.swift */; };
+		4836626B238EA90900DFDC72 /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4836626A238EA90900DFDC72 /* ContactViewModel.swift */; };
+		4836626D238EE4F800DFDC72 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4836626C238EE4F800DFDC72 /* Date.swift */; };
 		484716DD2358B5BB001D13E8 /* TagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716DC2358B5BB001D13E8 /* TagLabel.swift */; };
 		484716E6235B17A9001D13E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 484716E8235B17A9001D13E8 /* Localizable.strings */; };
 		484716EA235B761B001D13E8 /* AddNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484716E9235B761B001D13E8 /* AddNumberViewController.swift */; };
@@ -61,6 +64,8 @@
 		488F7F112385618100A293B2 /* SubscribeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F7F102385618100A293B2 /* SubscribeViewModel.swift */; };
 		488F7F1323859ADC00A293B2 /* ModalHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F7F1223859ADC00A293B2 /* ModalHandler.swift */; };
 		488F7F1523869BA000A293B2 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488F7F1423869BA000A293B2 /* UIButton.swift */; };
+		48C8BFF8238FC4B8008B539B /* EditContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C8BFF7238FC4B8008B539B /* EditContactViewController.swift */; };
+		48C8BFFA23900243008B539B /* UICircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C8BFF923900243008B539B /* UICircleImageView.swift */; };
 		48EABC9B236EE39000205923 /* AddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABC9A236EE39000205923 /* AddressViewModel.swift */; };
 		48EABC9D236EE5C900205923 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABC9C236EE5C900205923 /* Address.swift */; };
 		48EABC9F236F06A600205923 /* UserAccountNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABC9E236F06A600205923 /* UserAccountNavigationController.swift */; };
@@ -71,7 +76,7 @@
 		48EABCAB236F0B4B00205923 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABCAA236F0B4B00205923 /* Conversation.swift */; };
 		48EABCAD236F101300205923 /* ConversationListIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EABCAC236F101300205923 /* ConversationListIndex.swift */; };
 		48F1EB85238E8FCF007D5795 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1EB84238E8FCF007D5795 /* ConversationViewController.swift */; };
-		48F1EB88238E9825007D5795 /* ConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1EB87238E9825007D5795 /* ConversationViewModel.swift */; };
+		48F1EB88238E9825007D5795 /* ConversationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1EB87238E9825007D5795 /* ConversationsViewModel.swift */; };
 		48F1EB8A238E984D007D5795 /* RecentCallsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1EB89238E984D007D5795 /* RecentCallsViewModel.swift */; };
 		48F1EB8C238E986C007D5795 /* PhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1EB8B238E986C007D5795 /* PhoneViewModel.swift */; };
 		48F1EB8E238E988F007D5795 /* ContactsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1EB8D238E988F007D5795 /* ContactsViewModel.swift */; };
@@ -110,10 +115,13 @@
 		481EBAE2237AE17E00922745 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		481EBAE4237C1B7300922745 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		481EBAE6237C2C4300922745 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
-		481EBAE8237C32E100922745 /* ContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
+		481EBAE8237C32E100922745 /* ReadContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadContactViewController.swift; sourceTree = "<group>"; };
 		481EBAEA237ED5F700922745 /* RecentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentViewController.swift; sourceTree = "<group>"; };
 		481EBAEC237EFF1B00922745 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		481EBAEE2384076300922745 /* MainNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationViewController.swift; sourceTree = "<group>"; };
+		48366266238EA71E00DFDC72 /* ConversationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewModel.swift; sourceTree = "<group>"; };
+		4836626A238EA90900DFDC72 /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
+		4836626C238EE4F800DFDC72 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		484716DC2358B5BB001D13E8 /* TagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagLabel.swift; sourceTree = "<group>"; };
 		484716E3235B1747001D13E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		484716E7235B17A9001D13E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -136,6 +144,8 @@
 		488F7F102385618100A293B2 /* SubscribeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewModel.swift; sourceTree = "<group>"; };
 		488F7F1223859ADC00A293B2 /* ModalHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalHandler.swift; sourceTree = "<group>"; };
 		488F7F1423869BA000A293B2 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		48C8BFF7238FC4B8008B539B /* EditContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditContactViewController.swift; sourceTree = "<group>"; };
+		48C8BFF923900243008B539B /* UICircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircleImageView.swift; sourceTree = "<group>"; };
 		48EABC9A236EE39000205923 /* AddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewModel.swift; sourceTree = "<group>"; };
 		48EABC9C236EE5C900205923 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		48EABC9E236F06A600205923 /* UserAccountNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountNavigationController.swift; sourceTree = "<group>"; };
@@ -146,7 +156,7 @@
 		48EABCAA236F0B4B00205923 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		48EABCAC236F101300205923 /* ConversationListIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListIndex.swift; sourceTree = "<group>"; };
 		48F1EB84238E8FCF007D5795 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
-		48F1EB87238E9825007D5795 /* ConversationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewModel.swift; sourceTree = "<group>"; };
+		48F1EB87238E9825007D5795 /* ConversationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewModel.swift; sourceTree = "<group>"; };
 		48F1EB89238E984D007D5795 /* RecentCallsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCallsViewModel.swift; sourceTree = "<group>"; };
 		48F1EB8B238E986C007D5795 /* PhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneViewModel.swift; sourceTree = "<group>"; };
 		48F1EB8D238E988F007D5795 /* ContactsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewModel.swift; sourceTree = "<group>"; };
@@ -203,6 +213,8 @@
 				481EBAE6237C2C4300922745 /* UIImageView.swift */,
 				481EBAEC237EFF1B00922745 /* UIView.swift */,
 				488F7F1423869BA000A293B2 /* UIButton.swift */,
+				4836626C238EE4F800DFDC72 /* Date.swift */,
+				48C8BFF923900243008B539B /* UICircleImageView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -230,7 +242,8 @@
 			children = (
 				481EBACA2372F4E900922745 /* ContactsIndex.swift */,
 				481EBACC2372F54600922745 /* ContactsViewController.swift */,
-				481EBAE8237C32E100922745 /* ContactViewController.swift */,
+				481EBAE8237C32E100922745 /* ReadContactViewController.swift */,
+				48C8BFF7238FC4B8008B539B /* EditContactViewController.swift */,
 			);
 			path = Contacts;
 			sourceTree = "<group>";
@@ -295,6 +308,32 @@
 				48723BD52355FC950064AA14 /* Services.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		48366265238EA6FD00DFDC72 /* Conversations */ = {
+			isa = PBXGroup;
+			children = (
+				48F1EB87238E9825007D5795 /* ConversationsViewModel.swift */,
+				48366266238EA71E00DFDC72 /* ConversationViewModel.swift */,
+			);
+			path = Conversations;
+			sourceTree = "<group>";
+		};
+		48366268238EA8C700DFDC72 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				48F1EB8D238E988F007D5795 /* ContactsViewModel.swift */,
+				4836626A238EA90900DFDC72 /* ContactViewModel.swift */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
+		48366269238EA8DE00DFDC72 /* Recents */ = {
+			isa = PBXGroup;
+			children = (
+				48F1EB89238E984D007D5795 /* RecentCallsViewModel.swift */,
+			);
+			path = Recents;
 			sourceTree = "<group>";
 		};
 		484A0FDB233375B4009360A9 = {
@@ -370,11 +409,11 @@
 		48F1EB86238E97FB007D5795 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				48366269238EA8DE00DFDC72 /* Recents */,
+				48366268238EA8C700DFDC72 /* Contacts */,
+				48366265238EA6FD00DFDC72 /* Conversations */,
 				481EBABF237052B300922745 /* AccountViewModel.swift */,
-				48F1EB87238E9825007D5795 /* ConversationViewModel.swift */,
-				48F1EB89238E984D007D5795 /* RecentCallsViewModel.swift */,
 				48F1EB8B238E986C007D5795 /* PhoneViewModel.swift */,
-				48F1EB8D238E988F007D5795 /* ContactsViewModel.swift */,
 				48F1EB8F238E98A4007D5795 /* ProfileViewModel.swift */,
 			);
 			path = Account;
@@ -522,8 +561,11 @@
 				48F1EB8A238E984D007D5795 /* RecentCallsViewModel.swift in Sources */,
 				481EBAC62370870C00922745 /* Message.swift in Sources */,
 				48723BD42355F9E00064AA14 /* DataManager.swift in Sources */,
+				48366267238EA71E00DFDC72 /* ConversationViewModel.swift in Sources */,
 				481EBAD9237323A700922745 /* UIDevice.swift in Sources */,
+				4836626B238EA90900DFDC72 /* ContactViewModel.swift in Sources */,
 				481EBACD2372F54600922745 /* ContactsViewController.swift in Sources */,
+				4836626D238EE4F800DFDC72 /* Date.swift in Sources */,
 				48EABC9B236EE39000205923 /* AddressViewModel.swift in Sources */,
 				481EBAD32372F8E000922745 /* ProfileIndex.swift in Sources */,
 				485987C5235C821C00ED37DE /* NamedAreaProtocol.swift in Sources */,
@@ -535,7 +577,7 @@
 				481EBAEB237ED5F700922745 /* RecentViewController.swift in Sources */,
 				48EABC9D236EE5C900205923 /* Address.swift in Sources */,
 				48022AA923409940002F009F /* SubscribeViewController.swift in Sources */,
-				481EBAE9237C32E100922745 /* ContactViewController.swift in Sources */,
+				481EBAE9237C32E100922745 /* ReadContactViewController.swift in Sources */,
 				48022AAF23409C27002F009F /* StateListVIewController.swift in Sources */,
 				481EBAED237EFF1B00922745 /* UIView.swift in Sources */,
 				488F7F112385618100A293B2 /* SubscribeViewModel.swift in Sources */,
@@ -546,7 +588,7 @@
 				481EBAE5237C1B7300922745 /* UIImage.swift in Sources */,
 				481EBADD237ACDF300922745 /* TermsViewController.swift in Sources */,
 				48022AB623411F45002F009F /* UIColorExtension.swift in Sources */,
-				48F1EB88238E9825007D5795 /* ConversationViewModel.swift in Sources */,
+				48F1EB88238E9825007D5795 /* ConversationsViewModel.swift in Sources */,
 				48F1EB85238E8FCF007D5795 /* ConversationViewController.swift in Sources */,
 				481EBABE236F3ECF00922745 /* RecentCallsViewController.swift in Sources */,
 				4811A6752387EDEA00330943 /* AccountNavigationDropdown.swift in Sources */,
@@ -554,6 +596,7 @@
 				481EBAE7237C2C4300922745 /* UIImageView.swift in Sources */,
 				48022AB123409C47002F009F /* NumberListViewController.swift in Sources */,
 				48F1EB8E238E988F007D5795 /* ContactsViewModel.swift in Sources */,
+				48C8BFFA23900243008B539B /* UICircleImageView.swift in Sources */,
 				48723BD123549EB40064AA14 /* Filterable.swift in Sources */,
 				481EBADB237ACDE300922745 /* PrivacyViewController.swift in Sources */,
 				481EBAD72372F98700922745 /* ProfileViewController.swift in Sources */,
@@ -577,6 +620,7 @@
 				48F1EB8C238E986C007D5795 /* PhoneViewModel.swift in Sources */,
 				48EABCA7236F0A0F00205923 /* NumberHistory.swift in Sources */,
 				488F7F1523869BA000A293B2 /* UIButton.swift in Sources */,
+				48C8BFF8238FC4B8008B539B /* EditContactViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

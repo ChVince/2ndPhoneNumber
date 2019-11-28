@@ -27,6 +27,8 @@ class RecentCallsViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
 
+    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 
@@ -43,13 +45,13 @@ class RecentCallsViewCell: UITableViewCell {
         super.layoutSubviews()
         imageView?.frame = CGRect(x: 22, y: 12, width: 40, height: 40)
         textLabel?.frame = CGRect(x: 75, y: 14, width: textLabel!.intrinsicContentSize.width, height:  textLabel!.intrinsicContentSize.height)
-        detailTextLabel?.frame = CGRect(x: 75, y: 34, width: textLabel!.intrinsicContentSize.width, height:  textLabel!.intrinsicContentSize.height)
+        detailTextLabel?.frame = CGRect(x: 75, y: 34, width: detailTextLabel!.intrinsicContentSize.width, height:  detailTextLabel!.intrinsicContentSize.height)
 
         self.imageView?.makeRounded()
     }
 
     func setupContactLabelView() {
-        textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        textLabel?.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 14, weight: .bold) : UIFont.systemFont(ofSize: 16, weight: .bold)
         textLabel?.textColor = .black
     }
 
@@ -58,8 +60,6 @@ class RecentCallsViewCell: UITableViewCell {
         callInfoIconView.setImage(image, for: .normal)
 
         self.addSubview(callInfoIconView)
-
-
     }
 
     func setupLayout() {
@@ -74,19 +74,18 @@ class RecentCallsViewCell: UITableViewCell {
             callDateLabelView.trailingAnchor.constraint(equalTo: callInfoIconView.leadingAnchor, constant: -5),
             callDateLabelView.heightAnchor.constraint(equalToConstant: callInfoIconView.intrinsicContentSize.height)
         ])
-
     }
 
     func setupCallDateLabelView() {
-        callDateLabelView.font = .systemFont(ofSize: 12)
+        callDateLabelView.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 10) : UIFont.systemFont(ofSize: 12)
         callDateLabelView.textColor = .systemGray
         self.addSubview(callDateLabelView)
     }
 
     func setupCellData() {
-        imageView!.image = UIImage(named: recentCellData.contact.image)
+        imageView!.image = UIImage(named: recentCellData.contact.image!)
         textLabel!.text = recentCellData.contact.getContactName()
-        callDateLabelView.text = recentCellData.call.getDate()
+        callDateLabelView.text = recentCellData.call.date.format()
 
         setupCallStatusLabelViewData()
     }
@@ -157,6 +156,8 @@ class RecentCallsViewController: AccountDropdownNavigationController {
         setupTableView()
 
         setupLayout()
+
+        setupHandlers()
     }
 
     func setupRecentCallsFilterView() {
@@ -207,16 +208,33 @@ class RecentCallsViewController: AccountDropdownNavigationController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+
+    func setupHandlers() {
+        recentCallsFilterView.addTarget(self, action: #selector(self.onFilterValueChange), for: .valueChanged)
+    }
+
+    @objc func onFilterValueChange() {
+        let index = recentCallsFilterView.selectedSegmentIndex
+        if index == 0 {
+            recentCallsViewModel.isFiltered = false
+        }
+
+        if index == 1 {
+            recentCallsViewModel.isFiltered = true
+        }
+
+        tableView.reloadData()
+    }
 }
 
 extension RecentCallsViewController: UITableViewDataSource, UITableViewDelegate  {
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return accountViewModel.recentsCellDataList.count
+        return recentCallsViewModel.getRecentCellDataList().count
      }
 
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RecentCallsViewCell.self), for: indexPath) as! RecentCallsViewCell
-        cell.recentCellData = accountViewModel.recentsCellDataList[indexPath.item]
+        cell.recentCellData = recentCallsViewModel.getRecentCellDataList()[indexPath.item]
         cell.delegate = self
 
         return cell

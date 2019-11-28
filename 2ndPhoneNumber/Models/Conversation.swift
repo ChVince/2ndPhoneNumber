@@ -9,6 +9,7 @@
 import Foundation
 
 struct Conversation {
+    var conversationId: String
     var contactId: String
     var messageList: [Message]?
 }

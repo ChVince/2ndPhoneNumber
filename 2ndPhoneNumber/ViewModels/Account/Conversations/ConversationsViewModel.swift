@@ -8,10 +8,16 @@
 
 import Foundation
 
-class ConversationViewModel {
+class ConversationsViewModel {
     var accountViewModel: AccountViewModel
 
     init(accountViewModel: AccountViewModel) {
         self.accountViewModel = accountViewModel
+    }
+
+    func getConversation(conversationId: String) -> Conversation {
+        var conversation = Conversation(conversationId: "test", contactId:"test")
+        conversation.messageList = mockMessageList1
+        return conversation
     }
 }

@@ -40,8 +40,8 @@ class ConversationListViewCell: UITableViewCell {
         super.layoutSubviews()
 
         imageView?.frame = CGRect(x: 22, y: 12, width: 40, height: 40)
-        textLabel?.frame = CGRect(x: 75, y: 14, width: textLabel!.intrinsicContentSize.width, height:  textLabel!.intrinsicContentSize.height)
-        detailTextLabel?.frame = CGRect(x: 75, y: 34, width: textLabel!.intrinsicContentSize.width, height:  textLabel!.intrinsicContentSize.height)
+        textLabel?.frame = CGRect(x: 75, y: 14, width: contentView.frame.width / 3, height:  textLabel!.intrinsicContentSize.height)
+        detailTextLabel?.frame = CGRect(x: 75, y: 34, width: contentView.frame.width - 75, height:  detailTextLabel!.intrinsicContentSize.height)
 
         imageView?.makeRounded()
     }
@@ -55,31 +55,32 @@ class ConversationListViewCell: UITableViewCell {
 
     func setupDateLabelView() {
         dateLabelView = UILabel()
-        dateLabelView.font = UIFont.systemFont(ofSize: 12)
+        dateLabelView.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 10) : UIFont.systemFont(ofSize: 12)
         dateLabelView.textColor = .systemGray
         contentView.addSubview(dateLabelView)
     }
 
     func setupContactName() {
-        textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        textLabel?.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 14, weight: .bold) : UIFont.systemFont(ofSize: 16, weight: .bold)
         textLabel?.textColor = .black
     }
 
     func setupMessageLabel() {
-        detailTextLabel?.font = UIFont.systemFont(ofSize: 16)
+        detailTextLabel?.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 14) :
+            UIFont.systemFont(ofSize: 16)
         detailTextLabel?.textColor = .systemGray
     }
 
     func setupCellData() {
-        dateLabelView.text = conversationCellData.topMessage.getDate()
-        imageView!.image = UIImage(named: conversationCellData.contact.image)
+        dateLabelView.text = conversationCellData.topMessage.date.format()
+        imageView!.image = UIImage(named: conversationCellData.contact.image!)
         textLabel!.text = conversationCellData.contact.getContactName()
         detailTextLabel!.text = conversationCellData.topMessage.message
     }
 }
 
 class ConversationListViewController: AccountDropdownNavigationController {
-    var conversationsViewModel: ConversationViewModel!
+    var conversationsViewModel: ConversationsViewModel!
 
     @UsesAutoLayout
     var tableView = UITableView()
@@ -125,15 +126,19 @@ class ConversationListViewController: AccountDropdownNavigationController {
     func onComposeMessageTap() {
 
     }
-
 }
 
 extension ConversationListViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let contactViewController = ContactViewController()
-        navigationController?.pushViewController(contactViewController, animated: true)
-        contactViewController.contactsViewModel = ContactsViewModel(accountViewModel: accountViewModel)
+        let cell = tableView.cellForRow(at: indexPath) as! ConversationListViewCell
+        let conversation = conversationsViewModel.getConversation(conversationId: cell.conversationCellData.conversationId)
+
+        let conversationViewController = ConversationViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        conversationViewController.conversationViewModel = ConversationViewModel(conversation: conversation)
+
+        tableView.deselectRow(at: indexPath, animated: false)
+        navigationController?.pushViewController(conversationViewController, animated: true)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

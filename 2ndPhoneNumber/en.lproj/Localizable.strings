@@ -75,5 +75,9 @@
 
 "label.account.contact.title" = "Contact";
 "label.contact.edit" = "Edit";
+"label.contact.add.photo" = "Add photo";
+"label.contact.name" = "Name";
+"label.contact.surname" = "Surname";
+"label.contact.phone" = "Phone";
 
 "label.navigation.dropdown.number.add" = "Get one more number";

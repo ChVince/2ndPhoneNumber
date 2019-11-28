@@ -10,9 +10,20 @@ import Foundation
 
 class RecentCallsViewModel {
     var accountViewModel: AccountViewModel
+    var isFiltered = false
 
     init(accountViewModel: AccountViewModel) {
         self.accountViewModel = accountViewModel
     }
 
+    func getRecentCellDataList() -> [RecentCellData] {
+        var list = accountViewModel.recentsCellDataList
+
+        if isFiltered {
+            list = list.filter{ (recentCellData: RecentCellData) -> Bool in
+                return recentCellData.call.status == .MISSED
+            }
+        }
+        return list
+    }
 }
