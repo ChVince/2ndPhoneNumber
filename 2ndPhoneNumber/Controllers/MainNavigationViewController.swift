@@ -15,11 +15,11 @@ class MainNavigationViewController: UINavigationController, ModalHandler {
         view.backgroundColor = .white
 
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(showUserAccountView),
+                                               selector: #selector(onNumberAdded),
                                                name: NSNotification.Name(rawValue: "number-added"),
                                                object: nil)
 
-        let user = true// Get from Device Storage
+        let user = UserDefaults.standard.bool(forKey: String(describing: AppPropertyList.isUserInitialized))
         if user {
             perform(#selector(showUserAccountView), with: nil, afterDelay: 0.01)
         } else {
@@ -33,10 +33,10 @@ class MainNavigationViewController: UINavigationController, ModalHandler {
         present(userAccountNavigationController, animated: false)
     }
 
-    @objc func showNumberSelectView() {
+    @objc func showNumberSelectView(animated: Bool) {
         let addNumberNavigationController = AddNumberNavigationController()
         addNumberNavigationController.modalPresentationStyle = .fullScreen
-        present(addNumberNavigationController, animated: true)
+        present(addNumberNavigationController, animated: animated)
     }
 
     @objc func showWelcomeScreenController() {
@@ -47,7 +47,15 @@ class MainNavigationViewController: UINavigationController, ModalHandler {
         present(welcomeScreenController, animated: false)
     }
 
-    func modalDismissed() {
-        showNumberSelectView()
+    @objc func onNumberAdded() {
+        UserDefaults.standard.set(true, forKey: String(describing: AppPropertyList.isUserInitialized))
+
+        showUserAccountView()
     }
+
+    func modalDismissed() {
+        showNumberSelectView(animated: false)
+    }
+
+
 }

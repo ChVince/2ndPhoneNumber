@@ -6,9 +6,19 @@
 //  Copyright © 2019 Елизар Кондрашов. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class AddressViewModel {
+class NumberViewModel {
+    var number: AccountNumber
+
+    init(number: AreaNumber) {
+        self.number = AccountNumber(number: number)
+
+        if (self.number.isRequireAddress) {
+            self.number.address = Address()
+        }
+    }
+
     let fieldLabelList: [String] = [
         NSLocalizedString("label.address.name", comment: ""),
         NSLocalizedString("label.address.street", comment: ""),
@@ -27,9 +37,11 @@ class AddressViewModel {
         "country"
     ]
 
-    var address = Address()
-
     func setAddressField(fieldIdx: Int, value: String) {
+        guard var address = number.address else {
+            return
+        }
+
         switch fieldIdx {
         case 0 :
             address.customerName = value
@@ -52,6 +64,16 @@ class AddressViewModel {
         default:
             return
         }
+    }
+
+    //### Not Implemented
+    func setupNumber(completion: @escaping () -> Void) {
+        completion()
+        /*
+        let service = Services.POST_NUMBER_SETUP
+        DataManager.fetchData(url: service.url) { [weak self] (data) in
+            completion()
+        }*/
     }
 }
 

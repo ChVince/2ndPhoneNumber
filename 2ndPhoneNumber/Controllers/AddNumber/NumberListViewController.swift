@@ -70,6 +70,7 @@ class NumberListViewCell: UITableViewCell {
 
 class NumberListViewController: AddNumberViewController, UISearchResultsUpdating, ModalHandler {
     var setupNumberViewModel: NumberListViewModel!
+    var numberViewModel: NumberViewModel!
 
     override func loadView() {
         super.loadView()
@@ -102,9 +103,24 @@ class NumberListViewController: AddNumberViewController, UISearchResultsUpdating
 extension NumberListViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let userRegistred = false // from storage
-        if userRegistred {
+        let cell = tableView.cellForRow(at: indexPath) as! NumberListViewCell
+        let areaNumber = cell.data
+
+        numberViewModel = NumberViewModel(number: areaNumber!)
+
+        let isUserInitialized = UserDefaults.standard.bool(forKey: String(describing: AppPropertyList.isUserInitialized))
+
+        if isUserInitialized && areaNumber!.isRequireAddress {
+            let addressViewController = AddressViewController()
+            addressViewController.numberViewModel = numberViewModel
+
             navigationController?.pushViewController(AddressViewController(), animated: true)
+        } else if isUserInitialized {
+            numberViewModel.setupNumber { [weak self] in
+                self!.dismiss(animated: true) {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "number-added"), object: nil)
+                }
+            }
         } else {
             let flowLayout = UICollectionViewFlowLayout()
             flowLayout.scrollDirection = .horizontal
@@ -147,7 +163,18 @@ extension NumberListViewController {
     }
 
     func modalDismissed() {
-        navigationController?.pushViewController(AddressViewController(), animated: true)
+        if numberViewModel.number.isRequireAddress {
+            let addressViewController = AddressViewController()
+            addressViewController.numberViewModel = numberViewModel
+
+            navigationController?.pushViewController(addressViewController, animated: true)
+        } else {
+            numberViewModel.setupNumber { [weak self] in
+                self!.dismiss(animated: true) {
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "number-added"), object: nil)
+                }
+            }
+        }
     }
 
 }

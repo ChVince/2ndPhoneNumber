@@ -6,26 +6,38 @@
 //  Copyright © 2019 Елизар Кондрашов. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class SubscribeViewModel {
-    private let TERMS_OF_USE = "https://google.com"
-    private let PRIVACY_POLICY = "https://google.com"
+    private let TERMS_OF_USE: Service = Services.TERMS_OF_USE
+    private let PRIVACY_POLICY: Service = Services.PRIVACY_POLICY
+    private let POST_SUBSCRIPTION_SUBSCRIBE: Service = Services.POST_SUBSCRIPTION_SUBSCRIBE
+    private let POST_SUBSCRIPTION_RESTORE: Service = Services.POST_SUBSCRIPTION_RESTORE
 
     func getTermsOfUseURL() -> URL {
-        return URL(string: TERMS_OF_USE)!
+        return TERMS_OF_USE.url
     }
 
     func getPrivacyPolicyURL() -> URL {
-        return URL(string: PRIVACY_POLICY)!
+        return PRIVACY_POLICY.url
     }
 
-    func performSubscription() {
-
+    //### Not Implemented
+    func performSubscription(completion: @escaping () -> Void) {
+        completion()
+        /*
+        DataManager.fetchData(url: POST_SUBSCRIPTION_SUBSCRIBE.url) { [weak self] (data) in
+            completion()
+        }*/
     }
 
-    func restoreSubscription() {
-
+    //### Not Implemented
+    func restoreSubscription(completion: @escaping () -> Void) {
+        completion()
+        /*
+        DataManager.fetchData(url: POST_SUBSCRIPTION_RESTORE.url) { [weak self] (data) in
+            completion()
+        }*/
     }
 
 

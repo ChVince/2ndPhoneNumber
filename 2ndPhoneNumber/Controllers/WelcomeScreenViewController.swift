@@ -25,7 +25,7 @@ class WelcomeScreenController: UIViewController {
     var topWelcomeText = UILabel()
 
     @UsesAutoLayout
-    var getStartedButton = UIButton(type: .custom)
+    var getStartedButton = UIRoundedButton(type: .custom)
 
     @UsesAutoLayout
     var featureList = UIStackView()
@@ -79,11 +79,9 @@ class WelcomeScreenController: UIViewController {
             )
         )
 
-        getStartedButton.setSize(width: view.frame.width * 0.6, height: view.frame.height * 0.07
-        )
+        getStartedButton.setSize(width: view.frame.width * 0.6, height: view.frame.height * 0.07)
 
-        getStartedButton.alignXCenter() // how to make it Roun JIT ?
-        // getStartedButton.makeRounded()
+        getStartedButton.alignXCenter()
     }
 
     func setupHadlers() {
@@ -153,7 +151,7 @@ class WelcomeScreenController: UIViewController {
     }
 
     @objc func onGetStaredTounch(sender: UIButton) {
-        self.dismiss(animated: true) {
+        self.dismiss(animated: false) {
             self.delegate.modalDismissed()
         }
     }

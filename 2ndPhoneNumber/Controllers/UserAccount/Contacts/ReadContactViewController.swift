@@ -88,7 +88,7 @@ class ReadContactViewController: UIViewController {
     }
 
     @UsesAutoLayout
-    var contactImageView = UIImageView()
+    var contactImageView = UICircleImageView()
 
     @UsesAutoLayout
     var contactImageLabelView = UILabel()
@@ -125,7 +125,6 @@ class ReadContactViewController: UIViewController {
 
     func setupContactImageView() {
         contactImageView.frame = CGRect(x: 22, y: 8, width: 128, height: 128)
-        contactImageView.makeRounded()
         view.addSubview(contactImageView)
     }
 

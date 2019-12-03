@@ -44,8 +44,15 @@ struct Service {
 }
 
 enum Services {
+    static let TERMS_OF_USE = Service(endpoint: "/terms.html", type: .GET)
+    static let PRIVACY_POLICY = Service(endpoint: "/privacy.html", type: .GET)
+
     static let GET_COUNTRIES = Service(endpoint: "/countries.json", type: .GET)
     static let GET_STATES = Service(endpoint: "/countries/:countryCode/states", type: .GET)
     static let GET_COUNTRY_NUMBERS = Service(endpoint: "/countries/:countryCode/numbers", type: .GET)
     static let GET_STATE_NUMBERS = Service(endpoint: "/countries/:countryCode/:stateCode/numbers", type: .GET)
+
+    static let POST_SUBSCRIPTION_SUBSCRIBE = Service(endpoint: "/subscription/subscribe", type: .POST)
+    static let POST_SUBSCRIPTION_RESTORE = Service(endpoint: "/subscription/restore", type: .POST)
+    static let POST_NUMBER_SETUP = Service(endpoint: "/number/setup", type: .POST)
 }

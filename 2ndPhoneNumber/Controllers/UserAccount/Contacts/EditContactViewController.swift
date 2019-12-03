@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class UILineView: UIView {
     override init(frame: CGRect) {
@@ -14,11 +15,11 @@ class UILineView: UIView {
 
         self.backgroundColor = .systemGray
         self.translatesAutoresizingMaskIntoConstraints = false
-     }
+    }
 
-     required init?(coder: NSCoder) {
-         fatalError("init(coder:) has not been implemented")
-     }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 class UIContactTextFiled : UITextField {
@@ -158,6 +159,8 @@ class EditContactViewController: UIViewController {
 
         numberTextField.delegate = self
         numberTextField.fieldKey = .NUMBER
+
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16) // Why exactly 16?
     }
 
     func setupLayout() {
@@ -167,7 +170,8 @@ class EditContactViewController: UIViewController {
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 
             scrollView.heightAnchor.constraint(equalTo: view.heightAnchor),
-            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor)
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: contactFiledsContainer.bottomAnchor)
         ])
 
         NSLayoutConstraint.activate([
@@ -225,6 +229,13 @@ class EditContactViewController: UIViewController {
 
     func setupHandlers() {
         changeImageButtom.addTarget(self, action: #selector(onChangeImageTap(sender:)), for: .touchUpInside)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name:UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name:UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     func updateSubviewsData() {
@@ -270,15 +281,54 @@ class EditContactViewController: UIViewController {
     @objc func saveChanges() {
         navigationController?.popViewController(animated: true)
     }
+
+    @objc func keyboardWillShow(notification: NSNotification) {
+        let userInfo = notification.userInfo!
+        var keyboardFrame: CGRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+
+        var contentInset: UIEdgeInsets = self.scrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height
+        scrollView.contentInset = contentInset
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+    }
 }
 
 
 extension EditContactViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+       // The info dictionary may contain multiple representations of the image. You want to use the original.
+       guard let selectedImage = info[.originalImage] as? UIImage else {
+           fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+       }
+
+       // Set photoImageView to display the selected image.
+       imageView.image = selectedImage
+
+       // Dismiss the picker.
+       dismiss(animated: true, completion: nil)
+    }
 }
 
 
 extension EditContactViewController: UITextFieldDelegate {
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let contactTextField = textField as? UIContactTextFiled else {
+            return
+        }
+
+        let value = contactTextField.text!
+
+        contactViewModel.setContactField (
+            fieldKey: contactTextField.fieldKey,
+            value: value
+        )
+    }
 
     func textFieldShouldReturn(_ textFieldView: UITextField) -> Bool {
         guard let contactTextField = textFieldView as? UIContactTextFiled else {
@@ -286,13 +336,6 @@ extension EditContactViewController: UITextFieldDelegate {
         }
 
         let nextFieldKeyIdx = contactTextField.fieldKey.index! + 1
-        let value = contactTextField.text!
-
-        contactViewModel.setContactField (
-            fieldKey: contactTextField.fieldKey,
-            value: value
-        )
-
         switch nextFieldKeyIdx {
         case nameTextField.fieldKey.index:
             nameTextField.becomeFirstResponder()

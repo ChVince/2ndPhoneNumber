@@ -108,17 +108,33 @@ class SubscribeViewFooter: UIView {
             updatePageControlIndicator()
         }
     }
-    var pageControl: UIPageControl!
-    var subscribeButton: UIButton!
-    var termsOfUseButton: UIButton!
-    var privacyButton: UIButton!
+
+    @UsesAutoLayout
+    var pageControl = UIPageControl()
+
+    @UsesAutoLayout
+    var subscribeButton = UIRoundedButton()
+
+    @UsesAutoLayout
+    var subscribeButtonLabel = UILabel()
+
+    @UsesAutoLayout
+    var subscribeFooterLabels = UIStackView()
+
+    @UsesAutoLayout
+    var subscribeFooterLabelsContainer = UIView()
+
+    var termsOfUseButton = UIButton()
+
+    var privacyButton = UIButton()
 
     weak var delegate: SubscriptionPageActionsProtcol!
 
     override init(frame: CGRect) {
         super.init(frame: frame);
 
-        setupViews()
+        setupSubviews()
+        setupLayout()
         setupHandlers()
     }
 
@@ -126,32 +142,81 @@ class SubscribeViewFooter: UIView {
       fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    func setupSubviews() {
+        self.addSubview(pageControl)
+        self.addSubview(subscribeButton)
+        self.addSubview(subscribeButtonLabel)
+        self.addSubview(subscribeFooterLabelsContainer)
+        subscribeFooterLabelsContainer.addSubview(subscribeFooterLabels)
 
+        pageControl.currentPage = currentPage
+        pageControl.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+        pageControl.numberOfPages = NUMBER_OF_PAGES
+        pageControl.currentPageIndicatorTintColor = .darkBlue
+        pageControl.pageIndicatorTintColor = .darkBlueWithOpacity
+
+        subscribeButton.setTitle(NSLocalizedString("label.subscribe.subscribe", comment: "").uppercased(), for: .normal)
+        subscribeButton.titleLabel!.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 14, weight: .medium): UIFont.systemFont(ofSize: 16, weight: .medium)
+        subscribeButton.backgroundColor = UIColor.darkBlue
+        subscribeButton.setTitleColor(.white, for: .normal)
+
+        subscribeButtonLabel.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 12, weight: .light) : UIFont.systemFont(ofSize: 14, weight: .light)
+        subscribeButtonLabel.text = NSLocalizedString("label.subscribe.offer", comment: "")
+        subscribeButtonLabel.textColor = .grayLightA1
+
+        let attributes : [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font : UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 10, weight: .light) : UIFont.systemFont(ofSize: 12, weight: .light),
+            NSAttributedString.Key.foregroundColor : UIColor.grayLightA1,
+            NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue]
+
+        termsOfUseButton.setAttributedTitle(NSAttributedString(string: NSLocalizedString("label.subscribe.terms.of.use", comment: ""), attributes: attributes), for: .normal)
+        termsOfUseButton.backgroundColor = .white
+
+        privacyButton.setAttributedTitle(NSAttributedString(string: NSLocalizedString("label.subscribe.privacy", comment: ""), attributes: attributes), for: .normal)
+        privacyButton.backgroundColor = .white
+
+
+        subscribeFooterLabels.addArrangedSubview(termsOfUseButton)
+        subscribeFooterLabels.addArrangedSubview(privacyButton)
+
+        subscribeFooterLabels.axis = .horizontal
+        subscribeFooterLabels.distribution = .fillProportionally
+        subscribeFooterLabels.spacing = 1
+
+        subscribeFooterLabelsContainer.backgroundColor = .grayLightA1
+    }
+
+    func setupLayout() {
         NSLayoutConstraint.activate([
-            pageControl.topAnchor.constraint(equalTo: self.topAnchor, constant: self.frame.height * 0.15),
+            pageControl.topAnchor.constraint(equalTo: self.topAnchor, constant: UIScreen.main.bounds.height * 0.025),
             pageControl.centerXAnchor.constraint(equalTo: self.centerXAnchor),
         ])
 
         NSLayoutConstraint.activate([
-            subscribeButton.widthAnchor.constraint(equalToConstant: self.frame.width * 0.6),
-            subscribeButton.heightAnchor.constraint(equalToConstant: self.frame.height * 0.18),
-            subscribeButton.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: self.frame.height * 0.1),
+            subscribeButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 0.5),
+            subscribeButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height * 0.075),
+            subscribeButton.topAnchor.constraint(equalTo: pageControl.bottomAnchor, constant: UIScreen.main.bounds.height * 0.025),
             subscribeButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
 
-        subscribeButton.layer.cornerRadius = subscribeButton.frame.height / 2
-    }
+        NSLayoutConstraint.activate([
+            subscribeButtonLabel.topAnchor.constraint(equalTo: subscribeButton.bottomAnchor, constant: 15),
+            subscribeButtonLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        ])
 
-    func setupViews() {
-        pageControl = setupPageControl()
-        subscribeButton = setupSubscribeButton()
-        termsOfUseButton = setupTermsOfUseButton()
-        privacyButton = setupPrivacyButton()
+        NSLayoutConstraint.activate([
+            subscribeFooterLabelsContainer.heightAnchor.constraint(equalToConstant: 15),
+            subscribeFooterLabelsContainer.widthAnchor.constraint(equalToConstant: 180),
+            subscribeFooterLabelsContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -25),
+            subscribeFooterLabelsContainer.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        ])
 
-        setupSubscribeLabel()
-        setupSubcribeBottomLabels()
+        NSLayoutConstraint.activate([
+            subscribeFooterLabels.heightAnchor.constraint(equalToConstant: 15),
+            subscribeFooterLabels.widthAnchor.constraint(equalToConstant: 180),
+            subscribeFooterLabels.bottomAnchor.constraint(equalTo: subscribeFooterLabelsContainer.bottomAnchor, constant: 0),
+            subscribeFooterLabels.centerXAnchor.constraint(equalTo: subscribeFooterLabelsContainer.centerXAnchor)
+        ])
     }
 
     func setupHandlers() {
@@ -159,104 +224,6 @@ class SubscribeViewFooter: UIView {
         subscribeButton.addTarget(self, action: #selector(onSubscribeTap), for: .touchUpInside)
         termsOfUseButton.addTarget(self, action: #selector(onTermsTap), for: .touchUpInside)
         privacyButton.addTarget(self, action: #selector(onPrivacyTap), for: .touchUpInside)
-    }
-
-    func setupPageControl() -> UIPageControl {
-        let pageControl = UIPageControl()
-        pageControl.currentPage = currentPage
-        pageControl.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.numberOfPages = NUMBER_OF_PAGES
-        pageControl.currentPageIndicatorTintColor = .darkBlue
-        pageControl.pageIndicatorTintColor = .darkBlueWithOpacity
-
-        self.addSubview(pageControl)
-
-        return pageControl
-    }
-
-    func setupSubscribeButton() -> UIButton {
-        let subscribeButton = UIButton(type: .system)
-        subscribeButton.setTitle(NSLocalizedString("label.subscribe.subscribe", comment: "").uppercased(), for: .normal)
-        subscribeButton.titleLabel!.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 14, weight: .medium): UIFont.systemFont(ofSize: 16, weight: .medium)
-        subscribeButton.translatesAutoresizingMaskIntoConstraints = false
-        subscribeButton.backgroundColor = UIColor.darkBlue
-        subscribeButton.setTitleColor(.white, for: .normal)
-
-        self.addSubview(subscribeButton)
-        return subscribeButton
-    }
-
-    func setupSubscribeLabel() {
-        let subscribeButtonLabel = UILabel()
-        subscribeButtonLabel.font = UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 12, weight: .light) : UIFont.systemFont(ofSize: 14, weight: .light)
-        subscribeButtonLabel.translatesAutoresizingMaskIntoConstraints = false
-        subscribeButtonLabel.text = NSLocalizedString("label.subscribe.offer", comment: "")
-        subscribeButtonLabel.textColor = .grayLightA1
-
-        self.addSubview(subscribeButtonLabel)
-        NSLayoutConstraint.activate([
-            subscribeButtonLabel.topAnchor.constraint(equalTo: subscribeButton.bottomAnchor, constant: 15),
-            subscribeButtonLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-        ])
-    }
-
-    func setupTermsOfUseButton() -> UIButton {
-        let termOfUseButton = UIButton()
-
-        let attributes : [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.font : UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 10, weight: .light) : UIFont.systemFont(ofSize: 12, weight: .light),
-            NSAttributedString.Key.foregroundColor : UIColor.grayLightA1,
-            NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue]
-
-        termOfUseButton.setAttributedTitle(NSAttributedString(string: NSLocalizedString("label.subscribe.terms.of.use", comment: ""), attributes: attributes), for: .normal)
-        termOfUseButton.backgroundColor = .white
-
-        return termOfUseButton
-    }
-
-    func setupPrivacyButton() -> UIButton {
-        let privacyButton = UIButton()
-
-        let attributes : [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.font : UIDevice.current.screenType == .iPhones_5_5s_5c_SE ? UIFont.systemFont(ofSize: 10, weight: .light) : UIFont.systemFont(ofSize: 12, weight: .light),
-            NSAttributedString.Key.foregroundColor : UIColor.grayLightA1,
-            NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue]
-
-        privacyButton.setAttributedTitle(NSAttributedString(string: NSLocalizedString("label.subscribe.privacy", comment: ""), attributes: attributes), for: .normal)
-        privacyButton.backgroundColor = .white
-
-        return privacyButton
-    }
-
-    func setupSubcribeBottomLabels() {
-        let subscribeBottomLabels = UIStackView(arrangedSubviews: [termsOfUseButton, privacyButton])
-        subscribeBottomLabels.axis = .horizontal
-        subscribeBottomLabels.distribution = .fillProportionally
-        subscribeBottomLabels.spacing = 1
-
-        subscribeBottomLabels.translatesAutoresizingMaskIntoConstraints = false
-
-        let subscribeBottomLabelsContainer = UIView()
-        subscribeBottomLabelsContainer.backgroundColor = .grayLightA1
-        subscribeBottomLabelsContainer.translatesAutoresizingMaskIntoConstraints = false
-        subscribeBottomLabelsContainer.addSubview(subscribeBottomLabels)
-
-        NSLayoutConstraint.activate([
-            subscribeBottomLabels.heightAnchor.constraint(equalToConstant: 15),
-            subscribeBottomLabels.widthAnchor.constraint(equalToConstant: 180),
-            subscribeBottomLabels.bottomAnchor.constraint(equalTo: subscribeBottomLabelsContainer.bottomAnchor, constant: 0),
-            subscribeBottomLabels.centerXAnchor.constraint(equalTo: subscribeBottomLabelsContainer.centerXAnchor)
-        ])
-
-        self.addSubview(subscribeBottomLabelsContainer)
-
-        NSLayoutConstraint.activate([
-            subscribeBottomLabelsContainer.heightAnchor.constraint(equalToConstant: 15),
-            subscribeBottomLabelsContainer.widthAnchor.constraint(equalToConstant: 180),
-            subscribeBottomLabelsContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -25),
-            subscribeBottomLabelsContainer.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-        ])
     }
 
     func updatePageControlIndicator() {
@@ -389,8 +356,11 @@ class SubscribeViewController: UICollectionViewController, UICollectionViewDeleg
         subscribeHeader.setAnchors(top: self.view.safeAreaLayoutGuide.topAnchor)
         subscribeHeader.setSize(width: self.view.frame.size.width, height: 50)
 
-        subscribeFooter.setAnchors(top: self.view.safeAreaLayoutGuide.bottomAnchor)
-        subscribeFooter.setSize(width: self.view.frame.width, height: self.view.frame.height * 0.4)
+       NSLayoutConstraint.activate([
+           subscribeFooter.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+           subscribeFooter.heightAnchor.constraint(equalToConstant: self.view.frame.height * 0.4),
+           subscribeFooter.widthAnchor.constraint(equalToConstant: self.view.frame.width)
+       ])
     }
 
     func setupCollectionView() {
@@ -444,11 +414,19 @@ extension SubscribeViewController {
     }
 
     func onRestoreTap() {
-        subscribeViewModel.restoreSubscription()
+        subscribeViewModel.restoreSubscription { [weak self] in
+            self!.dismiss(animated: true) {
+                self!.delegate.modalDismissed()
+            }
+        }
     }
 
     func onSubscribeTap() {
-        subscribeViewModel.performSubscription()
+        subscribeViewModel.performSubscription { [weak self] in
+            self!.dismiss(animated: true) {
+                self!.delegate.modalDismissed()
+            }
+        }
     }
 
     func onPageControlChange(nextIndexPath: IndexPath) {

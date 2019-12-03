@@ -87,7 +87,7 @@ fileprivate class UIAddressTextFieldView: UIView {
 }
 
 class AddressViewController: UIViewController {
-    let addressViewModel = AddressViewModel()
+    var numberViewModel: NumberViewModel!
 
     var topTextLabel: UILabel!
     var textFieldsView: UIStackView!
@@ -121,7 +121,7 @@ class AddressViewController: UIViewController {
         textFieldsView.distribution = .fillEqually
         textFieldsView.translatesAutoresizingMaskIntoConstraints = false
 
-        for (idx, fieldLabel) in addressViewModel.fieldLabelList.enumerated() {
+        for (idx, fieldLabel) in numberViewModel.fieldLabelList.enumerated() {
             let addressTextFieldView = UIAddressTextFieldView()
             let textFieldLabel = addressTextFieldView.textFieldLabel
             let textFieldView = addressTextFieldView.textFieldView
@@ -195,9 +195,11 @@ class AddressViewController: UIViewController {
     }
 
     @objc func setupNumber() {
-        dismiss(animated: true) {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "number-added"), object: nil)
-        } 
+        numberViewModel.setupNumber { [weak self] in
+            self!.dismiss(animated: true) {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "number-added"), object: nil)
+            }
+        }
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -241,12 +243,12 @@ extension AddressViewController: UITextFieldDelegate {
         let nextIdx = addressTextFieldView.idx! + 1
         let value = textFieldView.text!
         
-        addressViewModel.setAddressField (
+        numberViewModel.setAddressField (
             fieldIdx: addressTextFieldView.idx!,
             value: value
         )
 
-        if nextIdx < addressViewModel.fieldLabelList.count {
+        if nextIdx < numberViewModel.fieldLabelList.count {
             let nextAddressTextFieldView = textFieldsView.arrangedSubviews[nextIdx] as! UIAddressTextFieldView
             nextAddressTextFieldView.textFieldView.becomeFirstResponder()
         }
