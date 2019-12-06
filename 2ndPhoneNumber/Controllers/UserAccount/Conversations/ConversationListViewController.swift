@@ -72,7 +72,7 @@ class ConversationListViewCell: UITableViewCell {
     }
 
     func setupCellData() {
-        dateLabelView.text = conversationCellData.topMessage.date.format()
+        dateLabelView.text = conversationCellData.topMessage.date!.format()
         imageView!.image = UIImage(named: conversationCellData.contact.image!)
         textLabel!.text = conversationCellData.contact.getContactName()
         detailTextLabel!.text = conversationCellData.topMessage.message
@@ -134,7 +134,7 @@ extension ConversationListViewController: UITableViewDelegate, UITableViewDataSo
         let cell = tableView.cellForRow(at: indexPath) as! ConversationListViewCell
         let conversation = conversationsViewModel.getConversation(conversationId: cell.conversationCellData.conversationId)
 
-        let conversationViewController = ConversationViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        let conversationViewController = ConversationViewController()
         conversationViewController.conversationViewModel = ConversationViewModel(conversation: conversation)
 
         tableView.deselectRow(at: indexPath, animated: false)

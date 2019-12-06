@@ -26,10 +26,10 @@ var mockConversationList = [
 ]
 
 var mockMessageList1 = [
-    Message(date: Date.init(), message: "Hello My name is Yelizar how ola Are You? I actually glad to see upyt in my house because i am glad for dinner and supper and people not know how i am fat it'a always right", author: .USER),
-    Message(date: Date.init(), message: "HOw are You?", author: .USER),
-    Message(date: Date.init(), message: "Hi", author: .COLLOCUTOR),
-    Message(date: Date.init(), message: "Good!", author: .COLLOCUTOR)
+    Message(date: Date.init(), message: "Hello My name is Yelizar how ola Are You? I actually glad to see upyt in my house because i am glad for dinner and supper and people not know how i am fat it'a always right", author: .COLLOCUTOR),
+    Message(date: Date.init(), message: "HOw are You?", author: .COLLOCUTOR),
+    Message(date: Date.init(), message: "Hi", author: .USER),
+    Message(date: Date.init(), message: "Good!", author: .USER)
 ]
 
 var mockMessageList2 = [

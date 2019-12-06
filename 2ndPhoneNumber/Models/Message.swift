@@ -14,7 +14,7 @@ enum Author {
 }
 
 struct Message {
-    var date: Date
+    var date: Date?
     var message: String
     var author: Author
 }

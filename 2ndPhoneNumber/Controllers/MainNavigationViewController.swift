@@ -19,7 +19,7 @@ class MainNavigationViewController: UINavigationController, ModalHandler {
                                                name: NSNotification.Name(rawValue: "number-added"),
                                                object: nil)
 
-        let user = UserDefaults.standard.bool(forKey: String(describing: AppPropertyList.isUserInitialized))
+        let user = true//UserDefaults.standard.bool(forKey: String(describing: AppPropertyList.isUserInitialized))
         if user {
             perform(#selector(showUserAccountView), with: nil, afterDelay: 0.01)
         } else {

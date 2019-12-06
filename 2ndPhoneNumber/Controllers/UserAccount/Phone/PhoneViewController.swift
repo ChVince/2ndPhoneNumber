@@ -176,7 +176,7 @@ class PhoneViewController: AccountDropdownNavigationController {
     let SECOND_SECTION_KEYS_COUNT = 2
 
     @UsesAutoLayout
-    var collectionView = UICollectionView(frame: CGRect(x: 0,y: 0, width: 0, height: 0) ,collectionViewLayout: UICollectionViewFlowLayout())
+    var collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0) ,collectionViewLayout: UICollectionViewFlowLayout())
 
     override func loadView() {
         super.loadView()

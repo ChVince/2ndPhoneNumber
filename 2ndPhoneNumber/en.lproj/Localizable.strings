@@ -81,3 +81,5 @@
 "label.contact.phone" = "Phone";
 
 "label.navigation.dropdown.number.add" = "Get one more number";
+
+"label.conversation.message.placeholder" = "Message";
